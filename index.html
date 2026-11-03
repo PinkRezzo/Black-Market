@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BLACK MARKET</title>
+<meta name="theme-color" content="#0e172b">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0e172b;color:#e5eaf3;font-family:Arial,sans-serif}
+header{background:#101a30;padding:20px 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #26364e}
+.brand{font-size:23px;font-weight:900;color:#60a5fa}
+.menu{background:#202d43;border:1px solid #394960;color:white;padding:12px 17px;border-radius:13px}
+.announcement{background:#090d18;text-align:center;padding:15px 10px;border-bottom:2px solid #32466b;font-weight:bold;line-height:1.7}
+.announcement span{color:#60a5fa}
+.page{display:none}
+.page.active{display:block}
+
+/* WELCOME */
+.welcome{min-height:65vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:55px 7%;background:radial-gradient(ellipse at 50% 0%,#17477d,#101a30 45%,#0e172b 80%)}
+.welcome-content{max-width:700px}
+.tag{display:inline-block;padding:10px 18px;border:1px solid #367bc0;border-radius:30px;color:#79bcff;font-size:12px}
+.welcome h1{font-size:clamp(40px,9vw,72px);margin:28px 0 15px;font-weight:900}
+.welcome h1 span{color:#60a5fa}
+.welcome p{font-size:17px;color:#b5c2d5;line-height:1.8}
+.explore{display:inline-block;margin-top:30px;background:#1679ed;color:white;padding:17px 35px;border-radius:12px;font-weight:bold;border:0;font-size:15px;cursor:pointer}
+.welcome-note{margin-top:25px;color:#8293ac;font-size:13px}
+
+/* CONTACT */
+.contact{padding:35px 6%;background:#101a2d;text-align:center;border-top:1px solid #26364e}
+.contact h2{font-size:25px;margin-bottom:10px}
+.contact-sub{color:#9eacc0;margin-bottom:22px}
+.admins{max-width:550px;margin:20px auto;display:grid;gap:13px;text-align:left}
+.admin{background:#0b1425;border:1px solid #293b55;border-radius:15px;padding:17px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.admin-name{font-weight:bold;font-size:16px}
+.admin-number{display:block;color:#60a5fa;font-size:14px;margin-top:7px;text-decoration:none}
+.admin-number:hover{text-decoration:underline;color:white}
+.chat{background:#1679ed;color:white;text-decoration:none;padding:11px 14px;border-radius:9px;font-size:13px;font-weight:bold;white-space:nowrap}
+.group{display:inline-block;background:#20a765;color:white;text-decoration:none;padding:15px 25px;border-radius:12px;font-weight:bold;margin-top:15px}
+
+/* PRODUCTS */
+.section{padding:35px 4% 55px;max-width:1150px;margin:auto}
+.back{background:#202d43;border:1px solid #394960;color:white;padding:11px 17px;border-radius:10px;margin-bottom:28px;cursor:pointer}
+.heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px;gap:10px}
+.heading h2{font-size:23px;letter-spacing:2px}
+.count{background:#202d43;border:1px solid #394960;padding:11px 15px;border-radius:30px;color:#aebbd0;font-size:12px}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{background:#101a2d;border:1px solid #25354d;border-radius:25px;padding:18px}
+.card:hover{border-color:#388bff}
+.image-box{height:250px;background:#050914;border-radius:20px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:20px}
+.image-box img{width:100%;height:100%;object-fit:contain}
+.card h3{font-size:19px;margin-bottom:17px}
+.prices{background:#0a1120;border:1px solid #202d43;border-radius:16px;padding:15px;margin-bottom:18px}
+.price-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:20px}
+.price-row:last-child{margin-bottom:0}
+.price-label{color:#8793a7;font-size:13px}
+.price-value{text-align:right;font-size:20px;font-weight:bold}
+.buy-price{color:#35d68b}
+.sell-price{color:#ffbf00}
+.price-unit{font-size:12px;color:#9aa6b8;font-weight:normal;margin-top:4px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.actions a{text-align:center;text-decoration:none;padding:14px 5px;border-radius:18px;font-weight:bold;font-size:14px}
+.buy{color:#60a5fa;background:#142343;border:1px solid #254b8c}
+.sell{color:#ffc400;background:#252419;border:1px solid #695016}
+
+footer{text-align:center;padding:25px;color:#8593a9;font-size:13px}
+footer strong{color:#60a5fa}
+
+@media(max-width:600px){
+.welcome{min-height:58vh}
+.welcome h1{font-size:42px}
+.products{gap:12px}
+.card{padding:12px;border-radius:19px}
+.image-box{height:155px;border-radius:14px}
+.card h3{font-size:15px;min-height:36px}
+.prices{padding:11px}
+.price-value{font-size:17px}
+.price-label{font-size:12px}
+.actions{gap:7px}
+.actions a{font-size:13px;padding:13px 3px}
+.heading h2{font-size:18px}
+.count{font-size:11px;padding:9px}
+.admin{padding:13px}
+.chat{font-size:11px;padding:10px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="announcement">
+<span>📢</span> SELAMAT DATANG DI BLACK MARKET!
+<br><small>Welcome to BLACK MARKET!</small>
+</div>
+
+<header>
+<div class="brand">BLACK MARKET</div>
+<button class="menu" onclick="goHome()">⌂ HOME</button>
+</header>
+
+<!-- HALAMAN 1: WELCOME DAN CONTACT -->
+<main id="home" class="page active">
+
+<section class="welcome">
+<div class="welcome-content">
+<div class="tag">✦ WELCOME TO BLACK MARKET</div>
+<h1>BLACK <span>MARKET</span></h1>
+<p>Kebutuhan Cps Mu Semua Ada Disini!</p>
+
+<button class="explore" onclick="showProducts()">
+EXPLORE PRODUCTS →
+</button>
+
+<div class="welcome-note">
+YOUR TRUSTED CPS MARKETPLACE
+</div>
+</div>
+</section>
+
+<section class="contact" id="contact">
+<h2>CONTACT BLACK MARKET</h2>
+<p class="contact-sub">Need Help? Contact Our Admin!</p>
+
+<div class="admins">
+
+<div class="admin">
+<div>
+<div class="admin-name">👑 BOOPA</div>
+<a class="admin-number" href="https://wa.me/6285864582161">
+085864582161
+</a>
+</div>
+<a class="chat" href="https://wa.me/6285864582161">CHAT WA</a>
+</div>
+
+<div class="admin">
+<div>
+<div class="admin-name">👑 RADENSTORE</div>
+<a class="admin-number" href="https://wa.me/6287735220343">
+087735220343
+</a>
+</div>
+<a class="chat" href="https://wa.me/6287735220343">CHAT WA</a>
+</div>
+
+</div>
+
+<a class="group"
+href="https://chat.whatsapp.com/H4iwa0q15pBK8P9tVpUkdV?s=cl&p=i&mlu=4&ilr=4&iam=2"
+target="_blank">
+JOIN WHATSAPP GROUP ↗
+</a>
+</section>
+
+</main>
+
+<!-- HALAMAN 2: PRODUCTS -->
+<main id="productPage" class="page">
+<section class="section">
+
+<button class="back" onclick="goHome()">← KEMBALI KE HOME</button>
+
+<div class="heading">
+<h2>🛍 DAFTAR PRODUK</h2>
+<div class="count">Total 2 Items</div>
+</div>
+
+<div class="products">
+
+<div class="card">
+<div class="image-box">
+<img src="bgl.png" alt="BGL">
+</div>
+<h3>CPS Blue Gem Lock</h3>
+<div class="prices">
+<div class="price-row">
+<span class="price-label">Harga Beli</span>
+<div class="price-value buy-price">1.1K<div class="price-unit">WL</div></div>
+</div>
+<div class="price-row">
+<span class="price-label">Harga Jual</span>
+<div class="price-value sell-price">900<div class="price-unit">WL</div></div>
+</div>
+</div>
+<div class="actions">
+<a class="buy" href="https://wa.me/6285864582161">BELI</a>
+<a class="sell" href="https://wa.me/6285864582161">JUAL</a>
+</div>
+</div>
+
+<div class="card">
+<div class="image-box">
+<img src="black.png" alt="BLACK">
+</div>
+<h3>CPS Black Gem Lock</h3>
+<div class="prices">
+<div class="price-row">
+<span class="price-label">Harga Beli</span>
+<div class="price-value buy-price">108K<div class="price-unit">WL</div></div>
+</div>
+<div class="price-row">
+<span class="price-label">Harga Jual</span>
+<div class="price-value sell-price">95K<div class="price-unit">WL</div></div>
+</div>
+</div>
+<div class="actions">
+<a class="buy" href="https://wa.me/6285864582161">BELI</a>
+<a class="sell" href="https://wa.me/6285864582161">JUAL</a>
+</div>
+</div>
+
+</div>
+</section>
+</main>
+
+<footer>
+<strong>BLACK MARKET</strong><br><br>
+© 2026 BLACK MARKET. All Rights Reserved.
+</footer>
+
+<script>
+function showProducts(){
+document.getElementById("home").classList.remove("active");
+document.getElementById("productPage").classList.add("active");
+window.scrollTo(0,0);
+}
+
+function goHome(){
+document.getElementById("productPage").classList.remove("active");
+document.getElementById("home").classList.add("active");
+window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
