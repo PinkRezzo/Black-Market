@@ -12,8 +12,7 @@ body.modal-open{overflow:hidden}
 header{background:#101a30;padding:22px 6%;border-bottom:1px solid #293955;display:flex;justify-content:space-between;align-items:center}
 .brand{color:#60a5fa;font-size:23px;font-weight:900;letter-spacing:1px}
 .header-tag{color:#94a3b8;font-size:11px;letter-spacing:2px}
-.page{display:none}
-.page.active{display:block}
+.page{display:none}.page.active{display:block}
 .welcome{min-height:65vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:65px 22px;background:radial-gradient(ellipse at top,#19365c,#0e172b 70%)}
 .welcome-content{max-width:700px}
 .tag{display:inline-block;padding:9px 17px;border:1px solid #345a9a;border-radius:30px;color:#60a5fa;background:#152744;font-size:12px;letter-spacing:2px;margin-bottom:22px}
@@ -45,6 +44,10 @@ header{background:#101a30;padding:22px 6%;border-bottom:1px solid #293955;displa
 .coin-price{font-size:22px;font-weight:900;color:#ffd34d;margin-top:5px}
 .coin-unit{font-size:11px;color:#a9bad4;margin-top:2px}
 .market-action{display:block;width:100%;border:0;border-radius:12px;padding:13px 8px;font-size:14px;font-weight:900;background:#ffd34d;color:#142b57;cursor:pointer}
+.admin-help-card{margin-top:17px;background:linear-gradient(135deg,#173b64,#10243e);border:1px solid #4b83c8;border-radius:18px;padding:20px;text-align:center}
+.admin-help-card h3{font-size:18px;color:#fff;margin-bottom:7px}
+.admin-help-card p{font-size:13px;color:#bdcce0;line-height:1.6;margin-bottom:14px}
+.admin-help-button{width:100%;padding:15px;border:1px solid #60a5fa;border-radius:12px;background:#2563eb;color:white;font-size:15px;font-weight:900;cursor:pointer}
 .modal{display:none;position:fixed;inset:0;z-index:100;background:rgba(3,8,18,.88);overflow-y:auto;padding:12px}
 .modal.show{display:block}
 .form-card{max-width:760px;margin:10px auto;background:#2d3d54;border:1px solid #52647e;border-radius:24px;color:#e8edf6;box-shadow:0 20px 70px #0008;padding:28px;position:relative}
@@ -102,8 +105,14 @@ header{background:#101a30;padding:22px 6%;border-bottom:1px solid #293955;displa
 .world-info h3{font-size:25px;color:#60a5fa;letter-spacing:2px;margin-bottom:10px}
 .world-info p{color:#c2cede;line-height:1.7;font-size:14px}
 .world-owner{font-weight:bold;color:#facc15!important;margin-top:8px}
-.sell-page{display:none}
-.sell-page.active{display:block}
+.sell-page{display:none}.sell-page.active{display:block}
+.assist-choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.assist-choice button{padding:17px;border:1px solid #52647e;border-radius:14px;background:#17263b;color:#fff;font-weight:bold;font-size:16px;cursor:pointer}
+.assist-choice button.active{border:2px solid #60a5fa;background:#254b78}
+.admin-choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.admin-choice label{display:flex;gap:9px;align-items:center;padding:16px;background:#17263b;border:1px solid #52647e;border-radius:13px;cursor:pointer}
+.admin-choice input{accent-color:#3b82f6;width:18px;height:18px}
+.assist-note{padding:15px;background:#17263b;border:1px solid #405777;border-radius:13px;color:#c2cede;font-size:13px;line-height:1.6;margin:15px 0}
 footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198;font-size:12px}
 @media(max-width:650px){.market-grid{gap:10px}.market-card{padding:12px}.coin-icon{width:53px;height:53px}.coin-name{font-size:13px}.coin-price{font-size:19px}.market-action{font-size:12px;padding:12px 5px}.form-card{padding:20px 14px}.form-card h2{font-size:22px}}
 @media(max-width:370px){.market-top{gap:7px}.coin-icon{width:45px;height:45px}.coin-price{font-size:17px}}
@@ -190,6 +199,13 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
         <button class="market-action" onclick="openSell('black')">Jual BLACK →</button>
       </article>
     </div>
+
+    <!-- TOMBOL BANTUAN ADMIN: DI BAWAH JUAL BGL DAN JUAL BLACK -->
+    <div class="admin-help-card">
+      <h3>🤝 BELI &amp; JUAL DIBANTU OLEH ADMIN</h3>
+      <p>Ingin melakukan transaksi dengan bantuan admin? Pilih layanan di bawah ini dan admin kami akan membantu proses transaksi Anda.</p>
+      <button class="admin-help-button" onclick="openAssist()">BELI &amp; JUAL — DIBANTU OLEH ADMIN →</button>
+    </div>
   </section>
 </main>
 
@@ -207,9 +223,9 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
           <div class="option-name">CPS Blue Gem Lock</div>
           <div class="option-meta"><span class="option-price">Rp 1.100</span><span>Stok: Tak Terbatas</span><span class="min">Min. beli: 10</span></div>
           <div class="qty" id="qty-bgl" style="display:none">
-            <button onclick="changeQty('bgl',-1)">−</button>
-            <input id="number-bgl" type="number" min="10" value="10" oninput="setQty('bgl',this.value)">
-            <button onclick="changeQty('bgl',1)">+</button>
+            <button onclick="event.stopPropagation();changeQty('bgl',-1)">−</button>
+            <input id="number-bgl" type="number" min="10" value="10" onclick="event.stopPropagation()" oninput="setQty('bgl',this.value)">
+            <button onclick="event.stopPropagation();changeQty('bgl',1)">+</button>
           </div>
         </div>
       </div>
@@ -219,9 +235,9 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
           <div class="option-name">CPS Black Gem Lock</div>
           <div class="option-meta"><span class="option-price">Rp 108.000</span><span>Stok: Tak Terbatas</span></div>
           <div class="qty" id="qty-black" style="display:none">
-            <button onclick="changeQty('black',-1)">−</button>
-            <input id="number-black" type="number" min="1" value="1" oninput="setQty('black',this.value)">
-            <button onclick="changeQty('black',1)">+</button>
+            <button onclick="event.stopPropagation();changeQty('black',-1)">−</button>
+            <input id="number-black" type="number" min="1" value="1" onclick="event.stopPropagation()" oninput="setQty('black',this.value)">
+            <button onclick="event.stopPropagation();changeQty('black',1)">+</button>
           </div>
         </div>
       </div>
@@ -287,7 +303,6 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
 
       <div class="field">
         <label class="field-label">Pilih Item * (Bisa pilih lebih dari satu)</label>
-
         <div class="sell-option" id="sell-option-bgl">
           <input type="checkbox" id="sell-check-bgl" onchange="toggleSellItem('bgl')">
           <div class="sell-option-content">
@@ -355,6 +370,155 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
       </div>
       <button class="finish-button" onclick="finishSell()">KIRIM FORM PENJUALAN</button>
       <button class="secondary-button" onclick="backSellPage()">← KEMBALI</button>
+    </div>
+  </div>
+</div>
+
+<!-- FORM BELI & JUAL DIBANTU ADMIN -->
+<div class="modal" id="assistModal">
+  <div class="form-card">
+    <button class="close-modal" onclick="closeAssist()">✕ Tutup</button>
+    <h2>🤝 Transaksi Dibantu Admin</h2>
+
+    <div class="steps">
+      <div class="step active" id="assistStep1">1</div>
+      <div class="step-line"></div>
+      <div class="step" id="assistStep2">2</div>
+    </div>
+
+    <div id="assistPage1">
+      <div class="field">
+        <label class="field-label">Pilih Jenis Transaksi *</label>
+        <div class="assist-choice">
+          <button type="button" id="assistBuyBtn" onclick="setAssistType('buy')">🛒 BELI CPS</button>
+          <button type="button" id="assistSellBtn" onclick="setAssistType('sell')">💰 JUAL CPS</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Pilih Produk *</label>
+        <div class="product-option" id="assistOptionBgl" onclick="toggleAssistProduct('bgl')">
+          <input type="checkbox" id="assistCheckBgl" onclick="event.stopPropagation();toggleAssistProduct('bgl')">
+          <div class="option-content">
+            <div class="option-name">Blue Gem Lock (BGL)</div>
+            <div class="option-meta"><span id="assistBglPrice" class="option-price">Harga beli: Rp1.100</span></div>
+            <div class="qty" id="assistQtyBgl" style="display:none">
+              <button type="button" onclick="event.stopPropagation();changeAssistQty('bgl',-1)">−</button>
+              <input id="assistNumberBgl" type="number" min="1" value="10" onclick="event.stopPropagation()" oninput="setAssistQty('bgl',this.value)">
+              <button type="button" onclick="event.stopPropagation();changeAssistQty('bgl',1)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-option" id="assistOptionBlack" onclick="toggleAssistProduct('black')">
+          <input type="checkbox" id="assistCheckBlack" onclick="event.stopPropagation();toggleAssistProduct('black')">
+          <div class="option-content">
+            <div class="option-name">Black Gem Lock (BLACK)</div>
+            <div class="option-meta"><span id="assistBlackPrice" class="option-price">Harga beli: Rp108.000</span></div>
+            <div class="qty" id="assistQtyBlack" style="display:none">
+              <button type="button" onclick="event.stopPropagation();changeAssistQty('black',1)">−</button>
+              <input id="assistNumberBlack" type="number" min="1" value="1" onclick="event.stopPropagation()" oninput="setAssistQty('black',this.value)">
+              <button type="button" onclick="event.stopPropagation();changeAssistQty('black',1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary">
+        <h3>Ringkasan Transaksi</h3>
+        <div class="summary-row"><span>BGL</span><strong id="assistBglSummary">0 BGL</strong></div>
+        <div class="summary-row"><span>BLACK</span><strong id="assistBlackSummary">0 BLACK</strong></div>
+        <div class="summary-row"><span>Harga BGL</span><strong id="assistBglTotal">Rp0</strong></div>
+        <div class="summary-row"><span>Harga BLACK</span><strong id="assistBlackTotal">Rp0</strong></div>
+        <div class="summary-row summary-total"><strong id="assistTotalLabel">Total Pembayaran</strong><strong id="assistTotal">Rp0</strong></div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="assistName">Nama *</label>
+        <input id="assistName" placeholder="Nama kamu">
+      </div>
+      <div class="field">
+        <label class="field-label" for="assistWhatsapp">Nomor WhatsApp *</label>
+        <input id="assistWhatsapp" type="tel" placeholder="08xxxxxxxxxx">
+      </div>
+      <div class="field">
+        <label class="field-label" for="assistEmail">Email *</label>
+        <input id="assistEmail" type="email" placeholder="user@gmail.com">
+      </div>
+      <div class="field">
+        <label class="field-label" for="assistGrowid">Grow ID *</label>
+        <input id="assistGrowid" placeholder="Grow ID kamu">
+      </div>
+      <div class="field">
+        <label class="field-label" for="assistWorld">Target World / Keterangan *</label>
+        <input id="assistWorld" placeholder="Target world atau keterangan transaksi">
+      </div>
+
+      <div class="assist-note" id="assistInfo">
+        Pilih jenis transaksi dan produk yang ingin kamu beli atau jual. Admin akan membantu proses selanjutnya.
+      </div>
+      <button class="next-button" onclick="nextAssistPage()">LANJUTKAN →</button>
+    </div>
+
+    <div id="assistPage2" style="display:none">
+      <div id="assistBuyDetails" style="display:none">
+        <div class="field">
+          <label class="field-label">Metode Pembayaran</label>
+          <div class="qris">
+            <h3 style="margin-bottom:14px">QRIS ALL PAY</h3>
+            <img src="qris-black-market.JPG" alt="QRIS Black Market">
+            <div class="qris-note">Silakan scan QRIS untuk pembayaran. Pastikan nominal sesuai ringkasan transaksi.</div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="assistBuyProof">Upload Bukti Pembayaran *</label>
+          <label class="upload" for="assistBuyProof">
+            <strong>Upload Bukti Pembayaran</strong>
+            <p>JPG, PNG, PDF, HEIC, WEBP • Maks 10MB • Maks 3 file</p>
+            <input id="assistBuyProof" type="file" accept=".jpg,.jpeg,.png,.pdf,.heic,.webp" multiple>
+            <div class="file-list" id="assistBuyFileList">Belum ada file dipilih</div>
+          </label>
+        </div>
+      </div>
+
+      <div id="assistSellDetails" style="display:none">
+        <div class="world-info">
+          <h3>BANGDRIAL</h3>
+          <p>Silakan drop item yang ingin dijual ke world di atas.</p>
+          <p class="world-owner">Owner: BOOOPA</p>
+        </div>
+        <div class="field">
+          <label class="field-label">Metode Pencairan Dana *</label>
+          <div class="assist-choice">
+            <button type="button" id="assistEwallet" onclick="setAssistPayout('Ewallet')">EWALLET</button>
+            <button type="button" id="assistBank" onclick="setAssistPayout('Bank')">BANK</button>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="assistSellProof">Upload Bukti Drop Item *</label>
+          <label class="upload" for="assistSellProof">
+            <strong>Upload Bukti Drop Item</strong>
+            <p>JPG, PNG, PDF, HEIC, WEBP • Maks 10MB • Maks 3 file</p>
+            <input id="assistSellProof" type="file" accept=".jpg,.jpeg,.png,.pdf,.heic,.webp" multiple>
+            <div class="file-list" id="assistSellFileList">Belum ada file dipilih</div>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Pilih Admin yang Membantu *</label>
+        <div class="admin-choice">
+          <label><input type="radio" name="assistAdmin" value="BOOPA" checked> <span>ADMIN 1 — BOOPA</span></label>
+          <label><input type="radio" name="assistAdmin" value="RADENSTORE"> <span>ADMIN 2 — RADENSTORE</span></label>
+        </div>
+      </div>
+
+      <div class="assist-note">
+        Setelah menekan tombol kirim, WhatsApp admin pilihan kamu akan terbuka. Lampirkan bukti pembayaran atau bukti drop item langsung di chat WhatsApp.
+      </div>
+
+      <button class="finish-button" onclick="finishAssist()">KIRIM KE ADMIN VIA WHATSAPP</button>
+      <button class="secondary-button" onclick="backAssistPage()">← KEMBALI</button>
     </div>
   </div>
 </div>
@@ -607,18 +771,235 @@ Bukti drop item: ${input.files.length} file. Akan saya lampirkan secara manual d
   window.open('https://wa.me/6285864582161?text='+encodeURIComponent(msg),'_blank');
 }
 
+/* SISTEM FORM DIBANTU ADMIN */
+let assistType='';
+let assistSelected={bgl:false,black:false};
+let assistQty={bgl:10,black:1};
+let assistPayout='Ewallet';
+
+const assistPrices={
+  buy:{bgl:1100,black:108000},
+  sell:{bgl:900,black:95000}
+};
+const assistMinimum={
+  buy:{bgl:10,black:1},
+  sell:{bgl:30,black:1}
+};
+
+function openAssist(){
+  resetAssist();
+  openModal('assistModal');
+}
+function closeAssist(){closeModal('assistModal')}
+
+function resetAssist(){
+  assistType='';
+  assistSelected={bgl:false,black:false};
+  assistQty={bgl:10,black:1};
+  assistPayout='Ewallet';
+
+  ['bgl','black'].forEach(id=>{
+    document.getElementById('assistCheck'+(id==='bgl'?'Bgl':'Black')).checked=false;
+    document.getElementById('assistOption'+(id==='bgl'?'Bgl':'Black')).classList.remove('selected');
+    document.getElementById('assistQty'+(id==='bgl'?'Bgl':'Black')).style.display='none';
+    document.getElementById('assistNumber'+(id==='bgl'?'Bgl':'Black')).value=assistQty[id];
+  });
+
+  ['assistName','assistWhatsapp','assistEmail','assistGrowid','assistWorld'].forEach(id=>{
+    document.getElementById(id).value='';
+  });
+
+  document.getElementById('assistBuyProof').value='';
+  document.getElementById('assistSellProof').value='';
+  document.getElementById('assistBuyFileList').textContent='Belum ada file dipilih';
+  document.getElementById('assistSellFileList').textContent='Belum ada file dipilih';
+  document.getElementById('assistBuyBtn').classList.remove('active');
+  document.getElementById('assistSellBtn').classList.remove('active');
+  document.getElementById('assistPage1').style.display='block';
+  document.getElementById('assistPage2').style.display='none';
+  document.getElementById('assistStep1').classList.add('active');
+  document.getElementById('assistStep2').classList.remove('active');
+  document.getElementById('assistBuyDetails').style.display='none';
+  document.getElementById('assistSellDetails').style.display='none';
+  document.getElementById('assistInfo').textContent='Pilih jenis transaksi dan produk yang ingin kamu beli atau jual. Admin akan membantu proses selanjutnya.';
+  updateAssistTotal();
+}
+
+function setAssistType(type){
+  assistType=type;
+  document.getElementById('assistBuyBtn').classList.toggle('active',type==='buy');
+  document.getElementById('assistSellBtn').classList.toggle('active',type==='sell');
+
+  document.getElementById('assistBglPrice').textContent=(type==='buy'?'Harga beli: ':'Harga jual: ')+'Rp'+assistPrices[type].bgl.toLocaleString('id-ID');
+  document.getElementById('assistBlackPrice').textContent=(type==='buy'?'Harga beli: ':'Harga jual: ')+'Rp'+assistPrices[type].black.toLocaleString('id-ID');
+
+  document.getElementById('assistInfo').textContent=type==='buy'
+    ?'Kamu memilih pembelian CPS. Minimum pembelian BGL 10 dan BLACK 1.'
+    :'Kamu memilih penjualan CPS. Minimum penjualan BGL 30 dan BLACK 1.';
+
+  updateAssistTotal();
+}
+
+function toggleAssistProduct(id){
+  if(!assistType)return alert('Pilih jenis transaksi Beli atau Jual terlebih dahulu.');
+  assistSelected[id]=!assistSelected[id];
+  const suffix=id==='bgl'?'Bgl':'Black';
+  document.getElementById('assistCheck'+suffix).checked=assistSelected[id];
+  document.getElementById('assistOption'+suffix).classList.toggle('selected',assistSelected[id]);
+  document.getElementById('assistQty'+suffix).style.display=assistSelected[id]?'flex':'none';
+
+  assistQty[id]=assistMinimum[assistType][id];
+  document.getElementById('assistNumber'+suffix).value=assistQty[id];
+  document.getElementById('assistNumber'+suffix).min=assistMinimum[assistType][id];
+  updateAssistTotal();
+}
+
+function changeAssistQty(id,delta){
+  setAssistQty(id,assistQty[id]+delta);
+}
+function setAssistQty(id,value){
+  if(!assistType)return;
+  let n=parseInt(value,10);
+  if(!Number.isFinite(n))return;
+  assistQty[id]=Math.max(assistMinimum[assistType][id],n);
+  document.getElementById('assistNumber'+(id==='bgl'?'Bgl':'Black')).value=assistQty[id];
+  updateAssistTotal();
+}
+
+function updateAssistTotal(){
+  const type=assistType||'buy';
+  const bgl=assistSelected.bgl?assistQty.bgl:0;
+  const black=assistSelected.black?assistQty.black:0;
+  const bglTotal=bgl*assistPrices[type].bgl;
+  const blackTotal=black*assistPrices[type].black;
+
+  document.getElementById('assistBglSummary').textContent=bgl+' BGL';
+  document.getElementById('assistBlackSummary').textContent=black+' BLACK';
+  document.getElementById('assistBglTotal').textContent='Rp'+bglTotal.toLocaleString('id-ID');
+  document.getElementById('assistBlackTotal').textContent='Rp'+blackTotal.toLocaleString('id-ID');
+
+  document.getElementById('assistTotalLabel').textContent=type==='buy'?'Total Pembayaran':'Estimasi Pendapatan';
+  document.getElementById('assistTotal').textContent='Rp'+(bglTotal+blackTotal).toLocaleString('id-ID');
+}
+
+function nextAssistPage(){
+  if(!assistType)return alert('Silakan pilih Beli CPS atau Jual CPS.');
+  if(!Object.values(assistSelected).some(Boolean))return alert('Pilih minimal satu produk.');
+
+  const required=[
+    ['assistName','Nama'],
+    ['assistWhatsapp','Nomor WhatsApp'],
+    ['assistEmail','Email'],
+    ['assistGrowid','Grow ID'],
+    ['assistWorld','Target World / Keterangan']
+  ];
+
+  for(const [id,label] of required){
+    const el=document.getElementById(id);
+    if(!el.value.trim()){
+      el.focus();
+      return alert('Mohon isi '+label+'.');
+    }
+  }
+
+  const email=document.getElementById('assistEmail').value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    document.getElementById('assistEmail').focus();
+    return alert('Format email belum benar.');
+  }
+
+  document.getElementById('assistPage1').style.display='none';
+  document.getElementById('assistPage2').style.display='block';
+  document.getElementById('assistStep1').classList.remove('active');
+  document.getElementById('assistStep2').classList.add('active');
+
+  document.getElementById('assistBuyDetails').style.display=assistType==='buy'?'block':'none';
+  document.getElementById('assistSellDetails').style.display=assistType==='sell'?'block':'none';
+
+  document.getElementById('assistModal').scrollTop=0;
+}
+
+function backAssistPage(){
+  document.getElementById('assistPage1').style.display='block';
+  document.getElementById('assistPage2').style.display='none';
+  document.getElementById('assistStep1').classList.add('active');
+  document.getElementById('assistStep2').classList.remove('active');
+  document.getElementById('assistModal').scrollTop=0;
+}
+
+function setAssistPayout(type){
+  assistPayout=type;
+  document.getElementById('assistEwallet').classList.toggle('active',type==='Ewallet');
+  document.getElementById('assistBank').classList.toggle('active',type==='Bank');
+}
+
+function finishAssist(){
+  const isBuy=assistType==='buy';
+  const proofInput=document.getElementById(isBuy?'assistBuyProof':'assistSellProof');
+  const files=Array.from(proofInput.files);
+
+  if(!files.length){
+    proofInput.focus();
+    return alert(isBuy?'Upload bukti pembayaran terlebih dahulu.':'Upload bukti drop item terlebih dahulu.');
+  }
+  if(!validateFiles(files))return;
+
+  const items=[];
+  Object.keys(assistSelected).forEach(id=>{
+    if(assistSelected[id]){
+      const name=id==='bgl'?'Blue Gem Lock':'Black Gem Lock';
+      const qty=assistQty[id];
+      const price=assistPrices[assistType][id]*qty;
+      items.push(name+' x'+qty+' = Rp '+price.toLocaleString('id-ID'));
+    }
+  });
+
+  const total=Object.keys(assistSelected).reduce((sum,id)=>{
+    return sum+(assistSelected[id]?assistPrices[assistType][id]*assistQty[id]:0);
+  },0);
+
+  const admin=document.querySelector('input[name="assistAdmin"]:checked').value;
+  const adminNumber=admin==='BOOPA'?'6285864582161':'6287735220343';
+
+  const msg=`Halo Admin ${admin} BLACK MARKET, saya ingin melakukan transaksi dengan bantuan admin.
+
+Jenis transaksi: ${isBuy?'PEMBELIAN CPS':'PENJUALAN CPS'}
+
+Produk:
+${items.join('\n')}
+
+${isBuy?'Total pembayaran':'Estimasi pendapatan'}: Rp ${total.toLocaleString('id-ID')}
+Nama: ${document.getElementById('assistName').value.trim()}
+WhatsApp: ${document.getElementById('assistWhatsapp').value.trim()}
+Email: ${document.getElementById('assistEmail').value.trim()}
+Grow ID: ${document.getElementById('assistGrowid').value.trim()}
+Target World / Keterangan: ${document.getElementById('assistWorld').value.trim()}
+
+${isBuy?'Metode pembayaran: QRIS ALL PAY':'Metode pencairan: '+assistPayout}
+${isBuy?'Bukti pembayaran':'Bukti drop item'}: ${files.length} file. Akan saya lampirkan langsung di chat WhatsApp.
+
+Mohon bantu proses transaksi saya. Terima kasih.`;
+
+  window.open('https://wa.me/'+adminNumber+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+document.getElementById('assistBuyProof').addEventListener('change',()=>showFiles('assistBuyProof','assistBuyFileList'));
+document.getElementById('assistSellProof').addEventListener('change',()=>showFiles('assistSellProof','assistSellFileList'));
+
 document.querySelectorAll('.modal').forEach(modal=>modal.addEventListener('click',e=>{
   if(e.target===modal){
     modal.classList.remove('show');
     if(!document.querySelector('.modal.show'))document.body.classList.remove('modal-open');
   }
 }));
+
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
     document.querySelectorAll('.modal.show').forEach(m=>m.classList.remove('show'));
     document.body.classList.remove('modal-open');
   }
 });
+
 document.querySelectorAll('input').forEach(input=>input.addEventListener('keydown',e=>{
   if(e.key==='Enter'&&input.type!=='checkbox'&&input.type!=='radio')e.preventDefault();
 }));
