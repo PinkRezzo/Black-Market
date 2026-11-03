@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -8,291 +9,161 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{
- background:#0e172b;
- color:#e5eaf3;
- font-family:Arial,sans-serif;
- min-height:100vh;
-}
-header{
- background:#101a30;
- padding:22px 6%;
- border-bottom:1px solid #293955;
- display:flex;
- justify-content:space-between;
- align-items:center;
-}
-.brand{
- color:#60a5fa;
- font-size:23px;
- font-weight:900;
- letter-spacing:1px;
-}
-.header-tag{
- color:#94a3b8;
- font-size:11px;
- letter-spacing:2px;
-}
+body{background:#0e172b;color:#e5eaf3;font-family:Arial,sans-serif;min-height:100vh}
+body.modal-open{overflow:hidden}
+header{background:#101a30;padding:22px 6%;border-bottom:1px solid #293955;display:flex;justify-content:space-between;align-items:center}
+.brand{color:#60a5fa;font-size:23px;font-weight:900;letter-spacing:1px}
+.header-tag{color:#94a3b8;font-size:11px;letter-spacing:2px}
 .page{display:none}
 .page.active{display:block}
 
 /* WELCOME */
-.welcome{
- min-height:65vh;
- display:flex;
- align-items:center;
- justify-content:center;
- text-align:center;
- padding:65px 22px;
- background:radial-gradient(ellipse at top,#19365c,#0e172b 70%);
-}
+.welcome{min-height:65vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:65px 22px;background:radial-gradient(ellipse at top,#19365c,#0e172b 70%)}
 .welcome-content{max-width:700px}
-.tag{
- display:inline-block;
- padding:9px 17px;
- border:1px solid #345a9a;
- border-radius:30px;
- color:#60a5fa;
- background:#152744;
- font-size:12px;
- letter-spacing:2px;
- margin-bottom:22px;
-}
-.welcome h1{
- font-size:clamp(38px,9vw,65px);
- font-weight:900;
- margin-bottom:15px;
-}
+.tag{display:inline-block;padding:9px 17px;border:1px solid #345a9a;border-radius:30px;color:#60a5fa;background:#152744;font-size:12px;letter-spacing:2px;margin-bottom:22px}
+.welcome h1{font-size:clamp(38px,9vw,65px);font-weight:900;margin-bottom:15px}
 .welcome h1 span{color:#60a5fa}
-.welcome p{
- color:#b5c2d5;
- font-size:17px;
- line-height:1.7;
-}
-.explore{
- display:inline-block;
- margin-top:30px;
- padding:16px 34px;
- background:#2563eb;
- color:white;
- border-radius:12px;
- text-decoration:none;
- font-weight:bold;
- font-size:16px;
- border:1px solid #60a5fa;
- cursor:pointer;
-}
-.explore:active{transform:scale(.97)}
-.welcome-note{
- margin-top:22px;
- color:#8293ac;
- font-size:12px;
-}
+.welcome p{color:#b5c2d5;font-size:17px;line-height:1.7}
+.explore{display:inline-block;margin-top:30px;padding:16px 34px;background:#2563eb;color:white;border-radius:12px;text-decoration:none;font-weight:bold;font-size:16px;border:1px solid #60a5fa;cursor:pointer}
+.welcome-note{margin-top:22px;color:#8293ac;font-size:12px}
 
 /* CONTACT */
-.contact{
- padding:35px 6%;
- background:#101a30;
- border-top:1px solid #293955;
-}
-.contact h2{
- font-size:25px;
- margin-bottom:10px;
-}
-.contact-sub{
- color:#9eacc0;
- margin-bottom:22px;
- line-height:1.6;
-}
-.admins{
- max-width:550px;
- margin:20px auto;
- display:grid;
- gap:13px;
-}
-.admin{
- background:#0b1425;
- border:1px solid #293b55;
- border-radius:13px;
- padding:18px;
-}
-.admin-name{
- font-weight:bold;
- font-size:16px;
- margin-bottom:8px;
-}
-.admin-number{
- display:inline-block;
- color:#60a5fa;
- font-size:17px;
- font-weight:bold;
- text-decoration:none;
-}
-.admin-number:hover{text-decoration:underline}
-.group-link{
- display:block;
- max-width:550px;
- margin:18px auto 0;
- text-align:center;
- padding:16px;
- border-radius:12px;
- background:#075e3b;
- color:white;
- text-decoration:none;
- font-weight:bold;
-}
-.contact-note{
- text-align:center;
- color:#8293ac;
- font-size:12px;
- margin-top:18px;
-}
+.contact{padding:35px 6%;background:#101a30;border-top:1px solid #293955}
+.contact h2{font-size:25px;margin-bottom:10px}
+.contact-sub{color:#9eacc0;margin-bottom:22px;line-height:1.6}
+.admins{max-width:550px;margin:20px auto;display:grid;gap:13px}
+.admin{background:#0b1425;border:1px solid #293b55;border-radius:13px;padding:18px}
+.admin-name{font-weight:bold;font-size:16px;margin-bottom:8px}
+.admin-number{display:inline-block;color:#60a5fa;font-size:17px;font-weight:bold;text-decoration:none}
+.group-link{display:block;max-width:550px;margin:18px auto 0;text-align:center;padding:16px;border-radius:12px;background:#075e3b;color:white;text-decoration:none;font-weight:bold}
+.contact-note{text-align:center;color:#8293ac;font-size:12px;margin-top:18px}
 
 /* PRODUCTS */
-.products{
- padding:45px 5% 65px;
- max-width:1050px;
- margin:auto;
-}
-.products-heading{
- display:flex;
- align-items:center;
- justify-content:space-between;
- flex-wrap:wrap;
- gap:15px;
- margin-bottom:30px;
-}
-.products-heading h2{
- font-size:28px;
- letter-spacing:2px;
-}
-.total{
- padding:10px 18px;
- border:1px solid #394960;
- background:#202d43;
- border-radius:30px;
- color:#aab7ca;
- font-size:13px;
-}
-.product-grid{
- display:grid;
- grid-template-columns:repeat(2,minmax(0,1fr));
- gap:20px;
-}
-.product{
- background:#111c30;
- border:1px solid #293955;
- border-radius:22px;
- padding:17px;
- transition:.2s;
-}
-.product:hover{
- border-color:#3b82f6;
- transform:translateY(-3px);
-}
-.product-image{
- width:100%;
- aspect-ratio:1/1;
- object-fit:contain;
- background:#050b18;
- border-radius:17px;
- padding:15px;
- margin-bottom:18px;
-}
-.product-chip{
- display:inline-block;
- background:#202d43;
- border:1px solid #394960;
- color:#cbd5e1;
- padding:6px 10px;
- border-radius:8px;
- font-size:11px;
- margin-bottom:12px;
-}
-.product h3{
- font-size:17px;
- margin-bottom:18px;
-}
-.price-box{
- background:#0a1221;
- border:1px solid #202d43;
- border-radius:14px;
- padding:15px;
- margin-bottom:17px;
-}
-.price-row{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:8px;
- margin-bottom:15px;
-}
+.products{padding:45px 5% 65px;max-width:1050px;margin:auto}
+.products-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;margin-bottom:30px}
+.products-heading h2{font-size:28px;letter-spacing:2px}
+.total{padding:10px 18px;border:1px solid #394960;background:#202d43;border-radius:30px;color:#aab7ca;font-size:13px}
+.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.product{background:#111c30;border:1px solid #293955;border-radius:22px;padding:17px;transition:.2s}
+.product:hover{border-color:#3b82f6;transform:translateY(-3px)}
+.product-image{width:100%;aspect-ratio:1/1;object-fit:contain;background:#050b18;border-radius:17px;padding:15px;margin-bottom:18px}
+.product-chip{display:inline-block;background:#202d43;border:1px solid #394960;color:#cbd5e1;padding:6px 10px;border-radius:8px;font-size:11px;margin-bottom:12px}
+.product h3{font-size:17px;margin-bottom:18px}
+.price-box{background:#0a1221;border:1px solid #202d43;border-radius:14px;padding:15px;margin-bottom:17px}
+.price-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:15px}
 .price-row:last-child{margin-bottom:0}
-.price-label{
- color:#8996aa;
- font-size:13px;
+.price-label{color:#8996aa;font-size:13px}
+.buy-price{color:#34d399;font-size:20px;font-weight:900}
+.sell-price{color:#facc15;font-size:20px;font-weight:900}
+.unit{color:#94a3b8;font-size:11px;text-align:right;margin-top:4px}
+.actions{display:flex;gap:10px}
+.actions button{flex:1;padding:13px 5px;text-align:center;border-radius:12px;font-weight:bold;border:1px solid;font-size:14px;cursor:pointer}
+.buy-btn{color:#60a5fa;border-color:#2563eb!important;background:#142342}
+.sell-btn{color:#facc15;border-color:#a87908!important;background:#292416}
+.back{display:inline-block;padding:12px 18px;background:#202d43;color:#dbeafe;border:1px solid #394960;border-radius:10px;cursor:pointer;margin-bottom:25px}
+
+/* MODAL UMUM */
+.modal{display:none;position:fixed;inset:0;z-index:100;background:rgba(3,8,18,.88);overflow-y:auto;padding:20px}
+.modal.show{display:block}
+.form-card{max-width:760px;margin:25px auto;background:#2d3d54;border:1px solid #40516a;border-radius:24px;padding:28px;color:#e8edf6;box-shadow:0 20px 70px #0008}
+.form-title{font-size:27px;margin-bottom:25px;display:flex;gap:12px;align-items:center}
+.form-title span{color:#60a5fa}
+.close-modal{float:right;background:#1b2a40;color:#cbd5e1;border:1px solid #40516a;padding:9px 13px;border-radius:9px;cursor:pointer}
+.field{margin-bottom:22px}
+.field label.field-label{display:block;color:#aab8cc;font-size:15px;margin-bottom:10px}
+.required{color:#fb7185}
+.field input:not([type=checkbox]):not([type=radio]):not([type=file]),
+.field select,
+.field textarea{
+width:100%;background:#141f33;border:1px solid #52647e;color:#eef4ff;
+border-radius:15px;padding:17px;font:inherit;outline:none;
+min-height:52px;pointer-events:auto;position:relative;z-index:2
 }
-.buy-price{
- color:#34d399;
- font-size:20px;
- font-weight:900;
-}
-.sell-price{
- color:#facc15;
- font-size:20px;
- font-weight:900;
-}
-.unit{
- color:#94a3b8;
- font-size:11px;
- text-align:right;
- margin-top:4px;
-}
-.actions{
- display:flex;
- gap:10px;
-}
-.actions a{
- flex:1;
- padding:13px 5px;
- text-align:center;
- text-decoration:none;
- border-radius:12px;
- font-weight:bold;
- border:1px solid;
- font-size:14px;
-}
-.buy-btn{
- color:#60a5fa;
- border-color:#2563eb!important;
- background:#142342;
-}
-.sell-btn{
- color:#facc15;
- border-color:#a87908!important;
- background:#292416;
-}
-.back{
- display:inline-block;
- padding:12px 18px;
- background:#202d43;
- color:#dbeafe;
- border:1px solid #394960;
- border-radius:10px;
- cursor:pointer;
- margin-bottom:25px;
-}
-footer{
- text-align:center;
- padding:25px;
- border-top:1px solid #293955;
- color:#718198;
- font-size:12px;
-}
+.field textarea{resize:vertical;min-height:90px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#60a5fa;box-shadow:0 0 0 2px #3b82f633}
+.field input::placeholder,.field textarea::placeholder{color:#8293ac}
+.field select option{background:#141f33;color:white}
+
+/* PILIH PRODUK */
+.product-option{display:flex;gap:13px;align-items:flex-start;background:#233248;border:1px solid #52647e;border-radius:18px;padding:17px;margin-bottom:12px;cursor:pointer}
+.product-option.selected{background:#304c72;border:2px solid #3b82f6}
+.product-option input[type=checkbox]{margin-top:5px;accent-color:#3b82f6;width:20px;height:20px;flex-shrink:0;cursor:pointer}
+.option-content{flex:1;min-width:0}
+.option-name{font-weight:bold;font-size:17px;margin-bottom:7px}
+.option-note{color:#b1bfd2;font-size:12px;line-height:1.5;margin-bottom:8px}
+.option-meta{display:flex;flex-wrap:wrap;gap:10px;color:#c2cede;font-size:13px}
+.option-price{color:#4ade80;font-weight:bold}
+.min{color:#fb923c;font-weight:bold}
+.qty{display:flex;align-items:center;gap:10px;margin-top:15px;justify-content:flex-end}
+.qty button{width:46px;height:44px;border:0;border-radius:10px;background:#3a4a61;color:#fff;font-size:25px;cursor:pointer}
+.qty input{width:80px;text-align:center;padding:10px;background:#1b2a40;border:1px solid #52647e;border-radius:9px;color:white;font-weight:bold;min-height:42px}
+
+/* TOTAL */
+.totalbox{background:#121e31;border:1px solid #52647e;border-radius:18px;padding:20px;margin:25px 0}
+.totalbox label{display:block;color:#c2cede;margin-bottom:10px}
+.totalamount{font-size:36px;font-weight:900;color:#4ade80}
+
+/* QRIS */
+.qris{background:#304c72;border:1px solid #3b82f6;border-radius:17px;padding:20px;text-align:center}
+.qris img{width:min(240px,100%);aspect-ratio:1;object-fit:contain;background:white;border-radius:12px;padding:8px}
+.qris-note{color:#c0cce0;font-size:13px;margin-top:12px}
+
+/* UPLOAD */
+.upload{display:block;border:2px dashed #8298b5;border-radius:17px;background:#17263b;padding:25px;text-align:center;cursor:pointer;position:relative}
+.upload:hover{border-color:#60a5fa;background:#1b304c}
+.upload strong{display:block;font-size:17px;margin-bottom:9px}
+.upload p{color:#c0ccdc;font-size:13px;line-height:1.6}
+.upload input[type=file]{display:block;width:100%;margin-top:15px;color:#dbeafe;font-size:13px;cursor:pointer}
+.file-list{margin-top:12px;font-size:13px;color:#cbd5e1;line-height:1.8;overflow-wrap:anywhere}
+
+/* BUTTON */
+.submit-order,.next-button,.finish-button{width:100%;padding:17px;background:#2563eb;border:1px solid #60a5fa;color:white;border-radius:14px;font-size:16px;font-weight:bold;cursor:pointer}
+.submit-order:hover,.next-button:hover,.finish-button:hover{background:#1d4ed8}
+.secondary-button{width:100%;padding:15px;background:#26374f;border:1px solid #52647e;color:#e5eaf3;border-radius:13px;font-size:15px;font-weight:bold;cursor:pointer;margin-top:10px}
+button:disabled{opacity:.5;cursor:not-allowed}
+
+/* SELL FORM */
+.sell-limit{background:#17263b;border:1px solid #405777;border-radius:17px;padding:18px;margin-bottom:22px}
+.limit-heading{font-weight:bold;margin-bottom:13px;color:#dbeafe}
+.limit-row{display:flex;justify-content:space-between;gap:10px;color:#bdc9da;font-size:13px;margin:8px 0}
+.limit-row strong{color:#60a5fa}
+.progress{height:9px;background:#35465e;border-radius:20px;overflow:hidden;margin-top:12px}
+.progress-fill{height:100%;width:0%;background:#3b82f6;border-radius:20px}
+.steps{display:flex;align-items:center;justify-content:center;gap:15px;margin:5px 0 25px}
+.step{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:#17263b;border:1px solid #71839b;color:#aab8cc;font-weight:bold}
+.step.active{background:#2563eb;border-color:#60a5fa;color:white}
+.step-line{width:65px;height:2px;background:#53657e}
+.sell-option{display:flex;gap:13px;align-items:flex-start;background:#233248;border:1px solid #52647e;border-radius:16px;padding:17px;margin-bottom:12px}
+.sell-option.selected{border:2px solid #3b82f6;background:#304c72}
+.sell-option input[type=checkbox]{width:20px;height:20px;margin-top:3px;accent-color:#3b82f6;cursor:pointer}
+.sell-option-content{flex:1;min-width:0}
+.sell-option-name{font-size:16px;font-weight:bold;margin-bottom:8px}
+.sell-option-price{color:#4ade80;font-weight:bold;font-size:14px}
+.sell-option-min{font-size:12px;color:#fbbf24;margin-top:5px}
+.sell-qty{display:flex;justify-content:flex-end;align-items:center;gap:9px;margin-top:14px}
+.sell-qty button{width:42px;height:40px;border:0;border-radius:9px;background:#3a4a61;color:white;font-size:23px;cursor:pointer}
+.sell-qty input{width:75px!important;text-align:center;padding:9px!important;min-height:40px!important}
+.estimate{background:#121e31;border:1px solid #52647e;padding:17px;border-radius:15px;margin:18px 0}
+.estimate-title{font-size:13px;color:#aab8cc;margin-bottom:8px}
+.estimate-total{font-size:29px;color:#4ade80;font-weight:900}
+.world-info{background:#17263b;border:1px solid #405777;border-radius:17px;padding:22px;text-align:center;margin-bottom:20px}
+.world-info h3{font-size:25px;color:#60a5fa;letter-spacing:2px;margin-bottom:10px}
+.world-info p{color:#c2cede;line-height:1.7;font-size:14px}
+.world-owner{font-weight:bold;color:#facc15!important;margin-top:8px}
+.sell-page{display:none}
+.sell-page.active{display:block}
+.hint{font-size:12px;color:#b0bfd2;line-height:1.6;margin-top:8px}
+
+footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198;font-size:12px}
+
 @media(max-width:650px){
- .product-grid{grid-template-columns:1fr}
- .products-heading h2{font-size:23px}
- .product{max-width:430px;width:100%;margin:auto}
+.product-grid{grid-template-columns:1fr}
+.products-heading h2{font-size:23px}
+.product{max-width:430px;width:100%;margin:auto}
+.form-card{padding:19px;margin:5px auto}
+.form-title{font-size:23px}
+.totalamount{font-size:30px}
+.modal{padding:10px}
 }
 </style>
 </head>
@@ -300,215 +171,645 @@ footer{
 <body>
 
 <header>
- <div>
-  <div class="brand">BLACK MARKET</div>
-  <div class="header-tag">CPS MARKETPLACE</div>
- </div>
- <div style="color:#60a5fa;font-size:12px;font-weight:bold">
-  TRUSTED MARKET
- </div>
+<div>
+<div class="brand">BLACK MARKET</div>
+<div class="header-tag">CPS MARKETPLACE</div>
+</div>
+<div style="color:#60a5fa;font-size:12px;font-weight:bold">TRUSTED MARKET</div>
 </header>
 
-<!-- HALAMAN PERTAMA -->
 <main class="page active" id="welcome">
-
 <section class="welcome">
- <div class="welcome-content">
-  <span class="tag">WELCOME TO OUR MARKET</span>
-
-  <h1>WELCOME TO <span>BLACK MARKET</span></h1>
-
-  <p>
-   Your Trusted CPS Marketplace.
-   Buy and Sell Your CPS Needs With Us!
-  </p>
-
-  <button class="explore" onclick="showProducts()">
-   EXPLORE PRODUCT →
-  </button>
-
-  <div class="welcome-note">
-   Trusted CPS Marketplace • Fast Service • Best Deal
-  </div>
- </div>
+<div class="welcome-content">
+<span class="tag">WELCOME TO OUR MARKET</span>
+<h1>WELCOME TO <span>BLACK MARKET</span></h1>
+<p>Your Trusted CPS Marketplace. Buy and Sell Your CPS Needs With Us!</p>
+<button class="explore" type="button" onclick="showProducts()">EXPLORE PRODUCT →</button>
+<div class="welcome-note">Trusted CPS Marketplace • Fast Service • Best Deal</div>
+</div>
 </section>
 
-<!-- CONTACT DI HALAMAN PERTAMA -->
 <section class="contact">
- <h2>CONTACT BLACK MARKET</h2>
-
- <p class="contact-sub">
-  Need help or want to make a transaction?
-  Contact our admins directly through WhatsApp.
- </p>
-
- <div class="admins">
-
-  <div class="admin">
-   <div class="admin-name">ADMIN 1 — BOOPA</div>
-   <a class="admin-number"
-      href="https://wa.me/6285864582161"
-      target="_blank">
-    085864582161 ↗
-   </a>
-  </div>
-
-  <div class="admin">
-   <div class="admin-name">ADMIN 2 — RADENSTORE</div>
-   <a class="admin-number"
-      href="https://wa.me/6287735220343"
-      target="_blank">
-    087735220343 ↗
-   </a>
-  </div>
-
- </div>
-
- <a class="group-link"
-    href="https://chat.whatsapp.com/H4iwa0q15pBK8P9tVpUkdV?s=cl&p=i&mlu=4&ilr=4&iam=2"
-    target="_blank">
-  JOIN OUR WHATSAPP GROUP ↗
- </a>
-
- <div class="contact-note">
-  Official Black Market Community
- </div>
+<h2>CONTACT BLACK MARKET</h2>
+<p class="contact-sub">Need help or want to make a transaction? Contact our admins directly through WhatsApp.</p>
+<div class="admins">
+<div class="admin">
+<div class="admin-name">ADMIN 1 — BOOPA</div>
+<a class="admin-number" href="https://wa.me/6285864582161" target="_blank">085864582161 ↗</a>
+</div>
+<div class="admin">
+<div class="admin-name">ADMIN 2 — RADENSTORE</div>
+<a class="admin-number" href="https://wa.me/6287735220343" target="_blank">087735220343 ↗</a>
+</div>
+</div>
+<a class="group-link" href="https://chat.whatsapp.com/H4iwa0q15pBK8P9tVpUkdV?s=cl&p=i&mlu=4&ilr=4&iam=2" target="_blank">JOIN OUR WHATSAPP GROUP ↗</a>
+<div class="contact-note">Official Black Market Community</div>
 </section>
-
 </main>
 
-<!-- HALAMAN KEDUA -->
 <main class="page" id="products">
-
 <section class="products">
+<button class="back" type="button" onclick="showWelcome()">← BACK TO HOME</button>
+<div class="products-heading">
+<h2>♧ DAFTAR PRODUK</h2>
+<span class="total">Total 2 Items</span>
+</div>
 
- <button class="back" onclick="showWelcome()">
-  ← BACK TO HOME
- </button>
+<div class="product-grid">
+<article class="product">
+<span class="product-chip">CPSBGL</span>
+<img class="product-image" src="logo-bgl-black.png.jpg" alt="CPS Blue Gem Lock">
+<h3>CPS Blue Gem Lock</h3>
+<div class="price-box">
+<div class="price-row">
+<div class="price-label">Harga Beli</div>
+<div style="text-align:right"><div class="buy-price">1.1K</div><div class="unit"/div></div>
+</div>
+<div class="price-row">
+<div class="price-label">Harga Jual</div>
+<div style="text-align:right"><div class="sell-price">900</div><div class="unit"/div></div>
+</div>
+</div>
+<div class="actions">
+<button class="buy-btn" type="button" onclick="openPurchase('bgl')">BELI</button>
+<button class="sell-btn" type="button" onclick="openSell('bgl')">JUAL</button>
+</div>
+</article>
 
- <div class="products-heading">
-  <h2>♧ DAFTAR PRODUK</h2>
-  <span class="total">Total 2 Items</span>
- </div>
-
- <div class="product-grid">
-
-  <!-- BGL -->
-  <article class="product">
-
-   <span class="product-chip">CPSBGL</span>
-
-   <img
-    class="product-image"
-    src="logo-bgl-black.png.jpg"
-    alt="CPS Blue Gem Lock"
-   >
-
-   <h3>CPS Blue Gem Lock</h3>
-
-   <div class="price-box">
-
-    <div class="price-row">
-     <div class="price-label">Harga Beli</div>
-     <div style="text-align:right">
-      <div class="buy-price">1.1K</div>
-      <div class="unit">WL</div>
-     </div>
-    </div>
-
-    <div class="price-row">
-     <div class="price-label">Harga Jual</div>
-     <div style="text-align:right">
-      <div class="sell-price">900</div>
-      <div class="unit">WL</div>
-     </div>
-    </div>
-
-   </div>
-
-   <div class="actions">
-    <a class="buy-btn"
-       href="https://wa.me/6285864582161?text=Halo%20Boopa%2C%20saya%20ingin%20membeli%20CPS%20Blue%20Gem%20Lock">
-     BELI
-    </a>
-
-    <a class="sell-btn"
-       href="https://wa.me/6285864582161?text=Halo%20Boopa%2C%20saya%20ingin%20menjual%20CPS%20Blue%20Gem%20Lock">
-     JUAL
-    </a>
-   </div>
-
-  </article>
-
-  <!-- BLACK -->
-  <article class="product">
-
-   <span class="product-chip">CPSBLACK</span>
-
-   <img
-    class="product-image"
-    src="logo-black.png.jpg"
-    alt="CPS Black Gem Lock"
-   >
-
-   <h3>CPS Black Gem Lock</h3>
-
-   <div class="price-box">
-
-    <div class="price-row">
-     <div class="price-label">Harga Beli</div>
-     <div style="text-align:right">
-      <div class="buy-price">108K</div>
-     </div>
-    </div>
-
-    <div class="price-row">
-     <div class="price-label">Harga Jual</div>
-     <div style="text-align:right">
-      <div class="sell-price">95K</div>
-     </div>
-    </div>
-
-   </div>
-
-   <div class="actions">
-    <a class="buy-btn"
-       href="https://wa.me/6285864582161?text=Halo%20Boopa%2C%20saya%20ingin%20membeli%20CPS%20Black%20Gem%20Lock">
-     BELI
-    </a>
-
-    <a class="sell-btn"
-       href="https://wa.me/6285864582161?text=Halo%20Boopa%2C%20saya%20ingin%20menjual%20CPS%20Black%20Gem%20Lock">
-     JUAL
-    </a>
-   </div>
-
-  </article>
-
- </div>
-
+<article class="product">
+<span class="product-chip">CPSBLACK</span>
+<img class="product-image" src="logo-black.png.jpg" alt="CPS Black Gem Lock">
+<h3>CPS Black Gem Lock</h3>
+<div class="price-box">
+<div class="price-row">
+<div class="price-label">Harga Beli</div>
+<div style="text-align:right"><div class="buy-price">108K</div></div>
+</div>
+<div class="price-row">
+<div class="price-label">Harga Jual</div>
+<div style="text-align:right"><div class="sell-price">95K</div></div>
+</div>
+</div>
+<div class="actions">
+<button class="buy-btn" type="button" onclick="openPurchase('black')">BELI</button>
+<button class="sell-btn" type="button" onclick="openSell('black')">JUAL</button>
+</div>
+</article>
+</div>
 </section>
 </main>
+
+<!-- FORM PEMBELIAN -->
+<div class="modal" id="purchaseModal">
+<div class="form-card">
+<button class="close-modal" type="button" onclick="closePurchase()">✕ Tutup</button>
+<h2 class="form-title"><span>▣</span> Form Pembelian CPS</h2>
+
+<div class="field">
+<label class="field-label">Pilih Produk (CPS) <b class="required">*</b> <small>(Bisa pilih lebih dari satu)</small></label>
+
+<div class="product-option" id="option-bgl" onclick="toggleProduct('bgl')">
+<input type="checkbox" id="check-bgl" onclick="event.stopPropagation();toggleProduct('bgl')">
+<div class="option-content">
+<div class="option-name">CPS Blue Gem Lock</div>
+<div class="option-note">Jika jual utamakan punya nomor rekening BCA, DANA, OVO, atau ShopeePay. Selain itu kena biaya admin.</div>
+<div class="option-meta">
+<span class="option-price">Rp 1.100</span>
+<span>• Stok: <b style="color:#60a5fa">Tak Terbatas</b></span>
+<span class="min">• Min. beli: 10</span>
+</div>
+<div class="qty" id="qty-bgl" style="display:none" onclick="event.stopPropagation()">
+<button type="button" onclick="changeQty('bgl',-1)">−</button>
+<input id="number-bgl" type="number" min="10" value="10" oninput="setQty('bgl',this.value)">
+<button type="button" onclick="changeQty('bgl',1)">+</button>
+</div>
+</div>
+</div>
+
+<div class="product-option" id="option-black" onclick="toggleProduct('black')">
+<input type="checkbox" id="check-black" onclick="event.stopPropagation();toggleProduct('black')">
+<div class="option-content">
+<div class="option-name">CPS Black Gem Lock</div>
+<div class="option-note">Jika jual utamakan punya nomor rekening BCA, DANA, OVO, atau ShopeePay. Selain itu kena biaya admin.</div>
+<div class="option-meta">
+<span class="option-price">Rp 108.000</span>
+<span>• Stok: <b style="color:#60a5fa">Tak Terbatas</b></span>
+</div>
+<div class="qty" id="qty-black" style="display:none" onclick="event.stopPropagation()">
+<button type="button" onclick="changeQty('black',-1)">−</button>
+<input id="number-black" type="number" min="1" value="1" oninput="setQty('black',this.value)">
+<button type="button" onclick="changeQty('black',1)">+</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="totalbox">
+<label>Total Pembayaran</label>
+<div class="totalamount" id="totalAmount">Rp 0</div>
+</div>
+
+<div class="field">
+<label class="field-label" for="world">Target World <b class="required">*</b></label>
+<input id="world" type="text" placeholder="Target World">
+</div>
+<div class="field">
+<label class="field-label" for="growid">Grow ID <b class="required">*</b></label>
+<input id="growid" type="text" placeholder="Grow ID">
+</div>
+<div class="field">
+<label class="field-label" for="buyerName">Nama Pembeli (Opsional)</label>
+<input id="buyerName" type="text" placeholder="Your Name">
+</div>
+<div class="field">
+<label class="field-label" for="whatsapp">WhatsApp <b class="required">*</b></label>
+<input id="whatsapp" type="tel" placeholder="08xxxxxxxxx">
+</div>
+<div class="field">
+<label class="field-label" for="email">Email <b class="required">*</b></label>
+<input id="email" type="email" placeholder="Contoh: user@gmail.com">
+</div>
+<div class="field">
+<label class="field-label" for="promo">Kode Promo</label>
+<input id="promo" type="text" placeholder="Punya kode promo?">
+</div>
+
+<div class="field">
+<label class="field-label">Metode Pembayaran <b class="required">*</b></label>
+<div class="qris">
+<h3 style="margin-bottom:14px">QRIS</h3>
+<img src="qris-black-market.png" alt="QRIS Black Market">
+<div class="qris-note">Scan QRIS untuk melakukan pembayaran. Pastikan nominal sesuai total pembayaran.</div>
+</div>
+</div>
+
+<div class="field">
+<label class="field-label" for="paymentFiles">Bukti Pembayaran <b class="required">*</b></label>
+<label class="upload" for="paymentFiles">
+<strong>Seret &amp; Lepas Bukti Pembayaran</strong>
+<p>atau klik untuk memilih file<br>(JPG, PNG, PDF, HEIC, WEBP - MAKS 10MB)<br>MAKS 3 FILE</p>
+<input id="paymentFiles" type="file" accept=".jpg,.jpeg,.png,.pdf,.heic,.webp" multiple>
+<div class="file-list" id="fileList">Belum ada file dipilih</div>
+</label>
+</div>
+
+<button class="submit-order" type="button" onclick="submitOrder()">BUAT PESANAN SEKARANG</button>
+<p class="hint">Bukti pembayaran harus dilampirkan secara manual saat WhatsApp terbuka.</p>
+</div>
+</div>
+
+<!-- FORM PENJUALAN -->
+<div class="modal" id="sellModal">
+<div class="form-card">
+<button class="close-modal" type="button" onclick="closeSell()">✕ Tutup</button>
+<h2 class="form-title"><span>▣</span> Form Penjualan CPS</h2>
+
+<div class="steps">
+<div class="step active" id="sellStep1">1</div>
+<div class="step-line"></div>
+<div class="step" id="sellStep2">2</div>
+</div>
+
+<!-- SELL STEP 1 -->
+<div class="sell-page active" id="sellPage1">
+<div class="sell-limit">
+<div class="limit-heading">📦 CPS Sell Limit</div>
+<div class="limit-row"><span>Stok saat ini</span><strong>0 BGL / 1000 BGL</strong></div>
+<div class="limit-row"><span>Sisa limit</span><strong>1000 BGL (0%)</strong></div>
+<div class="progress"><div class="progress-fill"></div></div>
+</div>
+
+<div class="field">
+<label class="field-label">Pilih Item <b class="required">*</b> <small>(Bisa pilih lebih dari satu)</small></label>
+
+<div class="sell-option" id="sell-option-bgl">
+<input type="checkbox" id="sell-check-bgl" onchange="toggleSellItem('bgl')">
+<div class="sell-option-content">
+<div class="sell-option-name">CPS Blue Gem Lock</div>
+<div class="sell-option-price">Harga jual: Rp 900 / BGL</div>
+<div class="sell-option-min">Minimum penjualan: 30 BGL</div>
+<div class="sell-qty" id="sell-qty-bgl" style="display:none">
+<button type="button" onclick="changeSellQty('bgl',-1)">−</button>
+<input id="sell-number-bgl" type="number" min="30" value="30" oninput="setSellQty('bgl',this.value)">
+<button type="button" onclick="changeSellQty('bgl',1)">+</button>
+</div>
+</div>
+</div>
+
+<div class="sell-option" id="sell-option-black">
+<input type="checkbox" id="sell-check-black" onchange="toggleSellItem('black')">
+<div class="sell-option-content">
+<div class="sell-option-name">CPS Black Gem Lock</div>
+<div class="sell-option-price">Harga jual: Rp 95.000 / item</div>
+<div class="sell-option-min">Minimum penjualan: 1 item</div>
+<div class="sell-qty" id="sell-qty-black" style="display:none">
+<button type="button" onclick="changeSellQty('black',-1)">−</button>
+<input id="sell-number-black" type="number" min="1" value="1" oninput="setSellQty('black',this.value)">
+<button type="button" onclick="changeSellQty('black',1)">+</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="estimate">
+<div class="estimate-title">Estimasi Pendapatan</div>
+<div class="estimate-total" id="sellTotal">Rp 0</div>
+<p class="hint">Nominal ini merupakan estimasi berdasarkan jumlah item dan harga yang tercantum.</p>
+</div>
+
+<div class="field">
+<label class="field-label" for="sellName">Nama Pembeli (Opsional)</label>
+<input id="sellName" type="text" placeholder="Masukkan nama jika ada">
+</div>
+
+<div class="field">
+<label class="field-label" for="sellWhatsapp">WhatsApp <b class="required">*</b></label>
+<input id="sellWhatsapp" type="tel" placeholder="Contoh: 08123456789">
+</div>
+
+<div class="field">
+<label class="field-label" for="sellEmail">Email <b class="required">*</b></label>
+<input id="sellEmail" type="email" placeholder="Contoh: user@gmail.com">
+<p class="hint">Struk penjualan akan dikirim ke email ini.</p>
+</div>
+
+<div class="field">
+<label class="field-label">Metode Pencairan Dana <b class="required">*</b></label>
+<div class="product-option">
+<input type="radio" name="payout" id="payout-ewallet" value="Ewallet" checked>
+<label for="payout-ewallet" style="cursor:pointer">Ewallet</label>
+</div>
+<div class="product-option">
+<input type="radio" name="payout" id="payout-bank" value="Bank">
+<label for="payout-bank" style="cursor:pointer">Bank</label>
+</div>
+</div>
+
+<button class="next-button" type="button" onclick="nextSellPage()">LANJUT UPLOAD BUKTI →</button>
+</div>
+
+<!-- SELL STEP 2 -->
+<div class="sell-page" id="sellPage2">
+<div class="world-info">
+<h3>BANGDRIAL</h3>
+<p>Silahkan drop item Anda ke world di atas.</p>
+<p class="world-owner">Owner: BOOOPA</p>
+</div>
+
+<div class="field">
+<label class="field-label" for="sellProof">Bukti Pembayaran / Bukti Drop Item <b class="required">*</b></label>
+<label class="upload" for="sellProof">
+<strong>📁 Upload Bukti Anda</strong>
+<p>Klik untuk memilih file atau seret file ke area ini<br>JPG, PNG, PDF, HEIC, WEBP<br>Maksimal 10MB per file • Maksimal 3 file</p>
+<input id="sellProof" type="file" accept=".jpg,.jpeg,.png,.pdf,.heic,.webp" multiple>
+<div class="file-list" id="sellFileList">Belum ada file dipilih</div>
+</label>
+</div>
+
+<p class="hint" style="margin-bottom:18px">Setelah menekan kirim, WhatsApp admin akan terbuka. Lampirkan file bukti secara manual di chat WhatsApp.</p>
+
+<button class="finish-button" type="button" onclick="finishSell()">KIRIM FORM PENJUALAN</button>
+<button class="secondary-button" type="button" onclick="backSellPage()">← KEMBALI</button>
+</div>
+</div>
+</div>
 
 <footer>
- © 2026 BLACK MARKET. ALL RIGHTS RESERVED.
- <br><br>
- Trusted CPS Marketplace.
+© 2026 BLACK MARKET. ALL RIGHTS RESERVED.
+<br><br>
+Trusted CPS Marketplace.
 </footer>
 
 <script>
+/* NAVIGASI */
 function showProducts(){
- document.getElementById("welcome").classList.remove("active");
- document.getElementById("products").classList.add("active");
- window.scrollTo(0,0);
+document.getElementById("welcome").classList.remove("active");
+document.getElementById("products").classList.add("active");
+window.scrollTo(0,0);
 }
-
 function showWelcome(){
- document.getElementById("products").classList.remove("active");
- document.getElementById("welcome").classList.add("active");
- window.scrollTo(0,0);
+document.getElementById("products").classList.remove("active");
+document.getElementById("welcome").classList.add("active");
+window.scrollTo(0,0);
 }
-</script>
+function lockBody(){
+document.body.classList.add("modal-open");
+}
+function unlockBody(){
+if(!document.querySelector(".modal.show"))document.body.classList.remove("modal-open");
+}
 
+/* FORM PEMBELIAN */
+const prices={bgl:1100,black:108000};
+const minimum={bgl:10,black:1};
+const quantities={bgl:10,black:1};
+const selected={bgl:false,black:false};
+
+function openPurchase(product){
+const modal=document.getElementById("purchaseModal");
+modal.classList.add("show");
+lockBody();
+
+if(product){
+toggleProduct(product,true);
+}
+updateTotal();
+}
+function closePurchase(){
+document.getElementById("purchaseModal").classList.remove("show");
+unlockBody();
+}
+function toggleProduct(id,force){
+selected[id]=typeof force==="boolean"?force:!selected[id];
+document.getElementById("check-"+id).checked=selected[id];
+document.getElementById("option-"+id).classList.toggle("selected",selected[id]);
+document.getElementById("qty-"+id).style.display=selected[id]?"flex":"none";
+updateTotal();
+}
+function changeQty(id,delta){
+setQty(id,quantities[id]+delta);
+}
+function setQty(id,value){
+let n=parseInt(value,10);
+if(!Number.isFinite(n))return;
+n=Math.max(minimum[id],n);
+quantities[id]=n;
+document.getElementById("number-"+id).value=n;
+updateTotal();
+}
+function updateTotal(){
+let total=0;
+Object.keys(prices).forEach(id=>{
+if(selected[id])total+=prices[id]*quantities[id];
+});
+document.getElementById("totalAmount").textContent="Rp "+total.toLocaleString("id-ID");
+}
+
+/* VALIDASI FILE */
+function validateFiles(files){
+if(files.length>3){
+alert("Maksimal 3 file.");
+return false;
+}
+for(const file of files){
+if(file.size>10*1024*1024){
+alert("Ukuran setiap file maksimal 10MB.");
+return false;
+}
+if(!/\.(jpg|jpeg|png|pdf|heic|webp)$/i.test(file.name)){
+alert("Format file tidak didukung: "+file.name);
+return false;
+}
+}
+return true;
+}
+function showFiles(inputId,listId){
+const input=document.getElementById(inputId);
+const files=Array.from(input.files);
+if(!validateFiles(files)){
+input.value="";
+document.getElementById(listId).textContent="Belum ada file dipilih";
+return;
+}
+document.getElementById(listId).textContent=files.length
+?files.map(f=>f.name+" ("+(f.size/1024/1024).toFixed(2)+" MB)").join(" • ")
+:"Belum ada file dipilih";
+}
+document.getElementById("paymentFiles").addEventListener("change",()=>showFiles("paymentFiles","fileList"));
+document.getElementById("sellProof").addEventListener("change",()=>showFiles("sellProof","sellFileList"));
+
+/* DRAG AND DROP */
+function setupDrop(label,inputId,listId){
+label.addEventListener("dragover",e=>{
+e.preventDefault();
+label.style.borderColor="#60a5fa";
+});
+label.addEventListener("dragleave",()=>{
+label.style.borderColor="#8298b5";
+});
+label.addEventListener("drop",e=>{
+e.preventDefault();
+label.style.borderColor="#8298b5";
+const dropped=Array.from(e.dataTransfer.files);
+if(!validateFiles(dropped))return;
+const transfer=new DataTransfer();
+dropped.forEach(file=>transfer.items.add(file));
+document.getElementById(inputId).files=transfer.files;
+showFiles(inputId,listId);
+});
+}
+setupDrop(document.querySelector("#paymentFiles").closest(".upload"),"paymentFiles","fileList");
+setupDrop(document.querySelector("#sellProof").closest(".upload"),"sellProof","sellFileList");
+
+/* KIRIM PEMBELIAN */
+function submitOrder(){
+const items=[];
+Object.keys(prices).forEach(id=>{
+if(selected[id]){
+items.push(
+(id==="bgl"?"CPS Blue Gem Lock":"CPS Black Gem Lock")+
+" x"+quantities[id]+" = Rp "+
+(prices[id]*quantities[id]).toLocaleString("id-ID")
+);
+}
+});
+if(!items.length)return alert("Pilih minimal satu produk.");
+
+const required=[
+["world","Target World"],
+["growid","Grow ID"],
+["whatsapp","WhatsApp"],
+["email","Email"]
+];
+for(const [id,label] of required){
+const el=document.getElementById(id);
+if(!el.value.trim()){
+el.focus();
+return alert("Mohon isi "+label+".");
+}
+}
+const email=document.getElementById("email").value.trim();
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+document.getElementById("email").focus();
+return alert("Format email belum benar.");
+}
+const files=document.getElementById("paymentFiles").files;
+if(!files.length)return alert("Upload bukti pembayaran terlebih dahulu.");
+if(!validateFiles(Array.from(files)))return;
+
+const total=Object.keys(prices).reduce((sum,id)=>{
+return sum+(selected[id]?prices[id]*quantities[id]:0);
+},0);
+
+const msg=`Halo Admin BLACK MARKET, saya ingin membuat pesanan.
+
+Produk:
+${items.join("\n")}
+
+Total: Rp ${total.toLocaleString("id-ID")}
+Metode: QRIS
+Target World: ${document.getElementById("world").value.trim()}
+Grow ID: ${document.getElementById("growid").value.trim()}
+Nama: ${document.getElementById("buyerName").value.trim()||"-"}
+WhatsApp: ${document.getElementById("whatsapp").value.trim()}
+Email: ${email}
+Kode promo: ${document.getElementById("promo").value.trim()||"-"}
+
+Bukti pembayaran: ${files.length} file. Akan saya lampirkan di chat.`;
+
+window.open("https://wa.me/6285864582161?text="+encodeURIComponent(msg),"_blank");
+}
+
+/* FORM PENJUALAN */
+const sellPrices={bgl:900,black:95000};
+const sellMinimum={bgl:30,black:1};
+const sellQty={bgl:30,black:1};
+const sellSelected={bgl:false,black:false};
+
+function openSell(product){
+document.getElementById("sellModal").classList.add("show");
+lockBody();
+resetSellForm();
+if(product)toggleSellItem(product,true);
+showSellPage(1);
+}
+function closeSell(){
+document.getElementById("sellModal").classList.remove("show");
+unlockBody();
+}
+function resetSellForm(){
+Object.keys(sellSelected).forEach(id=>{
+sellSelected[id]=false;
+document.getElementById("sell-check-"+id).checked=false;
+document.getElementById("sell-option-"+id).classList.remove("selected");
+document.getElementById("sell-qty-"+id).style.display="none";
+sellQty[id]=sellMinimum[id];
+document.getElementById("sell-number-"+id).value=sellQty[id];
+});
+document.getElementById("sellName").value="";
+document.getElementById("sellWhatsapp").value="";
+document.getElementById("sellEmail").value="";
+document.getElementById("sellProof").value="";
+document.getElementById("sellFileList").textContent="Belum ada file dipilih";
+updateSellTotal();
+}
+function toggleSellItem(id,force){
+sellSelected[id]=typeof force==="boolean"?force:!sellSelected[id];
+document.getElementById("sell-check-"+id).checked=sellSelected[id];
+document.getElementById("sell-option-"+id).classList.toggle("selected",sellSelected[id]);
+document.getElementById("sell-qty-"+id).style.display=sellSelected[id]?"flex":"none";
+updateSellTotal();
+}
+function changeSellQty(id,delta){
+setSellQty(id,sellQty[id]+delta);
+}
+function setSellQty(id,value){
+let n=parseInt(value,10);
+if(!Number.isFinite(n))return;
+n=Math.max(sellMinimum[id],n);
+sellQty[id]=n;
+document.getElementById("sell-number-"+id).value=n;
+updateSellTotal();
+}
+function updateSellTotal(){
+let total=0;
+Object.keys(sellPrices).forEach(id=>{
+if(sellSelected[id])total+=sellPrices[id]*sellQty[id];
+});
+document.getElementById("sellTotal").textContent="Rp "+total.toLocaleString("id-ID");
+}
+function showSellPage(page){
+document.getElementById("sellPage1").classList.toggle("active",page===1);
+document.getElementById("sellPage2").classList.toggle("active",page===2);
+document.getElementById("sellStep1").classList.toggle("active",page===1);
+document.getElementById("sellStep2").classList.toggle("active",page===2);
+document.getElementById("sellModal").scrollTop=0;
+}
+function nextSellPage(){
+if(!Object.values(sellSelected).some(Boolean)){
+return alert("Pilih minimal satu item yang ingin dijual.");
+}
+const wa=document.getElementById("sellWhatsapp");
+const email=document.getElementById("sellEmail");
+if(!wa.value.trim()){
+wa.focus();
+return alert("Mohon isi nomor WhatsApp.");
+}
+if(!email.value.trim()){
+email.focus();
+return alert("Mohon isi email.");
+}
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){
+email.focus();
+return alert("Format email belum benar.");
+}
+showSellPage(2);
+}
+function backSellPage(){
+showSellPage(1);
+}
+function finishSell(){
+const input=document.getElementById("sellProof");
+if(!input.files.length){
+input.focus();
+return alert("Silakan upload bukti drop item terlebih dahulu.");
+}
+if(!validateFiles(Array.from(input.files)))return;
+
+const items=[];
+Object.keys(sellPrices).forEach(id=>{
+if(sellSelected[id]){
+items.push(
+(id==="bgl"?"CPS Blue Gem Lock":"CPS Black Gem Lock")+
+" x"+sellQty[id]+" = Rp "+
+(sellPrices[id]*sellQty[id]).toLocaleString("id-ID")
+);
+}
+});
+if(!items.length)return alert("Pilih minimal satu item.");
+
+const total=Object.keys(sellPrices).reduce((sum,id)=>{
+return sum+(sellSelected[id]?sellPrices[id]*sellQty[id]:0);
+},0);
+const payout=document.querySelector('input[name="payout"]:checked');
+
+const msg=`Halo Admin BLACK MARKET, saya ingin melakukan penjualan CPS.
+
+Item:
+${items.join("\n")}
+
+Estimasi pendapatan: Rp ${total.toLocaleString("id-ID")}
+Nama: ${document.getElementById("sellName").value.trim()||"-"}
+WhatsApp: ${document.getElementById("sellWhatsapp").value.trim()}
+Email: ${document.getElementById("sellEmail").value.trim()}
+Metode pencairan: ${payout?payout.value:"Ewallet"}
+
+World drop item: BANGDRIAL
+Owner: BOOOPA
+
+Bukti drop item: ${input.files.length} file. Akan saya lampirkan secara manual di chat WhatsApp.`;
+
+window.open("https://wa.me/6285864582161?text="+encodeURIComponent(msg),"_blank");
+}
+
+/* KLIK AREA LUAR UNTUK TUTUP MODAL */
+document.querySelectorAll(".modal").forEach(modal=>{
+modal.addEventListener("click",e=>{
+if(e.target===modal){
+modal.classList.remove("show");
+unlockBody();
+}
+});
+});
+
+/* MENCEGAH FORM TERKIRIM SAAT ENTER */
+document.querySelectorAll("input").forEach(input=>{
+input.addEventListener("keydown",e=>{
+if(e.key==="Enter"&&input.type!=="checkbox"&&input.type!=="radio"){
+e.preventDefault();
+}
+});
+});
+</script>
 </body>
 </html>
