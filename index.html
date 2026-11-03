@@ -11,238 +11,58 @@
 html{scroll-behavior:smooth}
 body{background:#0e172b;color:#e5eaf3;font-family:Arial,sans-serif;min-height:100vh;overflow-x:hidden}
 body.modal-open{overflow:hidden}
-
+button,input{font-family:inherit}
 header{background:#101a30;padding:22px 6%;border-bottom:1px solid #293955;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:5}
 .brand{color:#60a5fa;font-size:23px;font-weight:900;letter-spacing:1px;text-shadow:0 0 15px #3b82f6}
 .header-tag{color:#94a3b8;font-size:11px;letter-spacing:2px}
 .page{display:none}.page.active{display:block}
 
-/* WELCOME PAGE */
-.welcome{
-min-height:680px;
-position:relative;
-overflow:hidden;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:75px 20px;
-background:
-radial-gradient(ellipse at 50% 15%,#24538b 0%,transparent 48%),
-radial-gradient(ellipse at 10% 90%,#123b70 0%,transparent 40%),
-linear-gradient(145deg,#081426,#102849 55%,#071326);
-}
+/* ANIMATIONS */
+@keyframes starsMove{from{background-position:0 0}to{background-position:250px 180px}}
+@keyframes rotateGlow{from{transform:rotate(0deg) scale(.85)}to{transform:rotate(360deg) scale(1.1)}}
+@keyframes floatCoin{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-24px) rotate(8deg)}}
+@keyframes floatCoin2{0%,100%{transform:translateY(-8px) rotate(8deg)}50%{transform:translateY(22px) rotate(-8deg)}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 12px #2563eb66,0 0 25px #2563eb22}50%{box-shadow:0 0 25px #60a5fa,0 0 55px #2563eb77}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes assistEnter{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes verifiedGlow{0%,100%{filter:drop-shadow(0 0 2px #3b82f6)}50%{filter:drop-shadow(0 0 9px #60a5fa)}}
+@keyframes adminPulse{0%,100%{box-shadow:0 0 10px #2563eb22}50%{box-shadow:0 0 23px #3b82f677}}
+@keyframes buttonPulse{0%,100%{box-shadow:0 0 10px #2563eb55}50%{box-shadow:0 0 25px #3b82eb}}
+@keyframes assistBg{to{transform:translateX(100px) rotate(8deg)}}
 
-.welcome:before{
-content:"";
-position:absolute;
-inset:0;
-pointer-events:none;
-background-image:
-radial-gradient(2px 2px at 20px 30px,#fff,transparent),
-radial-gradient(2px 2px at 90px 80px,#60a5fa,transparent),
-radial-gradient(1px 1px at 150px 140px,#fff,transparent),
-radial-gradient(2px 2px at 220px 40px,#93c5fd,transparent);
-background-size:250px 180px;
-opacity:.55;
-animation:starsMove 18s linear infinite;
-}
-
-.welcome:after{
-content:"";
-position:absolute;
-width:600px;
-height:600px;
-border:1px solid #3b82f633;
-border-radius:50%;
-box-shadow:0 0 80px #2563eb22,inset 0 0 80px #2563eb18;
-pointer-events:none;
-animation:rotateGlow 22s linear infinite;
-}
-
-@keyframes starsMove{
-from{background-position:0 0}
-to{background-position:250px 180px}
-}
-@keyframes rotateGlow{
-from{transform:rotate(0deg) scale(.85)}
-to{transform:rotate(360deg) scale(1.1)}
-}
-@keyframes floatCoin{
-0%,100%{transform:translateY(0) rotate(-8deg)}
-50%{transform:translateY(-24px) rotate(8deg)}
-}
-@keyframes floatCoin2{
-0%,100%{transform:translateY(-8px) rotate(8deg)}
-50%{transform:translateY(22px) rotate(-8deg)}
-}
-@keyframes shimmer{
-0%{background-position:-200% center}
-100%{background-position:200% center}
-}
-@keyframes pulseGlow{
-0%,100%{box-shadow:0 0 12px #2563eb66,0 0 25px #2563eb22}
-50%{box-shadow:0 0 25px #60a5fa,0 0 55px #2563eb77}
-}
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(25px)}
-to{opacity:1;transform:translateY(0)}
-}
-@keyframes marquee{
-from{transform:translateX(0)}
-to{transform:translateX(-50%)}
-}
-
-.welcome-content{
-max-width:760px;
-position:relative;
-z-index:2;
-animation:fadeUp 1s ease both;
-}
-
-.floating-coin{
-position:absolute;
-z-index:1;
-width:105px;
-height:105px;
-object-fit:contain;
-filter:drop-shadow(0 0 20px #60a5fa88);
-animation:floatCoin 5s ease-in-out infinite;
-pointer-events:none;
-}
-.coin-left{left:8%;top:18%}
-.coin-right{right:9%;top:22%;animation:floatCoin2 6s ease-in-out infinite}
+/* WELCOME */
+.welcome{min-height:680px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;padding:75px 20px;background:radial-gradient(ellipse at 50% 15%,#24538b 0%,transparent 48%),radial-gradient(ellipse at 10% 90%,#123b70 0%,transparent 40%),linear-gradient(145deg,#081426,#102849 55%,#071326)}
+.welcome:before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(2px 2px at 20px 30px,#fff,transparent),radial-gradient(2px 2px at 90px 80px,#60a5fa,transparent),radial-gradient(1px 1px at 150px 140px,#fff,transparent),radial-gradient(2px 2px at 220px 40px,#93c5fd,transparent);background-size:250px 180px;opacity:.55;animation:starsMove 18s linear infinite}
+.welcome:after{content:"";position:absolute;width:600px;height:600px;border:1px solid #3b82f633;border-radius:50%;box-shadow:0 0 80px #2563eb22,inset 0 0 80px #2563eb18;pointer-events:none;animation:rotateGlow 22s linear infinite}
+.welcome-content{max-width:760px;position:relative;z-index:2;animation:fadeUp 1s ease both}
+.floating-coin{position:absolute;z-index:1;width:105px;height:105px;object-fit:contain;filter:drop-shadow(0 0 20px #60a5fa88);animation:floatCoin 5s ease-in-out infinite;pointer-events:none}
+.coin-left{left:8%;top:18%}.coin-right{right:9%;top:22%;animation:floatCoin2 6s ease-in-out infinite}
 .coin-bottom{left:17%;bottom:12%;width:75px;height:75px;animation:floatCoin2 7s ease-in-out infinite}
 .coin-bottom-right{right:16%;bottom:13%;width:75px;height:75px;animation:floatCoin 6s ease-in-out infinite}
-
-.tag{
-display:inline-block;
-padding:10px 19px;
-border:1px solid #60a5fa;
-border-radius:30px;
-color:#bfdbfe;
-background:#152744bb;
-font-size:12px;
-letter-spacing:2px;
-margin-bottom:24px;
-box-shadow:0 0 18px #2563eb44;
-}
-
-.welcome h1{
-font-size:clamp(38px,9vw,68px);
-font-weight:900;
-margin-bottom:18px;
-line-height:1.15;
-}
-.welcome h1 span{
-background:linear-gradient(90deg,#60a5fa,#fff,#38bdf8,#60a5fa);
-background-size:200% auto;
-color:transparent;
-background-clip:text;
--webkit-background-clip:text;
-animation:shimmer 4s linear infinite;
-filter:drop-shadow(0 0 15px #3b82f688);
-}
+.tag{display:inline-block;padding:10px 19px;border:1px solid #60a5fa;border-radius:30px;color:#bfdbfe;background:#152744bb;font-size:12px;letter-spacing:2px;margin-bottom:24px;box-shadow:0 0 18px #2563eb44}
+.welcome h1{font-size:clamp(38px,9vw,68px);font-weight:900;margin-bottom:18px;line-height:1.15}
+.welcome h1 span{background:linear-gradient(90deg,#60a5fa,#fff,#38bdf8,#60a5fa);background-size:200% auto;color:transparent;background-clip:text;-webkit-background-clip:text;animation:shimmer 4s linear infinite;filter:drop-shadow(0 0 15px #3b82f688)}
 .welcome p{color:#c5d4e9;font-size:17px;line-height:1.8;max-width:580px;margin:auto}
-
-.welcome-buttons{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:12px;
-margin-top:32px;
-}
-
-.explore,.welcome-secondary,.welcome-community{
-display:inline-flex;
-align-items:center;
-justify-content:center;
-gap:8px;
-padding:16px 25px;
-border-radius:12px;
-text-decoration:none;
-font-weight:900;
-font-size:14px;
-cursor:pointer;
-transition:.25s;
-}
-.explore{
-background:linear-gradient(135deg,#2563eb,#0ea5e9);
-color:white;
-border:1px solid #93c5fd;
-animation:pulseGlow 3s infinite;
-}
-.welcome-secondary{
-background:#172c49;
-color:#bfdbfe;
-border:1px solid #4673a9;
-}
-.welcome-community{
-background:#075e3b;
-color:white;
-border:1px solid #22c55e;
-}
-.explore:hover,.welcome-secondary:hover,.welcome-community:hover{
-transform:translateY(-5px) scale(1.03);
-filter:brightness(1.2);
-}
+.welcome-buttons{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:32px}
+.explore,.welcome-secondary,.welcome-community{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 25px;border-radius:12px;text-decoration:none;font-weight:900;font-size:14px;cursor:pointer;transition:.25s}
+.explore{background:linear-gradient(135deg,#2563eb,#0ea5e9);color:white;border:1px solid #93c5fd;animation:pulseGlow 3s infinite}
+.welcome-secondary{background:#172c49;color:#bfdbfe;border:1px solid #4673a9}
+.welcome-community{background:#075e3b;color:white;border:1px solid #22c55e}
+.explore:hover,.welcome-secondary:hover,.welcome-community:hover{transform:translateY(-5px) scale(1.03);filter:brightness(1.2)}
 .welcome-note{margin-top:24px;color:#9eb4d2;font-size:12px;letter-spacing:1px}
-
-.marquee-wrap{
-overflow:hidden;
-white-space:nowrap;
-background:#09182b;
-border-top:1px solid #29466f;
-border-bottom:1px solid #29466f;
-padding:13px 0;
-}
-.marquee-track{
-display:inline-flex;
-min-width:max-content;
-animation:marquee 25s linear infinite;
-}
-.marquee-track span{
-color:#93c5fd;
-font-size:12px;
-font-weight:900;
-letter-spacing:3px;
-padding:0 28px;
-}
-
-.welcome-features{
-max-width:650px;
-margin:35px auto 0;
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-}
-.feature-box{
-background:#102744bb;
-border:1px solid #34577e;
-border-radius:13px;
-padding:16px 8px;
-backdrop-filter:blur(8px);
-}
-.feature-icon{font-size:24px;margin-bottom:8px}
-.feature-title{font-size:12px;font-weight:900;color:#dbeafe}
+.marquee-wrap{overflow:hidden;white-space:nowrap;background:#09182b;border-top:1px solid #29466f;border-bottom:1px solid #29466f;padding:13px 0}
+.marquee-track{display:inline-flex;min-width:max-content;animation:marquee 25s linear infinite}
+.marquee-track span{color:#93c5fd;font-size:12px;font-weight:900;letter-spacing:3px;padding:0 28px}
+.welcome-features{max-width:650px;margin:35px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.feature-box{background:#102744bb;border:1px solid #34577e;border-radius:13px;padding:16px 8px;backdrop-filter:blur(8px)}
+.feature-icon{font-size:24px;margin-bottom:8px}.feature-title{font-size:12px;font-weight:900;color:#dbeafe}
 .feature-desc{font-size:10px;color:#91a9c8;margin-top:5px}
-
-.contact{
-padding:40px 6%;
-background:#101a30;
-border-top:1px solid #293955;
-scroll-margin-top:20px;
-}
-.contact h2{font-size:25px;margin-bottom:10px}
-.contact-sub{color:#9eacc0;margin-bottom:22px;line-height:1.6}
+.contact{padding:40px 6%;background:#101a30;border-top:1px solid #293955;scroll-margin-top:20px}
+.contact h2{font-size:25px;margin-bottom:10px}.contact-sub{color:#9eacc0;margin-bottom:22px;line-height:1.6}
 .admins{max-width:550px;margin:20px auto;display:grid;gap:13px}
-.admin{
-background:#0b1425;
-border:1px solid #293b55;
-border-radius:13px;
-padding:18px;
-transition:.25s;
-}
+.admin{background:#0b1425;border:1px solid #293b55;border-radius:13px;padding:18px;transition:.25s}
 .admin:hover{border-color:#60a5fa;transform:translateY(-3px);box-shadow:0 8px 25px #0004}
 .admin-name{font-weight:bold;font-size:16px;margin-bottom:8px}
 .admin-number{display:inline-block;color:#60a5fa;font-size:17px;font-weight:bold;text-decoration:none}
@@ -250,7 +70,7 @@ transition:.25s;
 .group-link:hover{background:#087c4d;transform:translateY(-3px)}
 .contact-note{text-align:center;color:#8293ac;font-size:12px;margin-top:18px}
 
-/* PRODUCT PAGE */
+/* PRODUCTS */
 .products{padding:35px 5% 65px;max-width:1050px;margin:auto}
 .products-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;margin-bottom:25px}
 .products-heading h2{font-size:27px;letter-spacing:1px}
@@ -270,11 +90,11 @@ transition:.25s;
 .admin-help-card p{font-size:13px;color:#bdcce0;line-height:1.6;margin-bottom:14px}
 .admin-help-button{width:100%;padding:15px;border:1px solid #60a5fa;border-radius:12px;background:#2563eb;color:white;font-size:15px;font-weight:900;cursor:pointer}
 
-/* FORMS */
+/* COMMON FORMS */
 .modal{display:none;position:fixed;inset:0;z-index:100;background:rgba(3,8,18,.88);overflow-y:auto;padding:12px}
 .modal.show{display:block}
 .form-card{max-width:760px;margin:10px auto;background:#2d3d54;border:1px solid #52647e;border-radius:24px;color:#e8edf6;box-shadow:0 20px 70px #0008;padding:28px;position:relative}
-.close-modal{position:absolute;right:18px;top:18px;border:2px solid #ffd34d;border-radius:10px;background:white;color:#2563eb;padding:9px 13px;font-size:15px;font-weight:bold;cursor:pointer}
+.close-modal{position:absolute;right:18px;top:18px;border:2px solid #ffd34d;border-radius:10px;background:white;color:#2563eb;padding:9px 13px;font-size:15px;font-weight:bold;cursor:pointer;z-index:3}
 .form-card h2{font-size:27px;margin:0 90px 25px 0}
 .field{margin-bottom:22px}
 .field label.field-label{display:block;color:#c2cede;font-size:15px;margin-bottom:10px}
@@ -285,8 +105,7 @@ transition:.25s;
 .option-content{flex:1;min-width:0}
 .option-name{font-weight:bold;font-size:17px;margin-bottom:7px}
 .option-meta{display:flex;flex-wrap:wrap;gap:10px;color:#c2cede;font-size:13px}
-.option-price{color:#4ade80;font-weight:bold}
-.min{color:#fb923c;font-weight:bold}
+.option-price{color:#4ade80;font-weight:bold}.min{color:#fb923c;font-weight:bold}
 .qty,.sell-qty{display:flex;align-items:center;gap:10px;margin-top:15px;justify-content:flex-end}
 .qty button,.sell-qty button{width:44px;height:42px;border:0;border-radius:10px;background:#3a4a61;color:#fff;font-size:24px;cursor:pointer}
 .qty input,.sell-qty input{width:80px!important;text-align:center;padding:10px!important;background:#1b2a40;border:1px solid #52647e;border-radius:9px;color:white;font-weight:bold;min-height:40px!important}
@@ -329,42 +148,73 @@ transition:.25s;
 .world-info p{color:#c2cede;line-height:1.7;font-size:14px}
 .world-owner{font-weight:bold;color:#facc15!important;margin-top:8px}
 .sell-page{display:none}.sell-page.active{display:block}
+
+/* ADMIN ASSIST PREMIUM */
+.assist-modal-card{background:linear-gradient(145deg,#101f35,#172b46);border:1px solid #477db8;overflow:hidden}
+.assist-modal-card:before{content:"";position:absolute;inset:-50%;background:repeating-linear-gradient(120deg,transparent 0 45px,#60a5fa09 46px 47px,transparent 48px 90px);animation:assistBg 15s linear infinite;pointer-events:none}
+.assist-header{position:relative;z-index:1;text-align:center;padding:24px 12px 20px;margin:-5px -5px 22px;border:1px solid #345d91;border-radius:18px;background:#0b1b32bb}
+.assist-logo{font-size:12px;color:#93c5fd;letter-spacing:4px;font-weight:900;margin-bottom:12px}
+.assist-header h2{margin:0 0 9px!important;font-size:clamp(23px,5vw,32px)!important;color:#fff;text-shadow:0 0 12px #3b82f6;animation:pulseGlow 3s infinite}
+.assist-header p{font-size:11px;letter-spacing:2px;color:#9db9dd}
+.assist-decoration{font-size:25px;margin:12px 0 0;letter-spacing:12px}
+.assist-progress{position:relative;z-index:1;display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:18px 0 25px}
+.assist-progress-item{text-align:center;min-width:0}
+.assist-progress-number{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;margin:auto;color:#9aabc1;background:#17263b;border:1px solid #52647e;font-weight:900;transition:.3s}
+.assist-progress-item.active .assist-progress-number,.assist-progress-item.done .assist-progress-number{color:white;background:linear-gradient(135deg,#2563eb,#0ea5e9);border-color:#93c5fd;box-shadow:0 0 16px #3b82f6aa}
+.assist-progress-label{font-size:9px;color:#9eb2ce;margin-top:7px;white-space:nowrap}
+.assist-progress-item.active .assist-progress-label{color:#93c5fd;font-weight:bold}
+.assist-page{position:relative;z-index:1;display:none}
+.assist-page.active{display:block;animation:assistEnter .45s ease both}
+.assist-section-title{font-size:19px;font-weight:900;color:#dbeafe;margin-bottom:7px}
+.assist-section-sub{font-size:12px;color:#9eb2ce;line-height:1.6;margin-bottom:20px}
 .assist-choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.assist-choice button{padding:17px;border:1px solid #52647e;border-radius:14px;background:#17263b;color:#fff;font-weight:bold;font-size:16px;cursor:pointer}
-.assist-choice button.active{border:2px solid #60a5fa;background:#254b78}
-.admin-choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.admin-choice label{display:flex;gap:9px;align-items:center;padding:16px;background:#17263b;border:1px solid #52647e;border-radius:13px;cursor:pointer}
-.admin-choice input{accent-color:#3b82f6;width:18px;height:18px}
+.assist-choice button{padding:17px;min-height:76px;border:1px solid #42638b;border-radius:14px;background:linear-gradient(145deg,#172e4e,#101d31);color:#fff;font-weight:bold;font-size:15px;cursor:pointer;transition:.3s}
+.assist-choice button.active{background:linear-gradient(135deg,#1d4ed8,#0879b9);border:1px solid #93c5fd;box-shadow:0 0 22px #2563eb88;transform:translateY(-3px)}
 .assist-note{padding:15px;background:#17263b;border:1px solid #405777;border-radius:13px;color:#c2cede;font-size:13px;line-height:1.6;margin:15px 0}
+.assist-admin-card{display:flex;align-items:center;gap:12px;width:100%;padding:15px;border-radius:16px;border:1px solid #405b7e;background:linear-gradient(135deg,#142944,#101b2e);cursor:pointer;transition:.3s;text-align:left;color:#fff;margin-bottom:12px}
+.assist-admin-card:has(input:checked){border:2px solid #3b82f6;background:linear-gradient(135deg,#173c68,#132b49);animation:adminPulse 2s infinite}
+.assist-admin-card input{accent-color:#3b82f6;width:19px;height:19px;flex-shrink:0}
+.assist-admin-avatar{width:45px;height:45px;border-radius:50%;display:grid;place-items:center;background:#203d63;border:1px solid #477bb5;font-size:21px;flex-shrink:0}
+.assist-admin-info{flex:1;min-width:0}
+.assist-admin-name{font-weight:900;font-size:15px;margin-bottom:5px}
+.assist-verified{color:#3b82f6;font-size:17px;vertical-align:middle;display:inline-block;animation:verifiedGlow 2s infinite}
+.assist-admin-brand{font-size:11px;color:#9eb5d5;letter-spacing:1px}
+.assist-admin-phone{font-size:11px;color:#60a5fa;margin-top:4px}
+.assist-review{background:linear-gradient(145deg,#101f35,#0b1729);border:1px solid #42638b;border-radius:17px;padding:18px;box-shadow:inset 0 0 25px #2563eb12}
+.assist-review-heading{color:#93c5fd;font-size:12px;letter-spacing:2px;font-weight:900;margin-bottom:16px}
+.assist-review-row{display:flex;justify-content:space-between;gap:12px;margin:12px 0;font-size:13px;color:#b9c9de}
+.assist-review-row strong{color:#fff;text-align:right;overflow-wrap:anywhere}
+.assist-review-total{border-top:1px solid #42638b;padding-top:17px;margin-top:17px}
+.assist-review-total strong:last-child{color:#4ade80;font-size:22px}
+.assist-next{margin-top:18px;background:linear-gradient(110deg,#2563eb,#0284c7,#2563eb);background-size:200% auto;animation:shimmer 4s linear infinite,buttonPulse 3s infinite}
+.assist-whatsapp{background:linear-gradient(135deg,#087c4d,#16a34a);border:1px solid #4ade80;animation:buttonPulse 2.5s infinite}
+.assist-back{margin-top:10px}
+.assist-step-note{text-align:center;color:#829fc2;font-size:10px;letter-spacing:2px;margin-top:17px}
 footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198;font-size:12px}
 
 @media(max-width:650px){
 .welcome{min-height:650px;padding:65px 17px}
 .floating-coin{width:65px;height:65px;opacity:.7}
-.coin-left{left:3%;top:10%}
-.coin-right{right:3%;top:12%}
+.coin-left{left:3%;top:10%}.coin-right{right:3%;top:12%}
 .coin-bottom{left:5%;bottom:7%;width:50px;height:50px}
 .coin-bottom-right{right:5%;bottom:7%;width:50px;height:50px}
-.welcome-features{gap:7px}
-.feature-box{padding:13px 5px}
-.feature-icon{font-size:20px}
-.feature-title{font-size:10px}
-.feature-desc{font-size:9px}
+.welcome-features{gap:7px}.feature-box{padding:13px 5px}
+.feature-icon{font-size:20px}.feature-title{font-size:10px}.feature-desc{font-size:9px}
 .welcome-buttons{gap:9px}
 .explore,.welcome-secondary,.welcome-community{font-size:12px;padding:14px 15px}
-.market-grid{gap:10px}
-.market-card{padding:12px}
-.coin-icon{width:53px;height:53px}
-.coin-name{font-size:13px}
-.coin-price{font-size:19px}
+.market-grid{gap:10px}.market-card{padding:12px}
+.coin-icon{width:53px;height:53px}.coin-name{font-size:13px}.coin-price{font-size:19px}
 .market-action{font-size:12px;padding:12px 5px}
-.form-card{padding:20px 14px}
-.form-card h2{font-size:22px}
+.form-card{padding:20px 14px}.form-card h2{font-size:22px}
+}
+@media(max-width:420px){
+.assist-progress-label{font-size:8px;letter-spacing:-.3px}
+.assist-progress-number{width:29px;height:29px}
+.assist-header{padding:20px 8px}
+.assist-admin-card{padding:12px}
 }
 @media(max-width:370px){
-.market-top{gap:7px}
-.coin-icon{width:45px;height:45px}
-.coin-price{font-size:17px}
+.market-top{gap:7px}.coin-icon{width:45px;height:45px}.coin-price{font-size:17px}
 }
 @media(prefers-reduced-motion:reduce){
 *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
@@ -384,7 +234,6 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
 
 <main class="page active" id="welcome">
   <section class="welcome">
-
     <img class="floating-coin coin-left" src="logo-bgl-black.png" alt="BGL">
     <img class="floating-coin coin-right" src="logo-black.png" alt="BLACK">
     <img class="floating-coin coin-bottom" src="logo-black.png" alt="BLACK">
@@ -392,37 +241,21 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
 
     <div class="welcome-content">
       <span class="tag">✦ WELCOME TO OUR MARKET ✦</span>
-
       <h1>WELCOME TO<br><span>BLACK MARKET</span></h1>
-
       <p>Your Trusted CPS Marketplace. Buy and Sell Your CPS Needs With Us!</p>
 
       <div class="welcome-buttons">
         <button class="explore" type="button" onclick="showProducts()">EXPLORE PRODUCT →</button>
-
         <button class="welcome-secondary" type="button" onclick="goToContact()">CONTACT ADMIN ↗</button>
-
         <a class="welcome-community" href="https://chat.whatsapp.com/H4iwa0q15pBK8P9tVpUkdV?s=cl&amp;p=i&amp;mlu=4&amp;ilr=4&amp;iam=2" target="_blank" rel="noopener">JOIN COMMUNITY ↗</a>
       </div>
 
       <div class="welcome-note">✦ TRUSTED CPS MARKETPLACE • FAST SERVICE • BEST DEAL ✦</div>
 
       <div class="welcome-features">
-        <div class="feature-box">
-          <div class="feature-icon">🛒</div>
-          <div class="feature-title">BUY CPS</div>
-          <div class="feature-desc">Easy Purchase</div>
-        </div>
-        <div class="feature-box">
-          <div class="feature-icon">💎</div>
-          <div class="feature-title">SELL CPS</div>
-          <div class="feature-desc">Best Price</div>
-        </div>
-        <div class="feature-box">
-          <div class="feature-icon">🤝</div>
-          <div class="feature-title">TRUSTED ADMIN</div>
-          <div class="feature-desc">Ready To Help</div>
-        </div>
+        <div class="feature-box"><div class="feature-icon">🛒</div><div class="feature-title">BUY CPS</div><div class="feature-desc">Easy Purchase</div></div>
+        <div class="feature-box"><div class="feature-icon">💎</div><div class="feature-title">SELL CPS</div><div class="feature-desc">Best Price</div></div>
+        <div class="feature-box"><div class="feature-icon">🤝</div><div class="feature-title">TRUSTED ADMIN</div><div class="feature-desc">Ready To Help</div></div>
       </div>
     </div>
   </section>
@@ -437,18 +270,10 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
   <section class="contact" id="contactSection">
     <h2>CONTACT BLACK MARKET</h2>
     <p class="contact-sub">Need help or want to make a transaction? Contact our admins directly through WhatsApp.</p>
-
     <div class="admins">
-      <div class="admin">
-        <div class="admin-name">ADMIN 1 — BOOPA</div>
-        <a class="admin-number" href="https://wa.me/6285864582161" target="_blank" rel="noopener">085864582161 ↗</a>
-      </div>
-      <div class="admin">
-        <div class="admin-name">ADMIN 2 — RADENSTORE</div>
-        <a class="admin-number" href="https://wa.me/6287735220343" target="_blank" rel="noopener">087735220343 ↗</a>
-      </div>
+      <div class="admin"><div class="admin-name">ADMIN 1 — BOOPA</div><a class="admin-number" href="https://wa.me/6285864582161" target="_blank" rel="noopener">085864582161 ↗</a></div>
+      <div class="admin"><div class="admin-name">ADMIN 2 — RADENSTORE</div><a class="admin-number" href="https://wa.me/6287735220343" target="_blank" rel="noopener">087735220343 ↗</a></div>
     </div>
-
     <a class="group-link" href="https://chat.whatsapp.com/H4iwa0q15pBK8P9tVpUkdV?s=cl&amp;p=i&amp;mlu=4&amp;ilr=4&amp;iam=2" target="_blank" rel="noopener">JOIN OUR WHATSAPP GROUP ↗</a>
     <div class="contact-note">Official Black Market Community</div>
   </section>
@@ -457,25 +282,16 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
 <main class="page" id="products">
   <section class="products">
     <button class="back" type="button" onclick="showWelcome()">← BACK TO HOME</button>
-    <div class="products-heading">
-      <h2>♧ CPS MARKETPLACE</h2>
-      <span class="total">BGL &amp; BLACK</span>
-    </div>
+    <div class="products-heading"><h2>♧ CPS MARKETPLACE</h2><span class="total">BGL &amp; BLACK</span></div>
 
     <div class="section-label">▰ PEMBELIAN CPS</div>
     <div class="market-grid">
       <article class="market-card">
-        <div class="market-top">
-          <img class="coin-icon" src="logo-bgl-black.png" alt="Blue Gem Lock">
-          <div><div class="coin-name">Blue Gem Lock</div><div class="coin-price">Rp1.100</div><div class="coin-unit">Per BGL</div></div>
-        </div>
+        <div class="market-top"><img class="coin-icon" src="logo-bgl-black.png" alt="Blue Gem Lock"><div><div class="coin-name">Blue Gem Lock</div><div class="coin-price">Rp1.100</div><div class="coin-unit">Per BGL</div></div></div>
         <button class="market-action" onclick="openPurchase('bgl')">Beli BGL →</button>
       </article>
       <article class="market-card">
-        <div class="market-top">
-          <img class="coin-icon" src="logo-black.png" alt="Black Gem Lock">
-          <div><div class="coin-name">Black Gem Lock</div><div class="coin-price">Rp108.000</div><div class="coin-unit">Per BLACK</div></div>
-        </div>
+        <div class="market-top"><img class="coin-icon" src="logo-black.png" alt="Black Gem Lock"><div><div class="coin-name">Black Gem Lock</div><div class="coin-price">Rp108.000</div><div class="coin-unit">Per BLACK</div></div></div>
         <button class="market-action" onclick="openPurchase('black')">Beli BLACK →</button>
       </article>
     </div>
@@ -483,17 +299,11 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
     <div class="section-label">▰ PENJUALAN CPS</div>
     <div class="market-grid">
       <article class="market-card">
-        <div class="market-top">
-          <img class="coin-icon" src="logo-bgl-black.png" alt="Blue Gem Lock">
-          <div><div class="coin-name">Blue Gem Lock</div><div class="coin-price">Rp900</div><div class="coin-unit">Per BGL</div></div>
-        </div>
+        <div class="market-top"><img class="coin-icon" src="logo-bgl-black.png" alt="Blue Gem Lock"><div><div class="coin-name">Blue Gem Lock</div><div class="coin-price">Rp900</div><div class="coin-unit">Per BGL</div></div></div>
         <button class="market-action" onclick="openSell('bgl')">Jual BGL →</button>
       </article>
       <article class="market-card">
-        <div class="market-top">
-          <img class="coin-icon" src="logo-black.png" alt="Black Gem Lock">
-          <div><div class="coin-name">Black Gem Lock</div><div class="coin-price">Rp95.000</div><div class="coin-unit">Per BLACK</div></div>
-        </div>
+        <div class="market-top"><img class="coin-icon" src="logo-black.png" alt="Black Gem Lock"><div><div class="coin-name">Black Gem Lock</div><div class="coin-price">Rp95.000</div><div class="coin-unit">Per BLACK</div></div></div>
         <button class="market-action" onclick="openSell('black')">Jual BLACK →</button>
       </article>
     </div>
@@ -506,7 +316,7 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
   </section>
 </main>
 
-<!-- FORM PEMBELIAN CPS -->
+<!-- FORM PEMBELIAN -->
 <div class="modal" id="purchaseModal">
   <div class="form-card">
     <button class="close-modal" onclick="closePurchase()">✕ Tutup</button>
@@ -519,11 +329,7 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
         <div class="option-content">
           <div class="option-name">CPS Blue Gem Lock</div>
           <div class="option-meta"><span class="option-price">Rp 1.100</span><span>Stok: Tak Terbatas</span><span class="min">Min. beli: 10</span></div>
-          <div class="qty" id="qty-bgl" style="display:none">
-            <button onclick="event.stopPropagation();changeQty('bgl',-1)">−</button>
-            <input id="number-bgl" type="number" min="10" value="10" onclick="event.stopPropagation()" oninput="setQty('bgl',this.value)">
-            <button onclick="event.stopPropagation();changeQty('bgl',1)">+</button>
-          </div>
+          <div class="qty" id="qty-bgl" style="display:none"><button onclick="event.stopPropagation();changeQty('bgl',-1)">−</button><input id="number-bgl" type="number" min="10" value="10" onclick="event.stopPropagation()" oninput="setQty('bgl',this.value)"><button onclick="event.stopPropagation();changeQty('bgl',1)">+</button></div>
         </div>
       </div>
       <div class="product-option" id="option-black" onclick="toggleProduct('black')">
@@ -531,11 +337,7 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
         <div class="option-content">
           <div class="option-name">CPS Black Gem Lock</div>
           <div class="option-meta"><span class="option-price">Rp 108.000</span><span>Stok: Tak Terbatas</span></div>
-          <div class="qty" id="qty-black" style="display:none">
-            <button onclick="event.stopPropagation();changeQty('black',-1)">−</button>
-            <input id="number-black" type="number" min="1" value="1" onclick="event.stopPropagation()" oninput="setQty('black',this.value)">
-            <button onclick="event.stopPropagation();changeQty('black',1)">+</button>
-          </div>
+          <div class="qty" id="qty-black" style="display:none"><button onclick="event.stopPropagation();changeQty('black',-1)">−</button><input id="number-black" type="number" min="1" value="1" onclick="event.stopPropagation()" oninput="setQty('black',this.value)"><button onclick="event.stopPropagation();changeQty('black',1)">+</button></div>
         </div>
       </div>
     </div>
@@ -558,18 +360,13 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
 
     <div class="field">
       <label class="field-label">Metode Pembayaran *</label>
-      <div class="qris">
-        <h3 style="margin-bottom:14px">QRIS</h3>
-        <img src="qris-black-market.JPG" alt="QRIS Black Market">
-        <div class="qris-note">Scan QRIS untuk melakukan pembayaran. Pastikan nominal sesuai total pembayaran.</div>
-      </div>
+      <div class="qris"><h3 style="margin-bottom:14px">QRIS</h3><img src="qris-black-market.JPG" alt="QRIS Black Market"><div class="qris-note">Scan QRIS untuk melakukan pembayaran. Pastikan nominal sesuai total pembayaran.</div></div>
     </div>
 
     <div class="field">
       <label class="field-label" for="paymentFiles">Bukti Pembayaran *</label>
       <label class="upload" for="paymentFiles">
-        <strong>Upload Bukti Pembayaran</strong>
-        <p>JPG, PNG, PDF, HEIC, WEBP - MAKS 10MB • MAKS 3 FILE</p>
+        <strong>Upload Bukti Pembayaran</strong><p>JPG, PNG, PDF, HEIC, WEBP - MAKS 10MB • MAKS 3 FILE</p>
         <input id="paymentFiles" type="file" accept=".jpg,.jpeg,.png,.pdf,.heic,.webp" multiple>
         <div class="file-list" id="fileList">Belum ada file dipilih</div>
       </label>
@@ -578,17 +375,13 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
   </div>
 </div>
 
-<!-- FORM PENJUALAN CPS -->
+<!-- FORM PENJUALAN -->
 <div class="modal" id="sellModal">
   <div class="form-card">
     <button class="close-modal" onclick="closeSell()">✕ Tutup</button>
     <h2>▣ Form Penjualan CPS</h2>
 
-    <div class="steps">
-      <div class="step active" id="sellStep1">1</div>
-      <div class="step-line"></div>
-      <div class="step" id="sellStep2">2</div>
-    </div>
+    <div class="steps"><div class="step active" id="sellStep1">1</div><div class="step-line"></div><div class="step" id="sellStep2">2</div></div>
 
     <div class="sell-page active" id="sellPage1">
       <div class="sell-limit">
@@ -606,11 +399,7 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
             <div class="sell-option-name">CPS Blue Gem Lock</div>
             <div class="sell-option-price">Harga jual: Rp 900 / BGL</div>
             <div class="sell-option-min">Minimum penjualan: 30 BGL</div>
-            <div class="sell-qty" id="sell-qty-bgl" style="display:none">
-              <button onclick="changeSellQty('bgl',-1)">−</button>
-              <input id="sell-number-bgl" type="number" min="30" value="30" oninput="setSellQty('bgl',this.value)">
-              <button onclick="changeSellQty('bgl',1)">+</button>
-            </div>
+            <div class="sell-qty" id="sell-qty-bgl" style="display:none"><button onclick="changeSellQty('bgl',-1)">−</button><input id="sell-number-bgl" type="number" min="30" value="30" oninput="setSellQty('bgl',this.value)"><button onclick="changeSellQty('bgl',1)">+</button></div>
           </div>
         </div>
 
@@ -620,11 +409,7 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
             <div class="sell-option-name">CPS Black Gem Lock</div>
             <div class="sell-option-price">Harga jual: Rp 95.000 / item</div>
             <div class="sell-option-min">Minimum penjualan: 1 item</div>
-            <div class="sell-qty" id="sell-qty-black" style="display:none">
-              <button onclick="changeSellQty('black',-1)">−</button>
-              <input id="sell-number-black" type="number" min="1" value="1" oninput="setSellQty('black',this.value)">
-              <button onclick="changeSellQty('black',1)">+</button>
-            </div>
+            <div class="sell-qty" id="sell-qty-black" style="display:none"><button onclick="changeSellQty('black',-1)">−</button><input id="sell-number-black" type="number" min="1" value="1" oninput="setSellQty('black',this.value)"><button onclick="changeSellQty('black',1)">+</button></div>
           </div>
         </div>
       </div>
@@ -651,16 +436,11 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
     </div>
 
     <div class="sell-page" id="sellPage2">
-      <div class="world-info">
-        <h3>BANGDRIAL</h3>
-        <p>Silahkan drop item Anda ke world di atas.</p>
-        <p class="world-owner">Owner: BOOOPA</p>
-      </div>
+      <div class="world-info"><h3>BANGDRIAL</h3><p>Silahkan drop item Anda ke world di atas.</p><p class="world-owner">Owner: BOOOPA</p></div>
       <div class="field">
         <label class="field-label" for="sellProof">Bukti Drop Item *</label>
         <label class="upload" for="sellProof">
-          <strong>Upload Bukti Anda</strong>
-          <p>JPG, PNG, PDF, HEIC, WEBP • Maks 10MB • Maks 3 file</p>
+          <strong>Upload Bukti Anda</strong><p>JPG, PNG, PDF, HEIC, WEBP • Maks 10MB • Maks 3 file</p>
           <input id="sellProof" type="file" accept=".jpg,.jpeg,.png,.pdf,.heic,.webp" multiple>
           <div class="file-list" id="sellFileList">Belum ada file dipilih</div>
         </label>
@@ -671,106 +451,101 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
   </div>
 </div>
 
-<!-- FORM BELI & JUAL DIBANTU ADMIN -->
+<!-- TRANSAKSI DIBANTU ADMIN: 5 LANGKAH -->
 <div class="modal" id="assistModal">
-  <div class="form-card">
+  <div class="form-card assist-modal-card">
     <button class="close-modal" onclick="closeAssist()">✕ Tutup</button>
-    <h2>🤝 Transaksi Dibantu Admin</h2>
 
-    <div class="steps">
-      <div class="step active" id="assistStep1">1</div>
-      <div class="step-line"></div>
-      <div class="step" id="assistStep2">2</div>
+    <div class="assist-header">
+      <div class="assist-logo">✦ BLACK MARKET ✦</div>
+      <h2>ADMIN TRANSACTION</h2>
+      <p>WELCOME TO ADMIN TRANSACTION</p>
+      <div class="assist-decoration">💎 ✦ ⚡ ✦ 💎</div>
     </div>
 
-    <div id="assistPage1">
-      <div class="field">
-        <label class="field-label">Pilih Jenis Transaksi *</label>
-        <div class="assist-choice">
-          <button type="button" id="assistBuyBtn" onclick="setAssistType('buy')">🛒 BELI CPS</button>
-          <button type="button" id="assistSellBtn" onclick="setAssistType('sell')">💰 JUAL CPS</button>
+    <div class="assist-progress">
+      <div class="assist-progress-item active" id="assistProgress1"><div class="assist-progress-number">1</div><div class="assist-progress-label">TRANSAKSI</div></div>
+      <div class="assist-progress-item" id="assistProgress2"><div class="assist-progress-number">2</div><div class="assist-progress-label">PRODUK</div></div>
+      <div class="assist-progress-item" id="assistProgress3"><div class="assist-progress-number">3</div><div class="assist-progress-label">METODE</div></div>
+      <div class="assist-progress-item" id="assistProgress4"><div class="assist-progress-number">4</div><div class="assist-progress-label">ADMIN</div></div>
+      <div class="assist-progress-item" id="assistProgress5"><div class="assist-progress-number">5</div><div class="assist-progress-label">RINGKASAN</div></div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="assist-page active" id="assistPage1">
+      <div class="assist-section-title">01. PILIH TRANSAKSI</div>
+      <div class="assist-section-sub">Tentukan jenis transaksi yang ingin kamu lakukan bersama admin BLACK MARKET.</div>
+
+      <div class="assist-choice">
+        <button type="button" id="assistBuyBtn" onclick="setAssistType('buy')">🛒<br><br>BELI CPS<small style="display:block;color:#b9d6ff;margin-top:7px">Pembelian BGL / BLACK</small></button>
+        <button type="button" id="assistSellBtn" onclick="setAssistType('sell')">💰<br><br>JUAL CPS<small style="display:block;color:#b9d6ff;margin-top:7px">Penjualan BGL / BLACK</small></button>
+      </div>
+      <div class="assist-note">✦ Pilih salah satu jenis transaksi untuk melanjutkan proses.</div>
+      <button class="next-button assist-next" onclick="nextAssistPage(2)">LANJUTKAN →</button>
+      <div class="assist-step-note">STEP 1 OF 5</div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="assist-page" id="assistPage2">
+      <div class="assist-section-title">02. PILIH PRODUK</div>
+      <div class="assist-section-sub">Pilih produk CPS dan tentukan jumlah yang ingin dibeli atau dijual.</div>
+
+      <div class="product-option" id="assistOptionBgl" onclick="toggleAssistProduct('bgl')">
+        <input type="checkbox" id="assistCheckBgl" onclick="event.stopPropagation();toggleAssistProduct('bgl')">
+        <div class="option-content">
+          <div class="option-name">💎 Blue Gem Lock (BGL)</div>
+          <div class="option-meta"><span id="assistBglPrice" class="option-price">Harga beli: Rp1.100</span><span id="assistBglMin" class="min">Min. 10</span></div>
+          <div class="qty" id="assistQtyBgl" style="display:none"><button type="button" onclick="event.stopPropagation();changeAssistQty('bgl',-1)">−</button><input id="assistNumberBgl" type="number" min="10" value="10" onclick="event.stopPropagation()" oninput="setAssistQty('bgl',this.value)"><button type="button" onclick="event.stopPropagation();changeAssistQty('bgl',1)">+</button></div>
         </div>
       </div>
 
-      <div class="field">
-        <label class="field-label">Pilih Produk *</label>
-        <div class="product-option" id="assistOptionBgl" onclick="toggleAssistProduct('bgl')">
-          <input type="checkbox" id="assistCheckBgl" onclick="event.stopPropagation();toggleAssistProduct('bgl')">
-          <div class="option-content">
-            <div class="option-name">Blue Gem Lock (BGL)</div>
-            <div class="option-meta"><span id="assistBglPrice" class="option-price">Harga beli: Rp1.100</span></div>
-            <div class="qty" id="assistQtyBgl" style="display:none">
-              <button type="button" onclick="event.stopPropagation();changeAssistQty('bgl',-1)">−</button>
-              <input id="assistNumberBgl" type="number" min="1" value="10" onclick="event.stopPropagation()" oninput="setAssistQty('bgl',this.value)">
-              <button type="button" onclick="event.stopPropagation();changeAssistQty('bgl',1)">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-option" id="assistOptionBlack" onclick="toggleAssistProduct('black')">
-          <input type="checkbox" id="assistCheckBlack" onclick="event.stopPropagation();toggleAssistProduct('black')">
-          <div class="option-content">
-            <div class="option-name">Black Gem Lock (BLACK)</div>
-            <div class="option-meta"><span id="assistBlackPrice" class="option-price">Harga beli: Rp108.000</span></div>
-            <div class="qty" id="assistQtyBlack" style="display:none">
-              <button type="button" onclick="event.stopPropagation();changeAssistQty('black',1)">−</button>
-              <input id="assistNumberBlack" type="number" min="1" value="1" onclick="event.stopPropagation()" oninput="setAssistQty('black',this.value)">
-              <button type="button" onclick="event.stopPropagation();changeAssistQty('black',1)">+</button>
-            </div>
-          </div>
+      <div class="product-option" id="assistOptionBlack" onclick="toggleAssistProduct('black')">
+        <input type="checkbox" id="assistCheckBlack" onclick="event.stopPropagation();toggleAssistProduct('black')">
+        <div class="option-content">
+          <div class="option-name">⚫ Black Gem Lock (BLACK)</div>
+          <div class="option-meta"><span id="assistBlackPrice" class="option-price">Harga beli: Rp108.000</span><span id="assistBlackMin" class="min">Min. 1</span></div>
+          <div class="qty" id="assistQtyBlack" style="display:none"><button type="button" onclick="event.stopPropagation();changeAssistQty('black',-1)">−</button><input id="assistNumberBlack" type="number" min="1" value="1" onclick="event.stopPropagation()" oninput="setAssistQty('black',this.value)"><button type="button" onclick="event.stopPropagation();changeAssistQty('black',1)">+</button></div>
         </div>
       </div>
 
       <div class="summary">
-        <h3>Ringkasan Transaksi</h3>
+        <h3>✦ Ringkasan Produk</h3>
         <div class="summary-row"><span>BGL</span><strong id="assistBglSummary">0 BGL</strong></div>
         <div class="summary-row"><span>BLACK</span><strong id="assistBlackSummary">0 BLACK</strong></div>
-        <div class="summary-row"><span>Harga BGL</span><strong id="assistBglTotal">Rp0</strong></div>
-        <div class="summary-row"><span>Harga BLACK</span><strong id="assistBlackTotal">Rp0</strong></div>
+        <div class="summary-row"><span>Subtotal BGL</span><strong id="assistBglTotal">Rp0</strong></div>
+        <div class="summary-row"><span>Subtotal BLACK</span><strong id="assistBlackTotal">Rp0</strong></div>
         <div class="summary-row summary-total"><strong id="assistTotalLabel">Total Pembayaran</strong><strong id="assistTotal">Rp0</strong></div>
       </div>
 
-      <div class="field">
-        <label class="field-label" for="assistName">Nama *</label>
-        <input id="assistName" placeholder="Nama kamu">
-      </div>
-      <div class="field">
-        <label class="field-label" for="assistWhatsapp">Nomor WhatsApp *</label>
-        <input id="assistWhatsapp" type="tel" placeholder="08xxxxxxxxxx">
-      </div>
-      <div class="field">
-        <label class="field-label" for="assistEmail">Email *</label>
-        <input id="assistEmail" type="email" placeholder="user@gmail.com">
-      </div>
-      <div class="field">
-        <label class="field-label" for="assistGrowid">Grow ID *</label>
-        <input id="assistGrowid" placeholder="Grow ID kamu">
-      </div>
-      <div class="field">
-        <label class="field-label" for="assistWorld">Target World / Keterangan *</label>
-        <input id="assistWorld" placeholder="Target world atau keterangan transaksi">
-      </div>
+      <div class="field"><label class="field-label" for="assistName">Nama *</label><input id="assistName" placeholder="Nama kamu"></div>
+      <div class="field"><label class="field-label" for="assistWhatsapp">Nomor WhatsApp *</label><input id="assistWhatsapp" type="tel" placeholder="08xxxxxxxxxx"></div>
+      <div class="field"><label class="field-label" for="assistEmail">Email *</label><input id="assistEmail" type="email" placeholder="user@gmail.com"></div>
+      <div class="field"><label class="field-label" for="assistGrowid">Grow ID *</label><input id="assistGrowid" placeholder="Grow ID kamu"></div>
+      <div class="field"><label class="field-label" for="assistWorld">Target World / Keterangan *</label><input id="assistWorld" placeholder="Target world atau keterangan transaksi"></div>
 
-      <div class="assist-note" id="assistInfo">
-        Pilih jenis transaksi dan produk yang ingin kamu beli atau jual. Admin akan membantu proses selanjutnya.
-      </div>
-      <button class="next-button" onclick="nextAssistPage()">LANJUTKAN →</button>
+      <button class="next-button assist-next" onclick="nextAssistPage(3)">LANJUTKAN →</button>
+      <button class="secondary-button assist-back" onclick="nextAssistPage(1)">← KEMBALI</button>
+      <div class="assist-step-note">STEP 2 OF 5</div>
     </div>
 
-    <div id="assistPage2" style="display:none">
+    <!-- STEP 3 -->
+    <div class="assist-page" id="assistPage3">
+      <div class="assist-section-title">03. METODE TRANSAKSI</div>
+      <div class="assist-section-sub">Lengkapi pembayaran atau pencairan sesuai jenis transaksi.</div>
+
       <div id="assistBuyDetails" style="display:none">
         <div class="field">
-          <label class="field-label">Metode Pembayaran</label>
+          <label class="field-label">METODE PEMBAYARAN</label>
           <div class="qris">
-            <h3 style="margin-bottom:14px">QRIS ALL PAY</h3>
+            <h3 style="margin-bottom:14px">✦ QRIS ALL PAY ✦</h3>
             <img src="qris-black-market.JPG" alt="QRIS Black Market">
-            <div class="qris-note">Silakan scan QRIS untuk pembayaran. Pastikan nominal sesuai ringkasan transaksi.</div>
+            <div class="qris-note">Scan QRIS untuk melakukan pembayaran. Pastikan nominal sesuai total pesanan.</div>
           </div>
         </div>
         <div class="field">
-          <label class="field-label" for="assistBuyProof">Upload Bukti Pembayaran *</label>
+          <label class="field-label" for="assistBuyProof">Bukti Pembayaran *</label>
           <label class="upload" for="assistBuyProof">
-            <strong>Upload Bukti Pembayaran</strong>
+            <strong>📤 Upload Bukti Pembayaran</strong>
             <p>JPG, PNG, PDF, HEIC, WEBP • Maks 10MB • Maks 3 file</p>
             <input id="assistBuyProof" type="file" accept=".jpg,.jpeg,.png,.pdf,.heic,.webp" multiple>
             <div class="file-list" id="assistBuyFileList">Belum ada file dipilih</div>
@@ -779,22 +554,18 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
       </div>
 
       <div id="assistSellDetails" style="display:none">
-        <div class="world-info">
-          <h3>BANGDRIAL</h3>
-          <p>Silakan drop item yang ingin dijual ke world di atas.</p>
-          <p class="world-owner">Owner: BOOOPA</p>
-        </div>
+        <div class="world-info"><h3>BANGDRIAL</h3><p>Silakan drop item yang ingin dijual ke world di atas.</p><p class="world-owner">Owner: BOOOPA</p></div>
         <div class="field">
-          <label class="field-label">Metode Pencairan Dana *</label>
+          <label class="field-label">METODE PENCAIRAN DANA *</label>
           <div class="assist-choice">
-            <button type="button" id="assistEwallet" onclick="setAssistPayout('Ewallet')">EWALLET</button>
-            <button type="button" id="assistBank" onclick="setAssistPayout('Bank')">BANK</button>
+            <button type="button" id="assistEwallet" onclick="setAssistPayout('Ewallet')">💳<br>EWALLET</button>
+            <button type="button" id="assistBank" onclick="setAssistPayout('Bank')">🏦<br>BANK</button>
           </div>
         </div>
         <div class="field">
-          <label class="field-label" for="assistSellProof">Upload Bukti Drop Item *</label>
+          <label class="field-label" for="assistSellProof">Bukti Drop Item *</label>
           <label class="upload" for="assistSellProof">
-            <strong>Upload Bukti Drop Item</strong>
+            <strong>📤 Upload Bukti Drop Item</strong>
             <p>JPG, PNG, PDF, HEIC, WEBP • Maks 10MB • Maks 3 file</p>
             <input id="assistSellProof" type="file" accept=".jpg,.jpeg,.png,.pdf,.heic,.webp" multiple>
             <div class="file-list" id="assistSellFileList">Belum ada file dipilih</div>
@@ -802,27 +573,78 @@ footer{text-align:center;padding:25px;border-top:1px solid #293955;color:#718198
         </div>
       </div>
 
-      <div class="field">
-        <label class="field-label">Pilih Admin yang Membantu *</label>
-        <div class="admin-choice">
-          <label><input type="radio" name="assistAdmin" value="BOOPA" checked> <span>ADMIN 1 — BOOPA</span></label>
-          <label><input type="radio" name="assistAdmin" value="RADENSTORE"> <span>ADMIN 2 — RADENSTORE</span></label>
-        </div>
-      </div>
-
-      <div class="assist-note">
-        Setelah menekan tombol kirim, WhatsApp admin pilihan kamu akan terbuka. Lampirkan bukti pembayaran atau bukti drop item langsung di chat WhatsApp.
-      </div>
-
-      <button class="finish-button" onclick="finishAssist()">KIRIM KE ADMIN VIA WHATSAPP</button>
-      <button class="secondary-button" onclick="backAssistPage()">← KEMBALI</button>
+      <div class="assist-note">Pastikan bukti transaksi jelas dan dapat dibaca oleh admin.</div>
+      <button class="next-button assist-next" onclick="nextAssistPage(4)">LANJUT PILIH ADMIN →</button>
+      <button class="secondary-button assist-back" onclick="nextAssistPage(2)">← KEMBALI</button>
+      <div class="assist-step-note">STEP 3 OF 5</div>
     </div>
+
+    <!-- STEP 4 -->
+    <div class="assist-page" id="assistPage4">
+      <div class="assist-section-title">04. PILIH ADMIN</div>
+      <div class="assist-section-sub">Pilih admin BLACK MARKET yang akan membantu proses transaksi kamu.</div>
+
+      <label class="assist-admin-card">
+        <input type="radio" name="assistAdmin" value="BOOPA" checked>
+        <div class="assist-admin-avatar">👑</div>
+        <div class="assist-admin-info">
+          <div class="assist-admin-name">BOOPA <span class="assist-verified">✔</span></div>
+          <div class="assist-admin-brand">BLACK MARKET</div>
+          <div class="assist-admin-phone">085864582161</div>
+        </div>
+        <div class="assist-admin-selected">ADMIN 1</div>
+      </label>
+
+      <label class="assist-admin-card">
+        <input type="radio" name="assistAdmin" value="RADENSTORE">
+        <div class="assist-admin-avatar">⚡</div>
+        <div class="assist-admin-info">
+          <div class="assist-admin-name">RADENSTORE <span class="assist-verified">✔</span></div>
+          <div class="assist-admin-brand">BLACK MARKET</div>
+          <div class="assist-admin-phone">087735220343</div>
+        </div>
+        <div class="assist-admin-selected">ADMIN 2</div>
+      </label>
+
+      <div class="assist-note">🔵 Pilih salah satu admin. Pesanan akan dikirim langsung ke WhatsApp admin yang kamu pilih. Centang biru di sini merupakan elemen desain identitas admin BLACK MARKET.</div>
+      <button class="next-button assist-next" onclick="nextAssistPage(5)">LIHAT RINGKASAN →</button>
+      <button class="secondary-button assist-back" onclick="nextAssistPage(3)">← KEMBALI</button>
+      <div class="assist-step-note">STEP 4 OF 5</div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="assist-page" id="assistPage5">
+      <div class="assist-section-title">05. PESANAN KAMU</div>
+      <div class="assist-section-sub">Periksa kembali semua detail sebelum mengirim pesanan ke admin.</div>
+
+      <div class="assist-review">
+        <div class="assist-review-heading">✦ ORDER SUMMARY — BLACK MARKET</div>
+        <div class="assist-review-row"><span>Jenis Transaksi</span><strong id="reviewType">-</strong></div>
+        <div class="assist-review-row"><span>Produk</span><strong id="reviewProducts">-</strong></div>
+        <div class="assist-review-row"><span>Nama</span><strong id="reviewName">-</strong></div>
+        <div class="assist-review-row"><span>WhatsApp</span><strong id="reviewWhatsapp">-</strong></div>
+        <div class="assist-review-row"><span>Email</span><strong id="reviewEmail">-</strong></div>
+        <div class="assist-review-row"><span>Grow ID</span><strong id="reviewGrowid">-</strong></div>
+        <div class="assist-review-row"><span>World / Keterangan</span><strong id="reviewWorld">-</strong></div>
+        <div class="assist-review-row"><span>Metode</span><strong id="reviewMethod">-</strong></div>
+        <div class="assist-review-row"><span>Admin</span><strong id="reviewAdmin">-</strong></div>
+        <div class="assist-review-row"><span>Bukti</span><strong id="reviewFiles">-</strong></div>
+        <div class="assist-review-row assist-review-total"><strong id="reviewTotalLabel">TOTAL PEMBAYARAN</strong><strong id="reviewTotal">Rp0</strong></div>
+      </div>
+
+      <div class="assist-note">⚠️ Setelah WhatsApp terbuka, jangan lupa lampirkan file bukti pembayaran atau bukti drop item yang sudah kamu pilih. File tidak dapat terkirim otomatis melalui WhatsApp dari halaman ini.</div>
+      <button class="finish-button assist-whatsapp" onclick="finishAssist()">🟢 KIRIM PESANAN KE ADMIN</button>
+      <button class="secondary-button assist-back" onclick="nextAssistPage(4)">← KEMBALI PILIH ADMIN</button>
+      <div class="assist-step-note">STEP 5 OF 5 • THANK YOU FOR TRUSTING US</div>
+    </div>
+
   </div>
 </div>
 
 <footer>© 2026 BLACK MARKET. ALL RIGHTS RESERVED.<br><br>Trusted CPS Marketplace.</footer>
 
 <script>
+/* NAVIGATION */
 function showProducts(){
   document.getElementById('welcome').classList.remove('active');
   document.getElementById('products').classList.add('active');
@@ -836,9 +658,7 @@ function showWelcome(){
 function goToContact(){
   document.getElementById('welcome').classList.add('active');
   document.getElementById('products').classList.remove('active');
-  setTimeout(()=>{
-    document.getElementById('contactSection').scrollIntoView({behavior:'smooth',block:'start'});
-  },50);
+  setTimeout(()=>document.getElementById('contactSection').scrollIntoView({behavior:'smooth',block:'start'}),50);
 }
 function openModal(id){
   document.getElementById(id).classList.add('show');
@@ -849,59 +669,14 @@ function closeModal(id){
   if(!document.querySelector('.modal.show'))document.body.classList.remove('modal-open');
 }
 
-const prices={bgl:1100,black:108000};
-const minimum={bgl:10,black:1};
-const quantities={bgl:10,black:1};
-const selected={bgl:false,black:false};
-
-function openPurchase(product){
-  Object.keys(selected).forEach(id=>{
-    selected[id]=false;
-    quantities[id]=minimum[id];
-    document.getElementById('check-'+id).checked=false;
-    document.getElementById('option-'+id).classList.remove('selected');
-    document.getElementById('qty-'+id).style.display='none';
-    document.getElementById('number-'+id).value=minimum[id];
-  });
-  if(product)toggleProduct(product,true);
-  openModal('purchaseModal');
-  updateTotal();
-}
-function closePurchase(){closeModal('purchaseModal')}
-function toggleProduct(id,force){
-  selected[id]=typeof force==='boolean'?force:!selected[id];
-  document.getElementById('check-'+id).checked=selected[id];
-  document.getElementById('option-'+id).classList.toggle('selected',selected[id]);
-  document.getElementById('qty-'+id).style.display=selected[id]?'flex':'none';
-  updateTotal();
-}
-function changeQty(id,delta){setQty(id,quantities[id]+delta)}
-function setQty(id,value){
-  let n=parseInt(value,10);
-  if(!Number.isFinite(n))return;
-  quantities[id]=Math.max(minimum[id],n);
-  document.getElementById('number-'+id).value=quantities[id];
-  updateTotal();
-}
-function updateTotal(){
-  let bgl=selected.bgl?quantities.bgl:0;
-  let black=selected.black?quantities.black:0;
-  let bglTotal=bgl*prices.bgl;
-  let blackTotal=black*prices.black;
-  document.getElementById('purchaseBglSummary').textContent=bgl+' BGL';
-  document.getElementById('purchaseBlackSummary').textContent=black+' BLACK';
-  document.getElementById('purchaseBglPrice').textContent='Rp'+bglTotal.toLocaleString('id-ID');
-  document.getElementById('purchaseBlackPrice').textContent='Rp'+blackTotal.toLocaleString('id-ID');
-  document.getElementById('totalAmount').textContent='Rp '+(bglTotal+blackTotal).toLocaleString('id-ID');
-}
-
+/* GENERAL */
+function formatRp(n){return 'Rp'+Number(n).toLocaleString('id-ID')}
 function validateFiles(files){
   if(files.length>3){alert('Maksimal 3 file.');return false}
   for(const file of files){
     if(file.size>10*1024*1024){alert('Ukuran setiap file maksimal 10MB.');return false}
     if(!/\.(jpg|jpeg|png|pdf|heic|webp)$/i.test(file.name)){
-      alert('Format file tidak didukung: '+file.name);
-      return false;
+      alert('Format file tidak didukung: '+file.name);return false;
     }
   }
   return true;
@@ -918,63 +693,98 @@ function showFiles(inputId,listId){
     ?files.map(f=>f.name+' ('+(f.size/1024/1024).toFixed(2)+' MB)').join(' • ')
     :'Belum ada file dipilih';
 }
-document.getElementById('paymentFiles').addEventListener('change',()=>showFiles('paymentFiles','fileList'));
-document.getElementById('sellProof').addEventListener('change',()=>showFiles('sellProof','sellFileList'));
+function validEmail(id){
+  const el=document.getElementById(id);
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim())){
+    el.focus();alert('Format email belum benar.');return false;
+  }
+  return true;
+}
 
+/* PURCHASE */
+const prices={bgl:1100,black:108000};
+const minimum={bgl:10,black:1};
+const quantities={bgl:10,black:1};
+const selected={bgl:false,black:false};
+
+function openPurchase(product){
+  Object.keys(selected).forEach(id=>{
+    selected[id]=false;quantities[id]=minimum[id];
+    document.getElementById('check-'+id).checked=false;
+    document.getElementById('option-'+id).classList.remove('selected');
+    document.getElementById('qty-'+id).style.display='none';
+    document.getElementById('number-'+id).value=minimum[id];
+  });
+  if(product)toggleProduct(product,true);
+  openModal('purchaseModal');updateTotal();
+}
+function closePurchase(){closeModal('purchaseModal')}
+function toggleProduct(id,force){
+  selected[id]=typeof force==='boolean'?force:!selected[id];
+  document.getElementById('check-'+id).checked=selected[id];
+  document.getElementById('option-'+id).classList.toggle('selected',selected[id]);
+  document.getElementById('qty-'+id).style.display=selected[id]?'flex':'none';
+  updateTotal();
+}
+function changeQty(id,delta){setQty(id,quantities[id]+delta)}
+function setQty(id,value){
+  let n=parseInt(value,10);if(!Number.isFinite(n))return;
+  quantities[id]=Math.max(minimum[id],n);
+  document.getElementById('number-'+id).value=quantities[id];updateTotal();
+}
+function updateTotal(){
+  let bgl=selected.bgl?quantities.bgl:0;
+  let black=selected.black?quantities.black:0;
+  let bt=bgl*prices.bgl,ct=black*prices.black;
+  document.getElementById('purchaseBglSummary').textContent=bgl+' BGL';
+  document.getElementById('purchaseBlackSummary').textContent=black+' BLACK';
+  document.getElementById('purchaseBglPrice').textContent=formatRp(bt);
+  document.getElementById('purchaseBlackPrice').textContent=formatRp(ct);
+  document.getElementById('totalAmount').textContent='Rp '+(bt+ct).toLocaleString('id-ID');
+}
 function submitOrder(){
   const items=[];
   Object.keys(prices).forEach(id=>{
-    if(selected[id]){
-      items.push((id==='bgl'?'CPS Blue Gem Lock':'CPS Black Gem Lock')+' x'+quantities[id]+' = Rp '+(prices[id]*quantities[id]).toLocaleString('id-ID'));
-    }
+    if(selected[id])items.push((id==='bgl'?'CPS Blue Gem Lock':'CPS Black Gem Lock')+' x'+quantities[id]+' = '+formatRp(prices[id]*quantities[id]));
   });
   if(!items.length)return alert('Pilih minimal satu produk.');
-
   for(const [id,label] of [['world','Target World'],['growid','Grow ID'],['whatsapp','WhatsApp'],['email','Email']]){
     const el=document.getElementById(id);
-    if(!el.value.trim()){
-      el.focus();
-      return alert('Mohon isi '+label+'.');
-    }
+    if(!el.value.trim()){el.focus();return alert('Mohon isi '+label+'.')}
   }
-  const email=document.getElementById('email').value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    document.getElementById('email').focus();
-    return alert('Format email belum benar.');
-  }
+  if(!validEmail('email'))return;
   const files=document.getElementById('paymentFiles').files;
   if(!files.length)return alert('Upload bukti pembayaran terlebih dahulu.');
   if(!validateFiles(Array.from(files)))return;
-
-  const total=Object.keys(prices).reduce((sum,id)=>sum+(selected[id]?prices[id]*quantities[id]:0),0);
+  const total=Object.keys(prices).reduce((s,id)=>s+(selected[id]?prices[id]*quantities[id]:0),0);
   const msg=`Halo Admin BLACK MARKET, saya ingin membuat pesanan.
 
 Produk:
 ${items.join('\n')}
 
-Total: Rp ${total.toLocaleString('id-ID')}
+Total: ${formatRp(total)}
 Metode: QRIS
 Target World: ${document.getElementById('world').value.trim()}
 Grow ID: ${document.getElementById('growid').value.trim()}
 Nama: ${document.getElementById('buyerName').value.trim()||'-'}
 WhatsApp: ${document.getElementById('whatsapp').value.trim()}
-Email: ${email}
+Email: ${document.getElementById('email').value.trim()}
 Kode promo: ${document.getElementById('promo').value.trim()||'-'}
 
-Bukti pembayaran: ${files.length} file. Akan saya lampirkan di chat.`;
+Bukti pembayaran: ${files.length} file. Akan saya lampirkan di chat WhatsApp.`;
   window.open('https://wa.me/6285864582161?text='+encodeURIComponent(msg),'_blank');
 }
+document.getElementById('paymentFiles').addEventListener('change',()=>showFiles('paymentFiles','fileList'));
 
+/* SELL */
 const sellPrices={bgl:900,black:95000};
 const sellMinimum={bgl:30,black:1};
 const sellQty={bgl:30,black:1};
 const sellSelected={bgl:false,black:false};
 
 function openSell(product){
-  resetSellForm();
-  if(product)toggleSellItem(product,true);
-  showSellPage(1);
-  openModal('sellModal');
+  resetSellForm();if(product)toggleSellItem(product,true);
+  showSellPage(1);openModal('sellModal');
 }
 function closeSell(){closeModal('sellModal')}
 function resetSellForm(){
@@ -986,10 +796,7 @@ function resetSellForm(){
     sellQty[id]=sellMinimum[id];
     document.getElementById('sell-number-'+id).value=sellQty[id];
   });
-  document.getElementById('sellName').value='';
-  document.getElementById('sellWhatsapp').value='';
-  document.getElementById('sellEmail').value='';
-  document.getElementById('sellProof').value='';
+  ['sellName','sellWhatsapp','sellEmail','sellProof'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('sellFileList').textContent='Belum ada file dipilih';
   updateSellTotal();
 }
@@ -1002,22 +809,19 @@ function toggleSellItem(id,force){
 }
 function changeSellQty(id,delta){setSellQty(id,sellQty[id]+delta)}
 function setSellQty(id,value){
-  let n=parseInt(value,10);
-  if(!Number.isFinite(n))return;
+  let n=parseInt(value,10);if(!Number.isFinite(n))return;
   sellQty[id]=Math.max(sellMinimum[id],n);
-  document.getElementById('sell-number-'+id).value=sellQty[id];
-  updateSellTotal();
+  document.getElementById('sell-number-'+id).value=sellQty[id];updateSellTotal();
 }
 function updateSellTotal(){
   let bgl=sellSelected.bgl?sellQty.bgl:0;
   let black=sellSelected.black?sellQty.black:0;
-  let bglTotal=bgl*sellPrices.bgl;
-  let blackTotal=black*sellPrices.black;
+  let bt=bgl*sellPrices.bgl,ct=black*sellPrices.black;
   document.getElementById('sellBglSummary').textContent=bgl+' BGL';
   document.getElementById('sellBlackSummary').textContent=black+' BLACK';
-  document.getElementById('sellBglPrice').textContent='Rp'+bglTotal.toLocaleString('id-ID');
-  document.getElementById('sellBlackPrice').textContent='Rp'+blackTotal.toLocaleString('id-ID');
-  document.getElementById('sellTotal').textContent='Rp '+(bglTotal+blackTotal).toLocaleString('id-ID');
+  document.getElementById('sellBglPrice').textContent=formatRp(bt);
+  document.getElementById('sellBlackPrice').textContent=formatRp(ct);
+  document.getElementById('sellTotal').textContent='Rp '+(bt+ct).toLocaleString('id-ID');
 }
 function showSellPage(page){
   document.getElementById('sellPage1').classList.toggle('active',page===1);
@@ -1028,41 +832,30 @@ function showSellPage(page){
 }
 function nextSellPage(){
   if(!Object.values(sellSelected).some(Boolean))return alert('Pilih minimal satu item yang ingin dijual.');
-  const wa=document.getElementById('sellWhatsapp');
-  const email=document.getElementById('sellEmail');
+  const wa=document.getElementById('sellWhatsapp'),email=document.getElementById('sellEmail');
   if(!wa.value.trim()){wa.focus();return alert('Mohon isi nomor WhatsApp.')}
   if(!email.value.trim()){email.focus();return alert('Mohon isi email.')}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){
-    email.focus();
-    return alert('Format email belum benar.');
-  }
+  if(!validEmail('sellEmail'))return;
   showSellPage(2);
 }
 function backSellPage(){showSellPage(1)}
 function finishSell(){
   const input=document.getElementById('sellProof');
-  if(!input.files.length){
-    input.focus();
-    return alert('Silakan upload bukti drop item terlebih dahulu.');
-  }
+  if(!input.files.length){input.focus();return alert('Silakan upload bukti drop item terlebih dahulu.')}
   if(!validateFiles(Array.from(input.files)))return;
-
   const items=[];
   Object.keys(sellPrices).forEach(id=>{
-    if(sellSelected[id]){
-      items.push((id==='bgl'?'CPS Blue Gem Lock':'CPS Black Gem Lock')+' x'+sellQty[id]+' = Rp '+(sellPrices[id]*sellQty[id]).toLocaleString('id-ID'));
-    }
+    if(sellSelected[id])items.push((id==='bgl'?'CPS Blue Gem Lock':'CPS Black Gem Lock')+' x'+sellQty[id]+' = '+formatRp(sellPrices[id]*sellQty[id]));
   });
   if(!items.length)return alert('Pilih minimal satu item.');
-
-  const total=Object.keys(sellPrices).reduce((sum,id)=>sum+(sellSelected[id]?sellPrices[id]*sellQty[id]:0),0);
+  const total=Object.keys(sellPrices).reduce((s,id)=>s+(sellSelected[id]?sellPrices[id]*sellQty[id]:0),0);
   const payout=document.querySelector('input[name="payout"]:checked');
   const msg=`Halo Admin BLACK MARKET, saya ingin melakukan penjualan CPS.
 
 Item:
 ${items.join('\n')}
 
-Estimasi pendapatan: Rp ${total.toLocaleString('id-ID')}
+Estimasi pendapatan: ${formatRp(total)}
 Nama: ${document.getElementById('sellName').value.trim()||'-'}
 WhatsApp: ${document.getElementById('sellWhatsapp').value.trim()}
 Email: ${document.getElementById('sellEmail').value.trim()}
@@ -1074,12 +867,13 @@ Owner: BOOOPA
 Bukti drop item: ${input.files.length} file. Akan saya lampirkan secara manual di chat WhatsApp.`;
   window.open('https://wa.me/6285864582161?text='+encodeURIComponent(msg),'_blank');
 }
+document.getElementById('sellProof').addEventListener('change',()=>showFiles('sellProof','sellFileList'));
 
-/* SISTEM FORM DIBANTU ADMIN */
+/* ASSIST TRANSACTION - 5 STEPS */
 let assistType='';
 let assistSelected={bgl:false,black:false};
 let assistQty={bgl:10,black:1};
-let assistPayout='Ewallet';
+let assistPayout='';
 
 const assistPrices={
   buy:{bgl:1100,black:108000},
@@ -1091,8 +885,7 @@ const assistMinimum={
 };
 
 function openAssist(){
-  resetAssist();
-  openModal('assistModal');
+  resetAssist();openModal('assistModal');
 }
 function closeAssist(){closeModal('assistModal')}
 
@@ -1100,47 +893,51 @@ function resetAssist(){
   assistType='';
   assistSelected={bgl:false,black:false};
   assistQty={bgl:10,black:1};
-  assistPayout='Ewallet';
+  assistPayout='';
 
   ['bgl','black'].forEach(id=>{
-    document.getElementById('assistCheck'+(id==='bgl'?'Bgl':'Black')).checked=false;
-    document.getElementById('assistOption'+(id==='bgl'?'Bgl':'Black')).classList.remove('selected');
-    document.getElementById('assistQty'+(id==='bgl'?'Bgl':'Black')).style.display='none';
-    document.getElementById('assistNumber'+(id==='bgl'?'Bgl':'Black')).value=assistQty[id];
+    const suffix=id==='bgl'?'Bgl':'Black';
+    document.getElementById('assistCheck'+suffix).checked=false;
+    document.getElementById('assistOption'+suffix).classList.remove('selected');
+    document.getElementById('assistQty'+suffix).style.display='none';
+    document.getElementById('assistNumber'+suffix).value=assistQty[id];
+    document.getElementById('assistNumber'+suffix).min=assistQty[id];
   });
 
-  ['assistName','assistWhatsapp','assistEmail','assistGrowid','assistWorld'].forEach(id=>{
-    document.getElementById(id).value='';
-  });
-
-  document.getElementById('assistBuyProof').value='';
-  document.getElementById('assistSellProof').value='';
+  ['assistName','assistWhatsapp','assistEmail','assistGrowid','assistWorld'].forEach(id=>document.getElementById(id).value='');
+  ['assistBuyProof','assistSellProof'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('assistBuyFileList').textContent='Belum ada file dipilih';
   document.getElementById('assistSellFileList').textContent='Belum ada file dipilih';
   document.getElementById('assistBuyBtn').classList.remove('active');
   document.getElementById('assistSellBtn').classList.remove('active');
-  document.getElementById('assistPage1').style.display='block';
-  document.getElementById('assistPage2').style.display='none';
-  document.getElementById('assistStep1').classList.add('active');
-  document.getElementById('assistStep2').classList.remove('active');
-  document.getElementById('assistBuyDetails').style.display='none';
-  document.getElementById('assistSellDetails').style.display='none';
-  document.getElementById('assistInfo').textContent='Pilih jenis transaksi dan produk yang ingin kamu beli atau jual. Admin akan membantu proses selanjutnya.';
+  document.getElementById('assistEwallet').classList.remove('active');
+  document.getElementById('assistBank').classList.remove('active');
+  document.querySelector('input[name="assistAdmin"][value="BOOPA"]').checked=true;
   updateAssistTotal();
+  goAssistStep(1);
 }
 
 function setAssistType(type){
+  if(assistType!==type){
+    assistSelected={bgl:false,black:false};
+    assistQty={bgl:assistMinimum[type].bgl,black:assistMinimum[type].black};
+    ['bgl','black'].forEach(id=>{
+      const suffix=id==='bgl'?'Bgl':'Black';
+      document.getElementById('assistCheck'+suffix).checked=false;
+      document.getElementById('assistOption'+suffix).classList.remove('selected');
+      document.getElementById('assistQty'+suffix).style.display='none';
+      document.getElementById('assistNumber'+suffix).value=assistQty[id];
+      document.getElementById('assistNumber'+suffix).min=assistMinimum[type][id];
+    });
+  }
   assistType=type;
   document.getElementById('assistBuyBtn').classList.toggle('active',type==='buy');
   document.getElementById('assistSellBtn').classList.toggle('active',type==='sell');
 
-  document.getElementById('assistBglPrice').textContent=(type==='buy'?'Harga beli: ':'Harga jual: ')+'Rp'+assistPrices[type].bgl.toLocaleString('id-ID');
-  document.getElementById('assistBlackPrice').textContent=(type==='buy'?'Harga beli: ':'Harga jual: ')+'Rp'+assistPrices[type].black.toLocaleString('id-ID');
-
-  document.getElementById('assistInfo').textContent=type==='buy'
-    ?'Kamu memilih pembelian CPS. Minimum pembelian BGL 10 dan BLACK 1.'
-    :'Kamu memilih penjualan CPS. Minimum penjualan BGL 30 dan BLACK 1.';
-
+  document.getElementById('assistBglPrice').textContent=(type==='buy'?'Harga beli: ':'Harga jual: ')+formatRp(assistPrices[type].bgl);
+  document.getElementById('assistBlackPrice').textContent=(type==='buy'?'Harga beli: ':'Harga jual: ')+formatRp(assistPrices[type].black);
+  document.getElementById('assistBglMin').textContent='Min. '+assistMinimum[type].bgl;
+  document.getElementById('assistBlackMin').textContent='Min. '+assistMinimum[type].black;
   updateAssistTotal();
 }
 
@@ -1151,84 +948,86 @@ function toggleAssistProduct(id){
   document.getElementById('assistCheck'+suffix).checked=assistSelected[id];
   document.getElementById('assistOption'+suffix).classList.toggle('selected',assistSelected[id]);
   document.getElementById('assistQty'+suffix).style.display=assistSelected[id]?'flex':'none';
-
-  assistQty[id]=assistMinimum[assistType][id];
-  document.getElementById('assistNumber'+suffix).value=assistQty[id];
-  document.getElementById('assistNumber'+suffix).min=assistMinimum[assistType][id];
+  if(assistSelected[id]){
+    assistQty[id]=assistMinimum[assistType][id];
+    document.getElementById('assistNumber'+suffix).value=assistQty[id];
+  }
   updateAssistTotal();
 }
-
-function changeAssistQty(id,delta){
-  setAssistQty(id,assistQty[id]+delta);
-}
+function changeAssistQty(id,delta){setAssistQty(id,assistQty[id]+delta)}
 function setAssistQty(id,value){
   if(!assistType)return;
-  let n=parseInt(value,10);
-  if(!Number.isFinite(n))return;
+  let n=parseInt(value,10);if(!Number.isFinite(n))return;
   assistQty[id]=Math.max(assistMinimum[assistType][id],n);
   document.getElementById('assistNumber'+(id==='bgl'?'Bgl':'Black')).value=assistQty[id];
   updateAssistTotal();
 }
-
 function updateAssistTotal(){
   const type=assistType||'buy';
   const bgl=assistSelected.bgl?assistQty.bgl:0;
   const black=assistSelected.black?assistQty.black:0;
-  const bglTotal=bgl*assistPrices[type].bgl;
-  const blackTotal=black*assistPrices[type].black;
-
+  const bt=bgl*assistPrices[type].bgl;
+  const ct=black*assistPrices[type].black;
   document.getElementById('assistBglSummary').textContent=bgl+' BGL';
   document.getElementById('assistBlackSummary').textContent=black+' BLACK';
-  document.getElementById('assistBglTotal').textContent='Rp'+bglTotal.toLocaleString('id-ID');
-  document.getElementById('assistBlackTotal').textContent='Rp'+blackTotal.toLocaleString('id-ID');
-
+  document.getElementById('assistBglTotal').textContent=formatRp(bt);
+  document.getElementById('assistBlackTotal').textContent=formatRp(ct);
   document.getElementById('assistTotalLabel').textContent=type==='buy'?'Total Pembayaran':'Estimasi Pendapatan';
-  document.getElementById('assistTotal').textContent='Rp'+(bglTotal+blackTotal).toLocaleString('id-ID');
+  document.getElementById('assistTotal').textContent=formatRp(bt+ct);
 }
 
-function nextAssistPage(){
-  if(!assistType)return alert('Silakan pilih Beli CPS atau Jual CPS.');
-  if(!Object.values(assistSelected).some(Boolean))return alert('Pilih minimal satu produk.');
+function goAssistStep(step){
+  for(let i=1;i<=5;i++){
+    document.getElementById('assistPage'+i).classList.toggle('active',i===step);
+    const progress=document.getElementById('assistProgress'+i);
+    progress.classList.toggle('active',i===step);
+    progress.classList.toggle('done',i<step);
+    progress.querySelector('.assist-progress-number').textContent=i<step?'✓':i;
+  }
+  document.getElementById('assistModal').scrollTop=0;
+}
 
-  const required=[
-    ['assistName','Nama'],
-    ['assistWhatsapp','Nomor WhatsApp'],
-    ['assistEmail','Email'],
-    ['assistGrowid','Grow ID'],
-    ['assistWorld','Target World / Keterangan']
-  ];
+function nextAssistPage(step){
+  if(step===2){
+    if(!assistType)return alert('Silakan pilih Beli CPS atau Jual CPS terlebih dahulu.');
+  }
 
-  for(const [id,label] of required){
-    const el=document.getElementById(id);
-    if(!el.value.trim()){
-      el.focus();
-      return alert('Mohon isi '+label+'.');
+  if(step===3){
+    if(!Object.values(assistSelected).some(Boolean))return alert('Pilih minimal satu produk.');
+    const required=[
+      ['assistName','Nama'],
+      ['assistWhatsapp','Nomor WhatsApp'],
+      ['assistEmail','Email'],
+      ['assistGrowid','Grow ID'],
+      ['assistWorld','Target World / Keterangan']
+    ];
+    for(const [id,label] of required){
+      const el=document.getElementById(id);
+      if(!el.value.trim()){el.focus();return alert('Mohon isi '+label+'.')}
+    }
+    if(!validEmail('assistEmail'))return;
+    updateAssistTotal();
+  }
+
+  if(step===4){
+    if(assistType==='buy'){
+      const files=document.getElementById('assistBuyProof').files;
+      if(!files.length)return alert('Upload bukti pembayaran terlebih dahulu.');
+      if(!validateFiles(Array.from(files)))return;
+    }else{
+      if(!assistPayout)return alert('Pilih metode pencairan dana terlebih dahulu.');
+      const files=document.getElementById('assistSellProof').files;
+      if(!files.length)return alert('Upload bukti drop item terlebih dahulu.');
+      if(!validateFiles(Array.from(files)))return;
     }
   }
 
-  const email=document.getElementById('assistEmail').value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    document.getElementById('assistEmail').focus();
-    return alert('Format email belum benar.');
+  if(step===5){
+    const admin=document.querySelector('input[name="assistAdmin"]:checked');
+    if(!admin)return alert('Pilih admin terlebih dahulu.');
+    buildAssistReview();
   }
-
-  document.getElementById('assistPage1').style.display='none';
-  document.getElementById('assistPage2').style.display='block';
-  document.getElementById('assistStep1').classList.remove('active');
-  document.getElementById('assistStep2').classList.add('active');
-
-  document.getElementById('assistBuyDetails').style.display=assistType==='buy'?'block':'none';
-  document.getElementById('assistSellDetails').style.display=assistType==='sell'?'block':'none';
-
-  document.getElementById('assistModal').scrollTop=0;
-}
-
-function backAssistPage(){
-  document.getElementById('assistPage1').style.display='block';
-  document.getElementById('assistPage2').style.display='none';
-  document.getElementById('assistStep1').classList.add('active');
-  document.getElementById('assistStep2').classList.remove('active');
-  document.getElementById('assistModal').scrollTop=0;
+  goAssistStep(step);
 }
 
 function setAssistPayout(type){
@@ -1237,29 +1036,51 @@ function setAssistPayout(type){
   document.getElementById('assistBank').classList.toggle('active',type==='Bank');
 }
 
+function buildAssistReview(){
+  const isBuy=assistType==='buy';
+  const items=[];
+  Object.keys(assistSelected).forEach(id=>{
+    if(assistSelected[id]){
+      const name=id==='bgl'?'Blue Gem Lock':'Black Gem Lock';
+      items.push(name+' × '+assistQty[id]);
+    }
+  });
+  const total=Object.keys(assistSelected).reduce((s,id)=>s+(assistSelected[id]?assistPrices[assistType][id]*assistQty[id]:0),0);
+  const admin=document.querySelector('input[name="assistAdmin"]:checked').value;
+  const files=document.getElementById(isBuy?'assistBuyProof':'assistSellProof').files;
+
+  document.getElementById('reviewType').textContent=isBuy?'PEMBELIAN CPS':'PENJUALAN CPS';
+  document.getElementById('reviewProducts').textContent=items.join(', ');
+  document.getElementById('reviewName').textContent=document.getElementById('assistName').value.trim();
+  document.getElementById('reviewWhatsapp').textContent=document.getElementById('assistWhatsapp').value.trim();
+  document.getElementById('reviewEmail').textContent=document.getElementById('assistEmail').value.trim();
+  document.getElementById('reviewGrowid').textContent=document.getElementById('assistGrowid').value.trim();
+  document.getElementById('reviewWorld').textContent=document.getElementById('assistWorld').value.trim();
+  document.getElementById('reviewMethod').textContent=isBuy?'QRIS ALL PAY':assistPayout;
+  document.getElementById('reviewAdmin').textContent=admin;
+  document.getElementById('reviewFiles').textContent=files.length+' file dipilih';
+  document.getElementById('reviewTotalLabel').textContent=isBuy?'TOTAL PEMBAYARAN':'ESTIMASI PENDAPATAN';
+  document.getElementById('reviewTotal').textContent=formatRp(total);
+}
+
 function finishAssist(){
   const isBuy=assistType==='buy';
   const proofInput=document.getElementById(isBuy?'assistBuyProof':'assistSellProof');
   const files=Array.from(proofInput.files);
 
-  if(!files.length){
-    proofInput.focus();
-    return alert(isBuy?'Upload bukti pembayaran terlebih dahulu.':'Upload bukti drop item terlebih dahulu.');
-  }
+  if(!files.length)return alert(isBuy?'Upload bukti pembayaran terlebih dahulu.':'Upload bukti drop item terlebih dahulu.');
   if(!validateFiles(files))return;
 
   const items=[];
   Object.keys(assistSelected).forEach(id=>{
     if(assistSelected[id]){
       const name=id==='bgl'?'Blue Gem Lock':'Black Gem Lock';
-      const qty=assistQty[id];
-      const price=assistPrices[assistType][id]*qty;
-      items.push(name+' x'+qty+' = Rp '+price.toLocaleString('id-ID'));
+      items.push(name+' x'+assistQty[id]+' = '+formatRp(assistPrices[assistType][id]*assistQty[id]));
     }
   });
 
-  const total=Object.keys(assistSelected).reduce((sum,id)=>{
-    return sum+(assistSelected[id]?assistPrices[assistType][id]*assistQty[id]:0);
+  const total=Object.keys(assistSelected).reduce((s,id)=>{
+    return s+(assistSelected[id]?assistPrices[assistType][id]*assistQty[id]:0);
   },0);
 
   const admin=document.querySelector('input[name="assistAdmin"]:checked').value;
@@ -1267,22 +1088,28 @@ function finishAssist(){
 
   const msg=`Halo Admin ${admin} BLACK MARKET, saya ingin melakukan transaksi dengan bantuan admin.
 
+PESANAN KAMU
+========================
 Jenis transaksi: ${isBuy?'PEMBELIAN CPS':'PENJUALAN CPS'}
 
 Produk:
 ${items.join('\n')}
 
-${isBuy?'Total pembayaran':'Estimasi pendapatan'}: Rp ${total.toLocaleString('id-ID')}
+${isBuy?'Total pembayaran':'Estimasi pendapatan'}: ${formatRp(total)}
 Nama: ${document.getElementById('assistName').value.trim()}
 WhatsApp: ${document.getElementById('assistWhatsapp').value.trim()}
 Email: ${document.getElementById('assistEmail').value.trim()}
 Grow ID: ${document.getElementById('assistGrowid').value.trim()}
 Target World / Keterangan: ${document.getElementById('assistWorld').value.trim()}
 
-${isBuy?'Metode pembayaran: QRIS ALL PAY':'Metode pencairan: '+assistPayout}
+Metode: ${isBuy?'QRIS ALL PAY':assistPayout}
+Admin pilihan: ${admin}
+
 ${isBuy?'Bukti pembayaran':'Bukti drop item'}: ${files.length} file. Akan saya lampirkan langsung di chat WhatsApp.
 
-Mohon bantu proses transaksi saya. Terima kasih.`;
+Mohon bantu proses transaksi saya. Terima kasih.
+========================
+BLACK MARKET — CPS MARKETPLACE`;
 
   window.open('https://wa.me/'+adminNumber+'?text='+encodeURIComponent(msg),'_blank');
 }
@@ -1290,20 +1117,19 @@ Mohon bantu proses transaksi saya. Terima kasih.`;
 document.getElementById('assistBuyProof').addEventListener('change',()=>showFiles('assistBuyProof','assistBuyFileList'));
 document.getElementById('assistSellProof').addEventListener('change',()=>showFiles('assistSellProof','assistSellFileList'));
 
+/* MODAL CLOSE */
 document.querySelectorAll('.modal').forEach(modal=>modal.addEventListener('click',e=>{
   if(e.target===modal){
     modal.classList.remove('show');
     if(!document.querySelector('.modal.show'))document.body.classList.remove('modal-open');
   }
 }));
-
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
     document.querySelectorAll('.modal.show').forEach(m=>m.classList.remove('show'));
     document.body.classList.remove('modal-open');
   }
 });
-
 document.querySelectorAll('input').forEach(input=>input.addEventListener('keydown',e=>{
   if(e.key==='Enter'&&input.type!=='checkbox'&&input.type!=='radio')e.preventDefault();
 }));
