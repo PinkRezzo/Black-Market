@@ -3,567 +3,511 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0e172b">
 <title>BLACK MARKET</title>
-<meta name="theme-color" content="#080d18">
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+ background:#0e172b;
+ color:#e5eaf3;
+ font-family:Arial,sans-serif;
+ min-height:100vh;
 }
-
-body {
-  background: #080d18;
-  color: #eef3ff;
-  font-family: Arial, sans-serif;
+header{
+ background:#101a30;
+ padding:22px 6%;
+ border-bottom:1px solid #293955;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
 }
-
-header {
-  background: #101a2d;
-  border-bottom: 1px solid #263750;
-  padding: 22px 6%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.brand{
+ color:#60a5fa;
+ font-size:23px;
+ font-weight:900;
+ letter-spacing:1px;
 }
-
-.brand {
-  font-size: 23px;
-  font-weight: 900;
-  color: #60a5fa;
-  letter-spacing: 1px;
+.header-tag{
+ color:#94a3b8;
+ font-size:11px;
+ letter-spacing:2px;
 }
-
-.menu {
-  color: #60a5fa;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-.announcement {
-  background: #091b34;
-  text-align: center;
-  padding: 13px;
-  color: #dce8ff;
-  font-size: 13px;
-  border-bottom: 1px solid #263750;
-}
-
-.announcement span {
-  color: #60a5fa;
-  font-weight: bold;
-}
-
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-}
+.page{display:none}
+.page.active{display:block}
 
 /* WELCOME */
-
-.welcome {
-  min-height: 65vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 65px 20px;
-  background:
-    radial-gradient(ellipse at center, #142b4c 0%, #080d18 70%);
+.welcome{
+ min-height:65vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ padding:65px 22px;
+ background:radial-gradient(ellipse at top,#19365c,#0e172b 70%);
 }
-
-.welcome-content {
-  max-width: 700px;
+.welcome-content{max-width:700px}
+.tag{
+ display:inline-block;
+ padding:9px 17px;
+ border:1px solid #345a9a;
+ border-radius:30px;
+ color:#60a5fa;
+ background:#152744;
+ font-size:12px;
+ letter-spacing:2px;
+ margin-bottom:22px;
 }
-
-.tag {
-  display: inline-block;
-  padding: 10px 18px;
-  border: 1px solid #315b8c;
-  border-radius: 30px;
-  color: #60a5fa;
-  background: #101d32;
-  font-size: 13px;
-  margin-bottom: 25px;
+.welcome h1{
+ font-size:clamp(38px,9vw,65px);
+ font-weight:900;
+ margin-bottom:15px;
 }
-
-.welcome h1 {
-  font-size: clamp(40px, 9vw, 65px);
-  margin-bottom: 18px;
-  font-weight: 900;
-  letter-spacing: 2px;
+.welcome h1 span{color:#60a5fa}
+.welcome p{
+ color:#b5c2d5;
+ font-size:17px;
+ line-height:1.7;
 }
-
-.welcome h1 span {
-  color: #60a5fa;
+.explore{
+ display:inline-block;
+ margin-top:30px;
+ padding:16px 34px;
+ background:#2563eb;
+ color:white;
+ border-radius:12px;
+ text-decoration:none;
+ font-weight:bold;
+ font-size:16px;
+ border:1px solid #60a5fa;
+ cursor:pointer;
 }
-
-.welcome p {
-  font-size: 17px;
-  color: #b5c2d5;
-  line-height: 1.8;
-}
-
-.explore {
-  display: inline-block;
-  margin-top: 30px;
-  background: #2563eb;
-  color: white;
-  border: none;
-  padding: 16px 35px;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.explore:active {
-  transform: scale(.97);
-}
-
-.welcome-note {
-  margin-top: 25px;
-  color: #8293ac;
-  font-size: 13px;
+.explore:active{transform:scale(.97)}
+.welcome-note{
+ margin-top:22px;
+ color:#8293ac;
+ font-size:12px;
 }
 
 /* CONTACT */
-
-.contact {
-  padding: 45px 6%;
-  background: #101a2d;
-  text-align: center;
-  border-top: 1px solid #263750;
+.contact{
+ padding:35px 6%;
+ background:#101a30;
+ border-top:1px solid #293955;
 }
-
-.contact h2 {
-  font-size: 25px;
-  margin-bottom: 10px;
+.contact h2{
+ font-size:25px;
+ margin-bottom:10px;
 }
-
-.contact-sub {
-  color: #9eacc0;
-  margin-bottom: 25px;
-  line-height: 1.6;
+.contact-sub{
+ color:#9eacc0;
+ margin-bottom:22px;
+ line-height:1.6;
 }
-
-.admins {
-  max-width: 550px;
-  margin: 20px auto;
-  display: grid;
-  gap: 13px;
+.admins{
+ max-width:550px;
+ margin:20px auto;
+ display:grid;
+ gap:13px;
 }
-
-.admin {
-  background: #0b1425;
-  border: 1px solid #293b55;
-  border-radius: 12px;
-  padding: 19px;
-  text-align: left;
+.admin{
+ background:#0b1425;
+ border:1px solid #293b55;
+ border-radius:13px;
+ padding:18px;
 }
-
-.admin-name {
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 9px;
+.admin-name{
+ font-weight:bold;
+ font-size:16px;
+ margin-bottom:8px;
 }
-
-.admin-number {
-  display: inline-block;
-  color: #60a5fa;
-  font-size: 16px;
-  text-decoration: none;
-  font-weight: bold;
+.admin-number{
+ display:inline-block;
+ color:#60a5fa;
+ font-size:17px;
+ font-weight:bold;
+ text-decoration:none;
 }
-
-.admin-number:hover {
-  text-decoration: underline;
+.admin-number:hover{text-decoration:underline}
+.group-link{
+ display:block;
+ max-width:550px;
+ margin:18px auto 0;
+ text-align:center;
+ padding:16px;
+ border-radius:12px;
+ background:#075e3b;
+ color:white;
+ text-decoration:none;
+ font-weight:bold;
 }
-
-.group {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 15px 25px;
-  background: #16a34a;
-  color: white;
-  text-decoration: none;
-  border-radius: 10px;
-  font-weight: bold;
+.contact-note{
+ text-align:center;
+ color:#8293ac;
+ font-size:12px;
+ margin-top:18px;
 }
 
 /* PRODUCTS */
-
-.products {
-  padding: 35px 5% 60px;
+.products{
+ padding:45px 5% 65px;
+ max-width:1050px;
+ margin:auto;
 }
-
-.product-heading {
-  margin-bottom: 30px;
+.products-heading{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ flex-wrap:wrap;
+ gap:15px;
+ margin-bottom:30px;
 }
-
-.product-heading h2 {
-  font-size: 25px;
-  margin-bottom: 9px;
+.products-heading h2{
+ font-size:28px;
+ letter-spacing:2px;
 }
-
-.product-heading p {
-  color: #9eacc0;
-  font-size: 14px;
+.total{
+ padding:10px 18px;
+ border:1px solid #394960;
+ background:#202d43;
+ border-radius:30px;
+ color:#aab7ca;
+ font-size:13px;
 }
-
-.back {
-  background: #202d43;
-  color: #dce8ff;
-  border: 1px solid #394960;
-  padding: 11px 18px;
-  border-radius: 8px;
-  margin-bottom: 25px;
-  cursor: pointer;
+.product-grid{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:20px;
 }
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 15px;
+.product{
+ background:#111c30;
+ border:1px solid #293955;
+ border-radius:22px;
+ padding:17px;
+ transition:.2s;
 }
-
-.product-card {
-  background: #101a2d;
-  border: 1px solid #293b55;
-  border-radius: 18px;
-  padding: 13px;
-  overflow: hidden;
+.product:hover{
+ border-color:#3b82f6;
+ transform:translateY(-3px);
 }
-
-.product-image {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  background: #050914;
-  border-radius: 13px;
-  overflow: hidden;
-  position: relative;
-  margin-bottom: 17px;
+.product-image{
+ width:100%;
+ aspect-ratio:1/1;
+ object-fit:contain;
+ background:#050b18;
+ border-radius:17px;
+ padding:15px;
+ margin-bottom:18px;
 }
-
-.product-image img {
-  position: absolute;
-  top: 0;
-  width: 200%;
-  height: 100%;
-  object-fit: fill;
-  max-width: none;
+.product-chip{
+ display:inline-block;
+ background:#202d43;
+ border:1px solid #394960;
+ color:#cbd5e1;
+ padding:6px 10px;
+ border-radius:8px;
+ font-size:11px;
+ margin-bottom:12px;
 }
-
-.product-image.bgl img {
-  left: 0;
+.product h3{
+ font-size:17px;
+ margin-bottom:18px;
 }
-
-.product-image.black img {
-  left: -100%;
+.price-box{
+ background:#0a1221;
+ border:1px solid #202d43;
+ border-radius:14px;
+ padding:15px;
+ margin-bottom:17px;
 }
-
-.product-label {
-  position: absolute;
-  top: 10px;
-  right: 8px;
-  background: #101a2d;
-  border: 1px solid #394960;
-  padding: 5px 8px;
-  border-radius: 6px;
-  font-size: 10px;
-  z-index: 2;
+.price-row{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:8px;
+ margin-bottom:15px;
 }
-
-.product-card h3 {
-  font-size: 16px;
-  margin-bottom: 15px;
+.price-row:last-child{margin-bottom:0}
+.price-label{
+ color:#8996aa;
+ font-size:13px;
 }
-
-.price-box {
-  background: #080f1e;
-  border: 1px solid #1d2a40;
-  border-radius: 12px;
-  padding: 13px;
-  margin-bottom: 15px;
+.buy-price{
+ color:#34d399;
+ font-size:20px;
+ font-weight:900;
 }
-
-.price-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 5px;
-  margin-bottom: 14px;
+.sell-price{
+ color:#facc15;
+ font-size:20px;
+ font-weight:900;
 }
-
-.price-row:last-child {
-  margin-bottom: 0;
+.unit{
+ color:#94a3b8;
+ font-size:11px;
+ text-align:right;
+ margin-top:4px;
 }
-
-.price-label {
-  color: #8491a7;
-  font-size: 12px;
+.actions{
+ display:flex;
+ gap:10px;
 }
-
-.price-value {
-  font-size: 17px;
-  font-weight: bold;
-  color: #22d982;
-  text-align: right;
+.actions a{
+ flex:1;
+ padding:13px 5px;
+ text-align:center;
+ text-decoration:none;
+ border-radius:12px;
+ font-weight:bold;
+ border:1px solid;
+ font-size:14px;
 }
-
-.price-value.sell {
-  color: #facc15;
+.buy-btn{
+ color:#60a5fa;
+ border-color:#2563eb!important;
+ background:#142342;
 }
-
-.buy-button {
-  display: block;
-  text-align: center;
-  width: 100%;
-  padding: 13px 5px;
-  border: 1px solid #2563eb;
-  border-radius: 10px;
-  color: #60a5fa;
-  background: #13213d;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 13px;
+.sell-btn{
+ color:#facc15;
+ border-color:#a87908!important;
+ background:#292416;
 }
-
-.buy-button:hover {
-  background: #1e3a66;
+.back{
+ display:inline-block;
+ padding:12px 18px;
+ background:#202d43;
+ color:#dbeafe;
+ border:1px solid #394960;
+ border-radius:10px;
+ cursor:pointer;
+ margin-bottom:25px;
 }
-
-footer {
-  background: #060b14;
-  border-top: 1px solid #263750;
-  padding: 25px;
-  text-align: center;
-  color: #8293ac;
-  font-size: 12px;
+footer{
+ text-align:center;
+ padding:25px;
+ border-top:1px solid #293955;
+ color:#718198;
+ font-size:12px;
 }
-
-@media(max-width: 380px) {
-  .product-grid {
-    grid-template-columns: 1fr;
-  }
+@media(max-width:650px){
+ .product-grid{grid-template-columns:1fr}
+ .products-heading h2{font-size:23px}
+ .product{max-width:430px;width:100%;margin:auto}
 }
 </style>
 </head>
 
 <body>
 
-<div class="announcement">
-  <span>WELCOME</span> TO BLACK MARKET!
-  <br>
-  Kebutuhan Cps Mu Semua Ada Disini!
-</div>
-
 <header>
+ <div>
   <div class="brand">BLACK MARKET</div>
-  <div class="menu">OFFICIAL STORE</div>
+  <div class="header-tag">CPS MARKETPLACE</div>
+ </div>
+ <div style="color:#60a5fa;font-size:12px;font-weight:bold">
+  TRUSTED MARKET
+ </div>
 </header>
 
-<!-- HALAMAN 1: WELCOME -->
+<!-- HALAMAN PERTAMA -->
+<main class="page active" id="welcome">
 
-<section id="welcome" class="page active">
+<section class="welcome">
+ <div class="welcome-content">
+  <span class="tag">WELCOME TO OUR MARKET</span>
 
-  <div class="welcome">
-    <div class="welcome-content">
+  <h1>WELCOME TO <span>BLACK MARKET</span></h1>
 
-      <div class="tag">✦ CPS MARKETPLACE ✦</div>
+  <p>
+   Your Trusted CPS Marketplace.
+   Buy and Sell Your CPS Needs With Us!
+  </p>
 
-      <h1>BLACK <span>MARKET</span></h1>
+  <button class="explore" onclick="showProducts()">
+   EXPLORE PRODUCT →
+  </button>
 
-      <p>
-        Kebutuhan Cps Mu Semua Ada Disini!
-        <br>
-        Temukan penawaran BGL dan Black
-        dengan harga terbaik.
-      </p>
-
-      <button class="explore" onclick="showProducts()">
-        EXPLORE PRODUCT →
-      </button>
-
-      <div class="welcome-note">
-        Trusted Marketplace • Fast Response • Safe Transaction
-      </div>
-
-    </div>
+  <div class="welcome-note">
+   Trusted CPS Marketplace • Fast Service • Best Deal
   </div>
-
-  <!-- CONTACT ADMIN -->
-
-  <div class="contact">
-
-    <h2>CONTACT BLACK MARKET</h2>
-
-    <p class="contact-sub">
-      Butuh bantuan, ingin membeli atau menjual?
-      <br>
-      Hubungi admin kami melalui WhatsApp.
-    </p>
-
-    <div class="admins">
-
-      <div class="admin">
-        <div class="admin-name">ADMIN 1 — BOOPA</div>
-
-        <a class="admin-number"
-           href="https://wa.me/6285864582161"
-           target="_blank">
-          085864582161 ↗
-        </a>
-      </div>
-
-      <div class="admin">
-        <div class="admin-name">ADMIN 2 — RADENSTORE</div>
-
-        <a class="admin-number"
-           href="https://wa.me/6287735220343"
-           target="_blank">
-          087735220343 ↗
-        </a>
-      </div>
-
-    </div>
-
-    <a class="group"
-       href="https://chat.whatsapp.com/H4iwa0q15pBK8P9tVpUkdV?s=cl&p=i&mlu=4&ilr=4&iam=2"
-       target="_blank">
-      JOIN WHATSAPP GROUP ↗
-    </a>
-
-  </div>
-
+ </div>
 </section>
 
-<!-- HALAMAN 2: PRODUCT -->
+<!-- CONTACT DI HALAMAN PERTAMA -->
+<section class="contact">
+ <h2>CONTACT BLACK MARKET</h2>
 
-<section id="products" class="page">
+ <p class="contact-sub">
+  Need help or want to make a transaction?
+  Contact our admins directly through WhatsApp.
+ </p>
 
-  <div class="products">
+ <div class="admins">
 
-    <button class="back" onclick="showWelcome()">
-      ← BACK TO HOME
-    </button>
-
-    <div class="product-heading">
-      <h2>♙ DAFTAR PRODUK</h2>
-      <p>Temukan produk CPS yang tersedia di Black Market.</p>
-    </div>
-
-    <div class="product-grid">
-
-      <!-- BGL -->
-
-      <div class="product-card">
-
-        <div class="product-image bgl">
-          <img src="logo-bgl-black.png" alt="Logo BGL">
-          <span class="product-label">BGL</span>
-        </div>
-
-        <h3>BGL</h3>
-
-        <div class="price-box">
-
-          <div class="price-row">
-            <span class="price-label">Harga Beli</span>
-            <span class="price-value">1.1K</span>
-          </div>
-
-          <div class="price-row">
-            <span class="price-label">Harga Jual</span>
-            <span class="price-value sell">900</span>
-          </div>
-
-        </div>
-
-        <a class="buy-button"
-           href="https://wa.me/6285864582161?text=Halo%20Boopa%2C%20saya%20ingin%20membeli%20BGL."
-           target="_blank">
-          BUY BGL →
-        </a>
-
-      </div>
-
-      <!-- BLACK -->
-
-      <div class="product-card">
-
-        <div class="product-image black">
-          <img src="logo-bgl-black.png" alt="Logo Black">
-          <span class="product-label">BLACK</span>
-        </div>
-
-        <h3>BLACK</h3>
-
-        <div class="price-box">
-
-          <div class="price-row">
-            <span class="price-label">Harga Beli</span>
-            <span class="price-value">108K</span>
-          </div>
-
-          <div class="price-row">
-            <span class="price-label">Harga Jual</span>
-            <span class="price-value sell">95K</span>
-          </div>
-
-        </div>
-
-        <a class="buy-button"
-           href="https://wa.me/6285864582161?text=Halo%20Boopa%2C%20saya%20ingin%20membeli%20Black."
-           target="_blank">
-          BUY BLACK →
-        </a>
-
-      </div>
-
-    </div>
-
+  <div class="admin">
+   <div class="admin-name">ADMIN 1 — BOOPA</div>
+   <a class="admin-number"
+      href="https://wa.me/6285864582161"
+      target="_blank">
+    085864582161 ↗
+   </a>
   </div>
 
-  <div class="contact">
-    <h2>NEED HELP?</h2>
-    <p class="contact-sub">
-      Hubungi admin untuk informasi stok dan harga terbaru.
-    </p>
+  <div class="admin">
+   <div class="admin-name">ADMIN 2 — RADENSTORE</div>
+   <a class="admin-number"
+      href="https://wa.me/6287735220343"
+      target="_blank">
+    087735220343 ↗
+   </a>
+  </div>
 
-    <a class="group"
-       href="https://wa.me/6285864582161"
-       target="_blank">
-      CONTACT ADMIN ↗
+ </div>
+
+ <a class="group-link"
+    href="https://chat.whatsapp.com/H4iwa0q15pBK8P9tVpUkdV?s=cl&p=i&mlu=4&ilr=4&iam=2"
+    target="_blank">
+  JOIN OUR WHATSAPP GROUP ↗
+ </a>
+
+ <div class="contact-note">
+  Official Black Market Community
+ </div>
+</section>
+
+</main>
+
+<!-- HALAMAN KEDUA -->
+<main class="page" id="products">
+
+<section class="products">
+
+ <button class="back" onclick="showWelcome()">
+  ← BACK TO HOME
+ </button>
+
+ <div class="products-heading">
+  <h2>♧ DAFTAR PRODUK</h2>
+  <span class="total">Total 2 Items</span>
+ </div>
+
+ <div class="product-grid">
+
+  <!-- BGL -->
+  <article class="product">
+
+   <span class="product-chip">CPSBGL</span>
+
+   <img
+    class="product-image"
+    src="logo-bgl-black.png"
+    alt="CPS Blue Gem Lock"
+   >
+
+   <h3>CPS Blue Gem Lock</h3>
+
+   <div class="price-box">
+
+    <div class="price-row">
+     <div class="price-label">Harga Beli</div>
+     <div style="text-align:right">
+      <div class="buy-price">1.1K</div>
+      <div class="unit">WL</div>
+     </div>
+    </div>
+
+    <div class="price-row">
+     <div class="price-label">Harga Jual</div>
+     <div style="text-align:right">
+      <div class="sell-price">900</div>
+      <div class="unit">WL</div>
+     </div>
+    </div>
+
+   </div>
+
+   <div class="actions">
+    <a class="buy-btn"
+       href="https://wa.me/6285864582161?text=Halo%20Boopa%2C%20saya%20ingin%20membeli%20CPS%20Blue%20Gem%20Lock">
+     BELI
     </a>
-  </div>
+
+    <a class="sell-btn"
+       href="https://wa.me/6285864582161?text=Halo%20Boopa%2C%20saya%20ingin%20menjual%20CPS%20Blue%20Gem%20Lock">
+     JUAL
+    </a>
+   </div>
+
+  </article>
+
+  <!-- BLACK -->
+  <article class="product">
+
+   <span class="product-chip">CPSBLACK</span>
+
+   <img
+    class="product-image"
+    src="logo-black.png"
+    alt="CPS Black Gem Lock"
+   >
+
+   <h3>CPS Black Gem Lock</h3>
+
+   <div class="price-box">
+
+    <div class="price-row">
+     <div class="price-label">Harga Beli</div>
+     <div style="text-align:right">
+      <div class="buy-price">108K</div>
+     </div>
+    </div>
+
+    <div class="price-row">
+     <div class="price-label">Harga Jual</div>
+     <div style="text-align:right">
+      <div class="sell-price">95K</div>
+     </div>
+    </div>
+
+   </div>
+
+   <div class="actions">
+    <a class="buy-btn"
+       href="https://wa.me/6285864582161?text=Halo%20Boopa%2C%20saya%20ingin%20membeli%20CPS%20Black%20Gem%20Lock">
+     BELI
+    </a>
+
+    <a class="sell-btn"
+       href="https://wa.me/6285864582161?text=Halo%20Boopa%2C%20saya%20ingin%20menjual%20CPS%20Black%20Gem%20Lock">
+     JUAL
+    </a>
+   </div>
+
+  </article>
+
+ </div>
 
 </section>
+</main>
 
 <footer>
-  © 2026 BLACK MARKET. ALL RIGHTS RESERVED.
-  <br><br>
-  Trusted CPS Marketplace.
+ © 2026 BLACK MARKET. ALL RIGHTS RESERVED.
+ <br><br>
+ Trusted CPS Marketplace.
 </footer>
 
 <script>
-
-function showProducts() {
-  document.getElementById("welcome").classList.remove("active");
-  document.getElementById("products").classList.add("active");
-  window.scrollTo(0, 0);
+function showProducts(){
+ document.getElementById("welcome").classList.remove("active");
+ document.getElementById("products").classList.add("active");
+ window.scrollTo(0,0);
 }
 
-function showWelcome() {
-  document.getElementById("products").classList.remove("active");
-  document.getElementById("welcome").classList.add("active");
-  window.scrollTo(0, 0);
+function showWelcome(){
+ document.getElementById("products").classList.remove("active");
+ document.getElementById("welcome").classList.add("active");
+ window.scrollTo(0,0);
 }
-
 </script>
 
 </body>
