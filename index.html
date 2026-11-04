@@ -828,7 +828,7 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:#
 
 const ADMIN_PASSWORD="nainggolan123";
 
-const DISCORD_WEBHOOK_URL="GANTI_DENGAN_WEBHOOK_DISCORD_BARU";
+const DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/1567365781015236668/oBL_SMmtYyKq31ZyWparS8cmMhbA-Q8M1t6KK9MQ_88VZoKl9ssmGVsDYUuK4Ia4oONW";
 
 const DEFAULT_PRICE={buy:{bgl:1100,black:108000},sell:{bgl:900,black:95000}};
 
@@ -1375,21 +1375,20 @@ function openAdmin(){
 }
 
 function adminLogin(){
-
  const password=$("adminPasswordInput").value;
 
- if(password!==nainggolan123)return toast("Password admin salah.");
+ if(password!==ADMIN_PASSWORD){
+  return toast("Password admin salah.");
+ }
 
  adminAuthenticated=true;
 
  $("adminLoginBox").classList.add("hidden");
-
  $("adminDashboard").classList.remove("hidden");
 
  renderAdmin();
 
  toast("Login admin berhasil.");
-
 }
 
 function adminLogout(){
