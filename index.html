@@ -1,1818 +1,1029 @@
-
-
 <!DOCTYPE html>
-
 <html lang="id">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta name="theme-color" content="#080d19">
-
 <title>BLACK MARKET | CPS Store</title>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <style>
-
 *{box-sizing:border-box;margin:0;padding:0}
-
 :root{--bg:#080d19;--panel:#101c30;--panel2:#14243c;--blue:#278cff;--cyan:#72c5ff;--text:#f5f8ff;--muted:#91a5c4;--border:rgba(91,157,255,.2);--green:#39d69b}
-
 body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
-
 button,input,select,textarea{font:inherit}
-
 button{cursor:pointer}
-
 .hidden{display:none!important}
-
 .container{width:min(1100px,92%);margin:auto}
-
 .page{display:none;min-height:75vh}
-
 .page.active{display:block;animation:fade .35s ease}
-
 @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-
 .card{background:linear-gradient(145deg,#12223a,#0c1728);border:1px solid var(--border);border-radius:18px}
-
 .btn{border:0;border-radius:11px;padding:13px 18px;font-weight:bold;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:.2s}
-
 .btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
-
 .primary{background:linear-gradient(110deg,#1269dc,#269cff);color:white;box-shadow:0 7px 22px #0877ff30}
-
 .secondary{background:#192d49;color:#d8eaff;border:1px solid var(--border)}
-
 .green{background:#159b67;color:white}
-
 .danger{background:#9c303b;color:white}
-
 .block{width:100%}
-
 header{height:70px;position:sticky;top:0;z-index:100;background:#080e1bed;backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-
 .nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
-
 .nav-left{display:flex;align-items:center;gap:13px}
-
 .menu-toggle{height:43px;width:43px;border:1px solid #34518b;border-radius:12px;background:#14264d;color:white;font-size:19px}
-
 .nav-brand{font-weight:900;letter-spacing:1px;font-size:14px}
-
 .cart-nav{height:42px;width:42px;border-radius:12px;background:#14264d;color:#8bcaff;border:1px solid #34518b;font-size:17px}
-
 .sidebar-overlay{position:fixed;inset:0;background:#0009;z-index:199;display:none}
-
 .sidebar-overlay.show{display:block}
-
 .sidebar{position:fixed;z-index:200;top:0;left:-290px;width:275px;height:100dvh;background:#101d35;border-right:1px solid #29477f;padding:22px 16px;transition:left .32s ease}
-
 .sidebar.open{left:0}
-
 .sidebar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:38px}
-
 .sidebar-close{width:36px;height:36px;background:#203963;border:1px solid #36578e;border-radius:10px;color:white}
-
 .sidebar-label{font-size:10px;letter-spacing:2px;color:#7895c2;font-weight:900;margin:0 10px 14px}
-
 .menu-item{display:flex;align-items:center;gap:14px;padding:15px;margin-bottom:8px;border-radius:12px;color:#c4d5ef;text-decoration:none;font-size:14px;font-weight:bold;transition:.2s}
-
 .menu-item i{width:22px;text-align:center;font-size:18px;color:#70b7ff}
-
 .menu-item.active,.menu-item:hover{background:#203f70;color:white;box-shadow:inset 3px 0 #62b8ff}
-
 .logo-animation{width:47px;height:47px;position:relative;flex-shrink:0}
-
 .logo-stage{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transform:scale(.25);pointer-events:none}
-
 .logo-stage.stage-b{opacity:1;transform:scale(1)}
-
 .logo-box{width:46px;height:46px;border-radius:13px;background:linear-gradient(140deg,#147bff,#4eb6ff);display:grid;place-items:center;color:#fff;font-size:32px;font-weight:1000;font-style:italic;box-shadow:0 0 22px #278cff55}
-
 .logo-round{width:42px;height:42px;border-radius:50%;background:linear-gradient(140deg,#147bff,#65caff);box-shadow:0 0 22px #278cff66}
-
 .logo-love{font-size:40px;color:#42a4ff;text-shadow:0 0 20px #278cff88}
-
 .logo-animation.play .stage-b{animation:stageB 26s infinite}
-
 .logo-animation.play .stage-round{animation:stageRound 26s infinite}
-
 .logo-animation.play .stage-love{animation:stageLove 26s infinite}
-
 @keyframes stageB{0%,5%,20%,23.08%,100%{opacity:1;transform:scale(1)}7%,10%,14%,18%,20.5%{opacity:0;transform:scale(.3)}}
-
 @keyframes stageRound{0%,9%,13%,100%{opacity:0;transform:scale(.2)}10%,12%{opacity:1;transform:scale(1.15)}13%{opacity:1;transform:scale(1)}}
-
 @keyframes stageLove{0%,13%,17%,100%{opacity:0;transform:scale(.2) rotate(-35deg)}14%,16%{opacity:1;transform:scale(1.15) rotate(8deg)}17%{opacity:1;transform:scale(1) rotate(0)}}
-
 .hero{min-height:calc(100vh - 70px);display:flex;align-items:center;text-align:center;padding:55px 0}
-
 .hero-content{width:100%}
-
 .pill{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;background:#112b4b;border:1px solid var(--border);border-radius:30px;color:#91ccff;font-size:10px;letter-spacing:1px}
-
 .dot{width:7px;height:7px;border-radius:50%;background:#40e1a0;box-shadow:0 0 10px #40e1a0}
-
 .hero h1{font-size:clamp(40px,9vw,78px);font-weight:1000;letter-spacing:-3px;margin:24px 0 15px;background:linear-gradient(110deg,#fff,#65baff,#fff);background-size:200%;color:transparent;background-clip:text;animation:shine 5s linear infinite}
-
 @keyframes shine{to{background-position:200%}}
-
 .hero p{max-width:540px;margin:0 auto 24px;color:var(--muted);font-size:13px;line-height:1.8}
-
 .hero-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-
 .hero-logos{display:flex;justify-content:center;gap:35px;margin-top:40px}
-
 .hero-logos img{width:75px;height:75px;object-fit:contain;filter:drop-shadow(0 0 13px #278cff66);animation:float 3s ease-in-out infinite}
-
 .hero-logos img:nth-child(2){animation-delay:1s}
-
 @keyframes float{50%{transform:translateY(-10px)}}
-
 .realtime-wrap{width:min(790px,100%);margin:24px auto 0;min-height:66px;padding:10px 16px;display:flex;align-items:center;gap:14px;overflow:hidden;border:1px solid rgba(65,157,255,.35);border-radius:18px;background:#071327}
-
 .realtime-label{flex-shrink:0;display:flex;align-items:center;gap:9px;padding:11px 14px;border-radius:30px;background:#082b45;border:1px solid #0875a8;color:#39d5ff;font-size:12px;font-weight:900;white-space:nowrap}
-
 .realtime-dot{width:9px;height:9px;border-radius:50%;background:#38d9ff}
-
 .realtime-window{flex:1;min-width:0;overflow:hidden;position:relative;height:32px;display:flex;align-items:center}
-
 .realtime-text{position:absolute;white-space:nowrap;font-size:14px;color:#c8d9ef;animation:transactionSlide 9s linear forwards}
-
 .realtime-text strong{color:#ffd84d;font-size:16px;margin:0 5px}
-
 @keyframes transactionSlide{0%{transform:translateX(110%);opacity:0}8%{opacity:1}85%{opacity:1}100%{transform:translateX(-120%);opacity:0}}
-
 section{padding:48px 0;scroll-margin-top:85px}
-
 .section-head{text-align:center;margin-bottom:28px}
-
 .eyebrow{font-size:10px;color:#70bdff;letter-spacing:3px;font-weight:900;margin-bottom:10px}
-
 .section-title{font-size:clamp(26px,5vw,38px);font-weight:1000}
-
 .section-desc{color:var(--muted);font-size:12px;line-height:1.7;margin-top:9px}
-
 .market-label{display:flex;align-items:center;gap:10px;margin:25px 0 15px;font-size:11px;font-weight:900;letter-spacing:1.5px;color:#c7dcf7}
-
 .market-label:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,#278cff66,transparent)}
-
 .market-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-
 .product-card{padding:19px;transition:.25s}
-
 .product-card:hover{transform:translateY(-4px);border-color:#278cff88}
-
 .product-top{display:flex;justify-content:space-between;align-items:center}
-
 .product-logo{width:65px;height:65px;object-fit:contain}
-
 .product-tag{font-size:9px;background:#12345a;color:#8bcaff;padding:7px 9px;border-radius:20px}
-
 .product-tag.sell{background:#10372d;color:#72e6b8}
-
 .product-card h3{font-size:15px;margin:12px 0 7px}
-
 .price{font-size:22px;font-weight:900;color:#76c3ff}
-
 .price small{font-size:10px;color:#8da5c4;font-weight:normal}
-
 .product-action{width:100%;padding:11px;border:1px solid #278cff66;background:#102e50;color:#bfe3ff;border-radius:10px;margin-top:14px;font-weight:bold}
-
 .product-action.sell{background:#10362d;color:#83ebc3;border-color:#36c99555}
-
 .guide{padding:22px}
-
 .step{display:flex;gap:14px;margin:19px 0}
-
 .step-icon{height:43px;width:43px;flex-shrink:0;border-radius:13px;background:#173457;color:#78c4ff;display:grid;place-items:center;font-size:18px}
-
 .step h4{font-size:12px;margin:4px 0 6px}
-
 .step p{font-size:11px;color:var(--muted);line-height:1.7}
-
 .assist-launch{width:100%;display:flex;align-items:center;gap:15px;text-align:left;padding:17px;background:#159b60;color:white;border:0;border-radius:18px}
-
 .assist-launch .wa{width:52px;height:52px;background:white;color:#13965c;border-radius:16px;display:grid;place-items:center;font-size:29px}
-
 .assist-launch strong{font-size:19px}.assist-launch small{display:block;margin-top:5px;font-size:11px}
-
 .assisted-panel{display:none;margin-top:18px}.assisted-panel.open{display:block}
-
 .assisted{padding:20px}
-
 .progress{display:flex;justify-content:space-between;margin:20px 0}
-
 .progress span{width:28px;height:28px;border-radius:50%;background:#1a2d48;color:#9cb5d4;display:grid;place-items:center;font-size:11px}
-
 .progress span.active{background:#278cff;color:white}
-
 .wizard-page{display:none}.wizard-page.active{display:block}
-
 .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-
 .choice{padding:15px 8px;background:#102039;border:1px solid var(--border);color:white;border-radius:12px}
-
 .choice.selected{border-color:#278cff;background:#173a61}
-
 .choice i{display:block;font-size:21px;color:#7bc4ff;margin-bottom:9px}
-
 .choice strong{font-size:12px}.choice small{display:block;color:#91a5c4;margin-top:5px;font-size:10px}
-
 .field{margin:14px 0}
-
 .field label{display:block;color:#b7cbe5;font-size:11px;margin-bottom:7px}
-
 .field input,.field select,.field textarea{width:100%;padding:13px;background:#091525;border:1px solid #29415f;border-radius:10px;color:white;outline:none;font-size:12px}
-
 .field textarea{min-height:85px;resize:vertical}
-
 .field input:focus,.field select:focus,.field textarea:focus{border-color:#278cff}
-
 .field input::placeholder,.field textarea::placeholder{color:#607793}
-
 .wizard-actions{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
-
 .admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-
 .admin-card{padding:15px;text-align:left;border:1px solid var(--border);background:#102039;color:white;border-radius:12px}
-
 .admin-card.selected{border-color:#278cff;background:#173a61}
-
 .admin-card strong{display:block;font-size:13px}.admin-card small{color:#91a5c4;font-size:10px}
-
 .line{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #ffffff12;color:#9eb3ce;font-size:11px;gap:12px}
-
 .line strong{color:white;text-align:right}
-
 .total{display:flex;justify-content:space-between;align-items:center;padding:15px 0;font-weight:900}
-
 .total strong{font-size:22px;color:#7cc6ff}
-
 .checkout-wrap{width:min(1000px,92%);margin:auto;padding:27px 0 60px}
-
 .checkout-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-
 .checkout-back{padding:10px 13px;border-radius:10px;border:1px solid var(--border);background:#12233b;color:#cde3ff;font-size:11px}
-
 .checkout-brand{display:flex;align-items:center;gap:12px;margin-bottom:25px}
-
 .checkout-heading{margin-bottom:22px}
-
 .checkout-heading h1{font-size:clamp(27px,5vw,38px);margin:8px 0}
-
 .checkout-heading p{font-size:12px;color:var(--muted);line-height:1.7}
-
 .checkout-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,.7fr);gap:16px;align-items:start}
-
 .checkout-panel{padding:20px;margin-bottom:14px}
-
 .checkout-panel h3{font-size:15px;margin-bottom:6px}
-
 .muted{color:var(--muted);font-size:10px;line-height:1.7;margin-bottom:14px}
-
 .checkout-products{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-
 .checkout-product{position:relative;text-align:left;padding:13px;border-radius:13px;border:1px solid #29415f;background:#0d1b30;color:white}
-
 .checkout-product.selected{border-color:#278cff;background:#123255}
-
 .checkout-product img{width:51px;height:51px;object-fit:contain;display:block;margin-bottom:9px}
-
 .checkout-product strong{font-size:12px;display:block}
-
 .checkout-product small{font-size:9px;color:#91a5c4;display:block;margin-top:5px}
-
 .checkout-product .cp-price{font-size:17px;color:#7bc6ff;font-weight:900;margin-top:9px;display:block}
-
 .checkmark{position:absolute;right:10px;top:10px;color:transparent}
-
 .checkout-product.selected .checkmark{color:#60b9ff}
-
 .qty-row{display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:11px;color:#b9cde6}
-
 .qty-control{display:flex;gap:7px;align-items:center}
-
 .qty-control button{width:30px;height:30px;background:#173454;color:#8dcaff;border:1px solid #315778;border-radius:8px}
-
 .qty-control input{width:55px;text-align:center;padding:7px;background:#091525;border:1px solid #315778;color:white;border-radius:8px}
-
 .checkout-fields{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
-
 .wide{grid-column:1/-1}
-
 .small-note{font-size:9px;color:#7188a6;line-height:1.6;display:block;margin-top:6px}
-
 .note{background:#102947;border:1px solid #268cff35;padding:11px;border-radius:10px;color:#a9c6e7;font-size:10px;line-height:1.7;margin:12px 0}
-
 .checkout-summary{position:sticky;top:85px}
-
 .checkout-submit{width:100%;margin-top:16px}
-
 .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}
-
 .trust div{text-align:center;background:#0b172a;border:1px solid var(--border);border-radius:10px;padding:10px 4px;font-size:9px;color:#b8cbe4}
-
 .trust i{display:block;font-size:17px;color:#72baff;margin-bottom:6px}
-
 .checkout-step{display:none}.checkout-step.active{display:block}
-
 .pay-card{padding:19px;border-radius:17px;background:linear-gradient(145deg,#12223a,#0c1728);border:1px solid var(--border);margin:14px 0}
-
 .pay-card h2{font-size:20px;margin-bottom:10px}
-
 .pay-method{border:1px solid #278cff;border-radius:14px;padding:14px;background:#10233d}
-
 .pay-method-head{display:flex;align-items:center;gap:12px;font-weight:bold}
-
 .pay-method-head img{width:55px;height:42px;object-fit:contain;background:white;border-radius:8px;padding:4px}
-
 .pay-exact{display:flex;align-items:center;justify-content:space-between;padding:13px;background:#091525;border-radius:10px;margin:14px 0}
-
 .pay-exact strong{font-size:22px;color:#7cc6ff}
-
 .qris-image{width:min(260px,100%);display:block;margin:16px auto;background:white;border-radius:12px;padding:10px}
-
 .upload-proof{display:block;text-align:center;padding:18px;border:1px dashed #438dd5;border-radius:12px;background:#0b1a2e;cursor:pointer}
-
 .upload-proof input{display:none}
-
 .upload-proof i{font-size:24px;color:#7cc6ff;margin-bottom:9px}
-
 .payment-total{border-top:1px dashed #426080;padding-top:13px;margin-top:8px}
-
 .orders-empty{text-align:center;padding:35px;color:var(--muted);font-size:12px}
-
 .order-saved{padding:15px;border:1px solid var(--border);border-radius:13px;background:#0d1b30;margin:12px 0}
-
 .order-saved strong{color:#7cc6ff}
-
 .status{display:inline-block;padding:6px 10px;border-radius:20px;font-size:10px;font-weight:bold;background:#57441b;color:#ffe08a}
-
 .status.SUCCESS{background:#104c38;color:#75efbd}
-
 .status.REJECTED{background:#58252d;color:#ff9ca6}
-
 .review-card{padding:15px;border:1px solid var(--border);border-radius:13px;background:#0d1b30;margin:10px 0}
-
 .stars{color:#ffd34f;letter-spacing:3px}
-
 .admin-section{padding:18px;margin:15px 0}
-
 .admin-section h3{margin-bottom:14px}
-
 .admin-input{width:100%;padding:12px;background:#091525;border:1px solid #29415f;border-radius:10px;color:white;margin-top:6px}
-
 .admin-price-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-
 .admin-order{padding:14px;background:#0d1b30;border:1px solid var(--border);border-radius:12px;margin:10px 0}
-
 .admin-order p{font-size:11px;color:#a9bdd8;line-height:1.8;margin:8px 0}
-
 .admin-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-
 .admin-actions button{padding:9px 12px;border:0;border-radius:8px;font-size:11px;font-weight:bold}
-
 footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:#7189a8;font-size:10px}
-
 .whatsapp-float{position:fixed;right:18px;bottom:18px;z-index:90;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:#19b86d;color:white;font-size:24px;box-shadow:0 5px 25px #0007;text-decoration:none}
-
 #toast{position:fixed;z-index:500;bottom:82px;left:50%;transform:translateX(-50%);background:#18365a;color:white;padding:12px 18px;border-radius:11px;font-size:11px;display:none;max-width:90%;text-align:center}
 
+/* DASHBOARD REVIEW */
+.review-dashboard{padding:18px;background:linear-gradient(145deg,#122641,#0b1729);border:1px solid rgba(91,157,255,.25);border-radius:18px}
+.review-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.review-stat{min-width:0;padding:15px 9px;text-align:center;background:#091729;border:1px solid #284666;border-radius:13px}
+.review-stat .stat-number{font-size:clamp(19px,4vw,27px);font-weight:1000;color:#fff;white-space:nowrap}
+.review-stat .stat-label{font-size:9px;color:#91a5c4;margin-top:7px;letter-spacing:.7px}
+.review-stat .stat-stars{color:#ffd34f;font-size:11px;letter-spacing:1px;margin-top:5px}
+.review-stat-product{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:5px}
+.review-stat-product img{width:25px;height:25px;object-fit:contain}
+.review-tabs{display:flex;gap:8px;margin:17px 0 13px;padding:5px;background:#091525;border:1px solid #263e5d;border-radius:12px}
+.review-tab{flex:1;border:0;border-radius:9px;padding:12px 8px;background:transparent;color:#91a5c4;font-size:11px;font-weight:900;letter-spacing:1px}
+.review-tab.active{background:linear-gradient(110deg,#1269dc,#269cff);color:white;box-shadow:0 4px 15px #0877ff30}
+.review-list{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.public-review{min-width:0;padding:13px;background:#091729;border:1px solid #263f5e;border-radius:12px}
+.public-review-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.public-review-stars{color:#ffd34f;font-size:11px;letter-spacing:1px;white-space:nowrap}
+.public-review-date{font-size:9px;color:#7188a6}
+.public-review-message{font-size:12px;color:#e1ebfa;line-height:1.6;margin:10px 0}
+.public-review-bottom{display:flex;align-items:center;gap:8px;border-top:1px solid #ffffff12;padding-top:9px}
+.public-review-bottom img{width:28px;height:28px;object-fit:contain;flex-shrink:0}
+.public-review-product{font-size:10px;color:#a9c6e7;font-weight:bold}
+.public-review-qty{font-size:10px;color:#72c5ff;margin-left:auto;font-weight:900;white-space:nowrap}
+.how-order{display:none;padding:15px;background:#091729;border:1px solid #263f5e;border-radius:12px}
+.how-order.show{display:block}
+.how-order .step{margin:15px 0}
+.review-note{font-size:10px;color:#7188a6;text-align:center;margin-top:13px;line-height:1.6}
 @media(max-width:720px){.checkout-layout{grid-template-columns:1fr}.checkout-summary{position:static}.checkout-fields{grid-template-columns:1fr}.wide{grid-column:auto}}
-
-@media(max-width:520px){.realtime-wrap{gap:9px;padding:10px}.realtime-label{font-size:10px;padding:10px}.realtime-text{font-size:12px}}
-
+@media(max-width:520px){.realtime-wrap{gap:9px;padding:10px}.realtime-label{font-size:10px;padding:10px}.realtime-text{font-size:12px}.review-dashboard{padding:12px}.review-stats{gap:6px}.review-stat{padding:12px 4px}.review-stat .stat-label{font-size:8px}.review-list{grid-template-columns:1fr}.public-review{padding:12px}}
 @media(max-width:430px){.market-grid{gap:9px}.product-card{padding:13px}.product-logo{width:51px;height:51px}.product-card h3{font-size:12px}.price{font-size:18px}.checkout-panel{padding:15px}.checkout-products{gap:7px}.checkout-product{padding:10px}.checkout-product img{width:43px;height:43px}.checkout-product .cp-price{font-size:15px}.admin-price-grid{grid-template-columns:1fr}}
-
 </style>
-
 </head>
-
 <body>
 
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
-
 <nav class="sidebar" id="sidebar">
-
  <div class="sidebar-head">
-
   <div class="logo-animation play">
-
    <div class="logo-stage stage-b"><div class="logo-box">B</div></div>
-
    <div class="logo-stage stage-round"><div class="logo-round"></div></div>
-
    <div class="logo-stage stage-love"><i class="fa-solid fa-heart logo-love"></i></div>
-
   </div>
-
   <button class="sidebar-close" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></button>
-
  </div>
-
  <div class="sidebar-label">MENU UTAMA</div>
-
  <a class="menu-item active" onclick="showPage('home',this)"><i class="fa-solid fa-house"></i><span>Home</span></a>
-
  <a class="menu-item" onclick="showPage('market',this)"><i class="fa-solid fa-store"></i><span>Market</span></a>
-
  <a class="menu-item" onclick="showPage('guide',this)"><i class="fa-solid fa-book-open"></i><span>Panduan</span></a>
-
  <a class="menu-item" onclick="showPage('orders',this)"><i class="fa-solid fa-basket-shopping"></i><span>Pesanan Saya</span></a>
-
 </nav>
 
 <header><div class="container nav">
-
  <div class="nav-left">
-
   <button class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
-
   <div class="logo-animation play">
-
    <div class="logo-stage stage-b"><div class="logo-box">B</div></div>
-
    <div class="logo-stage stage-round"><div class="logo-round"></div></div>
-
    <div class="logo-stage stage-love"><i class="fa-solid fa-heart logo-love"></i></div>
-
   </div>
-
   <span class="nav-brand">BLACK MARKET</span>
-
  </div>
-
  <button class="cart-nav" onclick="showPage('orders')" title="Pesanan Saya"><i class="fa-solid fa-cart-shopping"></i></button>
-
 </div></header>
 
 <main class="page active" id="homePage">
-
  <section class="hero"><div class="container hero-content">
-
   <div class="pill"><span class="dot"></span> CPS MARKETPLACE</div>
-
   <div class="realtime-wrap">
-
    <div class="realtime-label"><span class="realtime-dot"></span>TRANSAKSI REALTIME</div>
-
    <div class="realtime-window"><div id="realtimeText" class="realtime-text"></div></div>
-
   </div>
-
   <h1>BLACK MARKET</h1>
-
   <p>Tempat jual beli CPS dengan proses mudah, cepat, dan aman. Pilih produk yang kamu butuhkan dan lanjutkan pesanan bersama admin.</p>
-
   <div class="hero-actions"><button class="btn primary" onclick="showPage('market')"><i class="fa-solid fa-store"></i> Jelajahi</button></div>
-
   <div class="hero-logos"><img src="logo-bgl-black.png" alt="BGL"><img src="logo-black.png" alt="BLACK"></div>
-
  </div></section>
 
  <section class="container">
+  <div class="section-head">
+   <div class="eyebrow">CUSTOMER REVIEW</div>
+   <h2 class="section-title">Ulasan Pembeli</h2>
+   <p class="section-desc">Bukti pengalaman transaksi pelanggan BLACK MARKET.</p>
+  </div>
 
-  <div class="section-head"><div class="eyebrow">CUSTOMER REVIEW</div><h2 class="section-title">Ulasan Pembeli</h2><p class="section-desc">Review dari pelanggan BLACK MARKET.</p></div>
+  <div class="review-dashboard">
+   <div class="review-stats">
+    <div class="review-stat">
+     <div class="stat-number">5,0</div>
+     <div class="stat-stars">★★★★★</div>
+     <div class="stat-label">RATING PEMBELI</div>
+    </div>
+    <div class="review-stat">
+     <div class="stat-number">23</div>
+     <div class="stat-label">TOTAL ULASAN</div>
+     <div class="stat-stars"><i class="fa-solid fa-comments"></i> CUSTOMER</div>
+    </div>
+    <div class="review-stat">
+     <div class="stat-number">732</div>
+     <div class="review-stat-product"><img src="logo-bgl-black.png" alt="BGL"><span style="font-size:12px;font-weight:900;color:#72c5ff">BGL</span></div>
+     <div class="stat-label">TOTAL BGL TERJUAL</div>
+    </div>
+   </div>
 
-  <div id="publicReviews"><div class="orders-empty">Belum ada ulasan.</div></div>
+   <div class="review-stats" style="grid-template-columns:1fr;margin-top:9px">
+    <div class="review-stat" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:11px">
+     <img src="logo-black.png" alt="BLACK" style="width:32px;height:32px;object-fit:contain">
+     <div style="text-align:left"><div class="stat-number" style="font-size:22px">3 BLACK</div><div class="stat-label" style="margin-top:3px">TOTAL BLACK TERJUAL</div></div>
+    </div>
+   </div>
 
+   <div class="review-tabs">
+    <button class="review-tab active" id="reviewTabButton" onclick="showReviewTab('review')"><i class="fa-solid fa-star"></i> REVIEW</button>
+    <button class="review-tab" id="howTabButton" onclick="showReviewTab('how')"><i class="fa-solid fa-book-open"></i> CARA ORDER</button>
+   </div>
+
+   <div id="publicReviewPanel">
+    <div id="publicReviews" class="review-list"></div>
+    <div class="review-note">Terima kasih sudah mempercayakan transaksi CPS kepada BLACK MARKET.</div>
+   </div>
+
+   <div id="howOrderPanel" class="how-order">
+    <div class="step"><div class="step-icon"><i class="fa-solid fa-store"></i></div><div><h4>01 — PILIH PRODUK</h4><p>Pilih BGL atau Black Gem Lock di halaman Market, lalu tentukan pembelian atau penjualan.</p></div></div>
+    <div class="step"><div class="step-icon"><i class="fa-solid fa-user-pen"></i></div><div><h4>02 — ISI DETAIL PESANAN</h4><p>Masukkan Grow ID, nama World, dan nomor WhatsApp aktif dengan benar.</p></div></div>
+    <div class="step"><div class="step-icon"><i class="fa-solid fa-qrcode"></i></div><div><h4>03 — LAKUKAN PEMBAYARAN</h4><p>Untuk pembelian, scan QRIS sesuai nominal pesanan dan unggah bukti pembayaran.</p></div></div>
+    <div class="step"><div class="step-icon"><i class="fa-solid fa-headset"></i></div><div><h4>04 — TUNGGU ADMIN</h4><p>Admin akan memeriksa pembayaran dan memproses pesananmu. Pantau status melalui menu Pesanan Saya.</p></div></div>
+   </div>
+  </div>
  </section>
-
 </main>
 
 <main class="page" id="marketPage">
-
  <section class="container">
-
   <div class="section-head"><div class="eyebrow">BLACK MARKET CPS</div><h1 class="section-title">Explore Market</h1><p class="section-desc">Pilih transaksi pembelian atau penjualan CPS.</p></div>
-
   <div class="market-label"><i class="fa-solid fa-gem"></i> BLUE GEM LOCK</div>
-
   <div class="market-grid">
-
    <article class="card product-card"><div class="product-top"><img class="product-logo" src="logo-bgl-black.png" alt="BGL"><span class="product-tag">BUY CPS</span></div><h3>Buy Blue Gem Lock</h3><div class="price" id="marketBuyBgl">Rp1.100 <small>/ unit</small></div><button class="product-action" onclick="openCheckout('buy','bgl')"><i class="fa-solid fa-cart-shopping"></i> Beli Sekarang</button></article>
-
    <article class="card product-card"><div class="product-top"><img class="product-logo" src="logo-bgl-black.png" alt="BGL"><span class="product-tag sell">SELL CPS</span></div><h3>Sell Blue Gem Lock</h3><div class="price" id="marketSellBgl">Rp900 <small>/ unit</small></div><button class="product-action sell" onclick="openCheckout('sell','bgl')"><i class="fa-solid fa-wallet"></i> Jual Sekarang</button></article>
-
   </div>
-
   <div class="market-label"><i class="fa-solid fa-lock"></i> BLACK GEM LOCK</div>
-
   <div class="market-grid">
-
    <article class="card product-card"><div class="product-top"><img class="product-logo" src="logo-black.png" alt="BLACK"><span class="product-tag">BUY CPS</span></div><h3>Buy Black Gem Lock</h3><div class="price" id="marketBuyBlack">Rp108.000 <small>/ unit</small></div><button class="product-action" onclick="openCheckout('buy','black')"><i class="fa-solid fa-cart-shopping"></i> Beli Sekarang</button></article>
-
    <article class="card product-card"><div class="product-top"><img class="product-logo" src="logo-black.png" alt="BLACK"><span class="product-tag sell">SELL CPS</span></div><h3>Sell Black Gem Lock</h3><div class="price" id="marketSellBlack">Rp95.000 <small>/ unit</small></div><button class="product-action sell" onclick="openCheckout('sell','black')"><i class="fa-solid fa-wallet"></i> Jual Sekarang</button></article>
-
   </div>
-
   <section>
-
    <div class="section-head"><div class="eyebrow">ADMIN SUPPORT</div><h2 class="section-title">Bantuan Admin</h2><p class="section-desc">Buat pesanan melalui admin jika membutuhkan bantuan.</p></div>
-
    <button class="assist-launch" onclick="toggleAssisted()"><span class="wa"><i class="fa-brands fa-whatsapp"></i></span><span><strong>Pesan lewat admin</strong><small>Ikuti langkah transaksi di sini</small></span><i class="fa-solid fa-arrow-right" style="margin-left:auto;font-size:23px"></i></button>
-
    <div class="assisted-panel" id="assistedPanel"><div class="card assisted">
-
     <h3 style="margin-bottom:10px">Form bantuan admin</h3>
-
     <div class="progress"><span id="p1" class="active">1</span><span id="p2">2</span><span id="p3">3</span><span id="p4">4</span><span id="p5">5</span></div>
-
     <div class="wizard-page active" data-step="1"><h4 style="margin-bottom:14px">Pilih jenis transaksi</h4><div class="choice-grid"><button class="choice" onclick="chooseType('buy',this)"><i class="fa-solid fa-cart-shopping"></i><strong>Beli CPS</strong></button><button class="choice" onclick="chooseType('sell',this)"><i class="fa-solid fa-wallet"></i><strong>Jual CPS</strong></button></div></div>
-
     <div class="wizard-page" data-step="2"><h4 style="margin-bottom:14px">Pilih produk dan jumlah</h4><div class="choice-grid"><button class="choice" onclick="chooseProduct('bgl',this)"><i class="fa-solid fa-gem"></i><strong>Blue Gem Lock</strong><small id="wizardBglPrice"></small></button><button class="choice" onclick="chooseProduct('black',this)"><i class="fa-solid fa-lock"></i><strong>Black Gem Lock</strong><small id="wizardBlackPrice"></small></button></div><div class="field"><label>Jumlah</label><input id="wizardQty" type="number" value="10" min="1" oninput="updateWizard()"></div><div class="total"><span>Total</span><strong id="wizardTotal">Rp0</strong></div></div>
-
     <div class="wizard-page" data-step="3"><h4 style="margin-bottom:14px">Pilih metode</h4><div class="choice-grid" id="wizardBuyMethod"><button class="choice selected" onclick="chooseMethod('QRIS',this)"><i class="fa-solid fa-qrcode"></i><strong>QRIS</strong></button><button class="choice" onclick="chooseMethod('Ewallet/Bank',this)"><i class="fa-solid fa-building-columns"></i><strong>Ewallet / Bank</strong></button></div><div class="choice-grid hidden" id="wizardSellMethod"><button class="choice" onclick="chooseMethod('DANA',this)"><i class="fa-solid fa-wallet"></i><strong>DANA</strong></button><button class="choice" onclick="chooseMethod('OVO',this)"><i class="fa-solid fa-wallet"></i><strong>OVO</strong></button></div></div>
-
     <div class="wizard-page" data-step="4"><h4 style="margin-bottom:14px">Pilih admin</h4><div class="admin-grid"><button class="admin-card" onclick="chooseAdmin('boopa',this)"><strong>BOOPA</strong><small>Admin BLACK MARKET</small></button><button class="admin-card" onclick="chooseAdmin('raden',this)"><strong>RADEN</strong><small>Admin BLACK MARKET</small></button></div></div>
-
     <div class="wizard-page" data-step="5"><h4 style="margin-bottom:12px">Detail pesanan</h4><div class="line"><span>Transaksi</span><strong id="sumType">-</strong></div><div class="line"><span>Produk</span><strong id="sumProduct">-</strong></div><div class="line"><span>Jumlah</span><strong id="sumQty">-</strong></div><div class="line"><span>Metode</span><strong id="sumMethod">-</strong></div><div class="line"><span>Admin</span><strong id="sumAdmin">-</strong></div><div class="total"><span>Total</span><strong id="sumTotal">Rp0</strong></div>
-
      <div class="field"><label>Nama Kamu</label><input id="assistName" placeholder="Masukkan nama"></div><div class="field"><label>Grow ID</label><input id="assistGrow" placeholder="Grow ID"></div><div class="field"><label>Nama World</label><input id="assistWorld" placeholder="Nama World"></div><div class="field"><label>Nomor WhatsApp</label><input id="assistPhone" placeholder="08xxxxxxxxxx"></div><div class="field"><label>Nomor rekening / Ewallet (khusus jual)</label><input id="assistAccount" placeholder="Nomor akun"></div><button class="btn green block" onclick="sendAssisted()">Kirim ke Admin WhatsApp</button>
-
     </div>
-
     <div class="wizard-actions"><button class="btn secondary" onclick="prevStep()">Kembali</button><button class="btn primary" id="wizardNext" onclick="nextStep()">Lanjut <i class="fa-solid fa-arrow-right"></i></button></div>
-
    </div></div>
-
   </section>
-
  </section>
-
 </main>
 
 <main class="page" id="guidePage">
-
  <section class="container">
-
   <div class="section-head"><div class="eyebrow">HELP CENTER</div><h1 class="section-title">Panduan Transaksi</h1><p class="section-desc">Ikuti langkah mudah untuk menyelesaikan pesanan.</p></div>
-
   <div class="card guide">
-
    <div class="step"><div class="step-icon"><i class="fa-solid fa-store"></i></div><div><h4>01 — PILIH PRODUK</h4><p>Pilih BGL atau Black Gem Lock, lalu tentukan pembelian atau penjualan.</p></div></div>
-
    <div class="step"><div class="step-icon"><i class="fa-solid fa-user-pen"></i></div><div><h4>02 — ISI DETAIL PESANAN</h4><p>Masukkan Grow ID, nama World, dan nomor WhatsApp aktif.</p></div></div>
-
    <div class="step"><div class="step-icon"><i class="fa-solid fa-qrcode"></i></div><div><h4>03 — LAKUKAN PEMBAYARAN</h4><p>Ikuti instruksi pembayaran dan kirim bukti transaksi.</p></div></div>
-
    <div class="step"><div class="step-icon"><i class="fa-solid fa-headset"></i></div><div><h4>04 — ADMIN MEMPROSES</h4><p>Admin memeriksa pembayaran dan memproses pengiriman item.</p></div></div>
-
    <div class="note"><i class="fa-solid fa-shield-halved"></i> Pastikan Grow ID dan nama World sudah benar sebelum pesanan dikirim.</div>
-
   </div>
-
  </section>
-
 </main>
 
 <main class="page" id="ordersPage">
-
  <section class="container">
-
   <div class="section-head"><div class="eyebrow">ORDER CENTER</div><h1 class="section-title"><i class="fa-solid fa-basket-shopping" style="color:#72baff"></i> Pesanan Saya</h1><p class="section-desc">Pantau pesanan dan status pembayaranmu di sini.</p></div>
-
   <div class="card checkout-panel" id="ordersList"><div class="orders-empty">Belum ada pesanan.</div></div>
-
   <button class="btn primary" onclick="showPage('market')"><i class="fa-solid fa-store"></i> Jelajahi Market</button>
-
  </section>
-
 </main>
-
-<!-- ADMIN TERSEMBUNYI: BUKA DENGAN ?admin=login -->
 
 <main class="page" id="adminPage">
-
  <section class="container">
-
   <div class="section-head"><div class="eyebrow">PRIVATE CONTROL PANEL</div><h1 class="section-title">Admin Dashboard</h1><p class="section-desc">Kelola harga, pesanan, dan ulasan pelanggan.</p></div>
-
   <div class="card admin-section" id="adminLoginBox">
-
    <h3><i class="fa-solid fa-lock"></i> Login Admin</h3>
-
    <div class="field"><label>Password Admin</label><input id="adminPasswordInput" type="password" placeholder="Masukkan password admin"></div>
-
    <button class="btn primary block" onclick="adminLogin()">Login</button>
-
   </div>
-
   <div id="adminDashboard" class="hidden">
-
    <div class="card admin-section">
-
     <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h3><i class="fa-solid fa-tags"></i> Pengaturan Harga</h3><button class="btn secondary" onclick="adminLogout()">Logout</button></div>
-
     <p class="muted">Ubah harga beli dan jual. Harga tersimpan di browser ini.</p>
-
     <div class="admin-price-grid">
-
      <div class="field"><label>Harga Beli BGL</label><input class="admin-input" type="number" id="priceBuyBgl"></div>
-
      <div class="field"><label>Harga Jual BGL</label><input class="admin-input" type="number" id="priceSellBgl"></div>
-
      <div class="field"><label>Harga Beli Black GL</label><input class="admin-input" type="number" id="priceBuyBlack"></div>
-
      <div class="field"><label>Harga Jual Black GL</label><input class="admin-input" type="number" id="priceSellBlack"></div>
-
     </div>
-
     <button class="btn primary block" onclick="savePrices()"><i class="fa-solid fa-floppy-disk"></i> Simpan Harga</button>
-
    </div>
-
-   <div class="card admin-section">
-
-    <h3><i class="fa-solid fa-box"></i> Daftar Pesanan Masuk</h3>
-
-    <div id="adminOrders"><div class="orders-empty">Belum ada pesanan.</div></div>
-
-   </div>
-
-   <div class="card admin-section">
-
-    <h3><i class="fa-solid fa-star"></i> Ulasan Pelanggan</h3>
-
-    <div id="adminReviews"><div class="orders-empty">Belum ada ulasan.</div></div>
-
-   </div>
-
+   <div class="card admin-section"><h3><i class="fa-solid fa-box"></i> Daftar Pesanan Masuk</h3><div id="adminOrders"><div class="orders-empty">Belum ada pesanan.</div></div></div>
+   <div class="card admin-section"><h3><i class="fa-solid fa-star"></i> Ulasan Pelanggan</h3><div id="adminReviews"><div class="orders-empty">Belum ada ulasan.</div></div></div>
   </div>
-
  </section>
-
 </main>
 
-<!-- CHECKOUT -->
-
 <main class="page" id="checkoutPage">
-
  <div class="checkout-wrap">
-
   <div class="checkout-top"><button class="checkout-back" onclick="backToMarket()"><i class="fa-solid fa-arrow-left"></i> Kembali</button><span class="eyebrow">BLACK MARKET / CHECKOUT</span></div>
-
   <div class="checkout-brand">
-
    <div class="logo-animation play"><div class="logo-stage stage-b"><div class="logo-box">B</div></div><div class="logo-stage stage-round"><div class="logo-round"></div></div><div class="logo-stage stage-love"><i class="fa-solid fa-heart logo-love"></i></div></div>
-
    <div><b style="font-size:18px">BLACK MARKET</b><small class="small-note">SECURE CHECKOUT</small></div>
-
   </div>
-
   <div class="checkout-step active" id="checkoutDetails">
-
    <div class="checkout-heading"><div class="eyebrow">SECURE CPS CHECKOUT</div><h1 id="checkoutTitle">CHECKOUT PEMBELIAN</h1><p>Lengkapi detail pesananmu, lalu lanjut ke pembayaran.</p></div>
-
    <div class="checkout-layout">
-
     <div>
-
      <section class="card checkout-panel">
-
       <h3><i class="fa-solid fa-gem" style="color:#72baff"></i> 01. Pilih produk CPS</h3><p class="muted">Pilih produk dan jumlah yang ingin dibeli.</p>
-
       <div class="checkout-products">
-
        <button class="checkout-product" id="cpBgl" onclick="selectCheckoutProduct('bgl')"><i class="fa-solid fa-circle-check checkmark"></i><img src="logo-bgl-black.png" alt="BGL"><strong>CPS Blue Gem Lock</strong><small>BGL · Gem Lock</small><span class="cp-price" id="cpBglPrice">Rp1.100</span></button>
-
        <button class="checkout-product" id="cpBlack" onclick="selectCheckoutProduct('black')"><i class="fa-solid fa-circle-check checkmark"></i><img src="logo-black.png" alt="BLACK"><strong>CPS Black Gem Lock</strong><small>BLACK · Gem Lock</small><span class="cp-price" id="cpBlackPrice">Rp108.000</span></button>
-
       </div>
-
       <div class="qty-row"><span>Jumlah produk</span><div class="qty-control"><button onclick="changeCheckoutQty(-1)">−</button><input id="checkoutQty" type="number" value="10" oninput="updateCheckout()"><button onclick="changeCheckoutQty(1)">+</button></div></div>
-
       <small class="small-note" id="checkoutMinimum"></small>
-
      </section>
-
      <section class="card checkout-panel">
-
       <h3><i class="fa-solid fa-clipboard-list" style="color:#72baff"></i> 02. Detail pesanan</h3><p class="muted">Masukkan Grow ID dan nama world tujuan pengiriman.</p>
-
       <form id="checkoutForm">
-
        <div class="checkout-fields">
-
         <div class="field"><label>Grow ID</label><input id="checkoutGrow" required placeholder="Masukkan Grow ID"></div>
-
         <div class="field"><label>Nama World</label><input id="checkoutWorld" required placeholder="Masukkan nama World"></div>
-
         <div class="field wide"><label>Nomor WhatsApp</label><input id="checkoutPhone" required type="tel" placeholder="08xxxxxxxxxx"><small class="small-note">Hanya dipakai admin untuk menghubungimu soal pesanan ini.</small></div>
-
         <div class="field wide hidden" id="payoutMethodWrap"><label>Metode pencairan</label><select id="payoutMethod"><option>DANA</option><option>OVO</option><option>ShopeePay</option><option>Bank BCA</option><option>Bank lain</option></select></div>
-
         <div class="field hidden" id="payoutAccountWrap"><label>Nomor rekening / Ewallet</label><input id="payoutAccount" placeholder="Nomor akun"></div>
-
         <div class="field hidden" id="payoutNameWrap"><label>Nama pemilik akun</label><input id="payoutName" placeholder="Nama pemilik akun"></div>
-
        </div>
-
        <div class="note"><i class="fa-solid fa-shield-halved"></i> Pastikan Grow ID dan nama World sudah benar agar pesanan dapat diproses.</div>
-
        <div class="line"><span>Produk</span><strong id="orderProduct">BGL</strong></div>
-
        <div class="line"><span>Harga satuan</span><strong id="orderPrice">Rp1.100</strong></div>
-
        <div class="line"><span>Jumlah</span><strong id="orderQty">10 unit</strong></div>
-
        <div class="total"><span id="orderTotalLabel">Total pembayaran</span><strong id="orderTotal">Rp11.000</strong></div>
-
        <button class="btn primary block checkout-submit" type="submit">Lanjut ke pembayaran <i class="fa-solid fa-arrow-right"></i></button>
-
       </form>
-
       <div class="trust"><div><i class="fa-solid fa-shield-halved"></i>Admin resmi</div><div><i class="fa-solid fa-bolt"></i>Proses cepat</div><div><i class="fa-solid fa-lock"></i>Data aman</div></div>
-
      </section>
-
     </div>
-
     <aside class="card checkout-panel checkout-summary"><h3><i class="fa-solid fa-receipt"></i> Ringkasan pesanan</h3><div class="line"><span>Produk</span><strong id="sideProduct">BGL</strong></div><div class="line"><span>Jumlah</span><strong id="sideQty">10 unit</strong></div><div class="total"><span>Total</span><strong id="sideTotal">Rp11.000</strong></div></aside>
-
    </div>
-
   </div>
 
   <div class="checkout-step" id="checkoutPayment">
-
    <div class="checkout-heading"><div class="eyebrow">BLACK MARKET / PEMBAYARAN</div><h1>Bayar pesanan</h1><p>Pilih cara bayar, bayar sesuai total, lalu kirim bukti. Admin akan memeriksa pesananmu.</p></div>
-
    <section class="pay-card">
-
     <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h2>Pesanan kamu</h2><span class="muted" id="payProductCount">1 produk</span></div>
-
     <div class="line"><span id="payProductName">Black Gem Lock</span><strong id="payLineTotal">Rp11.000</strong></div>
-
     <div class="line"><span id="payQtyPrice">10 × Rp1.100</span><strong></strong></div>
-
     <div class="line"><span>World :</span><strong id="payWorld">-</strong></div>
-
     <div class="line"><span>Grow ID :</span><strong id="payGrow">-</strong></div>
-
     <div class="line"><span>WhatsApp :</span><strong id="payPhone">-</strong></div>
-
    </section>
-
    <section class="pay-card">
-
     <h2>1. Cara bayar</h2><p class="muted">Bayar sesuai total pesanan.</p>
-
     <div class="pay-method">
-
      <div class="pay-method-head"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/QRIS_logo.svg" alt="QRIS"><div>QRIS<small class="small-note">Semua aplikasi bank & e-wallet</small></div><i class="fa-solid fa-circle-check" style="margin-left:auto;color:#4bd7a1"></i></div>
-
      <div class="pay-exact"><div><small class="small-note">BAYAR TEPAT</small><strong id="payExactTotal">Rp11.000</strong></div><button class="btn secondary" onclick="copyPaymentTotal()"><i class="fa-regular fa-copy"></i> Salin nominal</button></div>
-
      <img src="qris-black-market.JPG" class="qris-image" alt="QRIS BLACK MARKET">
-
      <p class="muted">Scan QRIS menggunakan aplikasi bank atau e-wallet. Masukkan nominal sesuai total pesanan.</p>
-
     </div>
-
    </section>
-
    <section class="pay-card">
-
     <h2>2. Kirim Bukti Bayar</h2>
-
     <p class="small-note" style="margin-bottom:14px">Screenshot yang menampilkan nominal & waktu transfer.</p>
-
     <label class="upload-proof"><input type="file" id="paymentProof" accept="image/jpeg,image/png,image/webp"><i class="fa-solid fa-cloud-arrow-up"></i><br><strong>Pilih foto bukti bayar</strong><small class="small-note">JPG, PNG, atau WEBP · maksimal 8 MB.</small></label>
-
     <p class="small-note" id="proofName"></p>
-
    </section>
-
    <section class="pay-card">
-
     <h2>Ringkasan bayar</h2>
-
     <div class="line"><span>Metode pembayaran</span><strong>QRIS</strong></div>
-
     <div class="line"><span id="paySubtotalLabel">Subtotal (10)</span><strong id="paySubtotal">Rp11.000</strong></div>
-
     <div class="total payment-total"><span>Total bayar</span><strong id="payGrandTotal">Rp11.000</strong></div>
-
     <button class="btn primary block checkout-submit" id="sendProofButton" onclick="sendPaymentProof()"><i class="fa-solid fa-paper-plane"></i> Kirim bukti & buat pesanan</button>
-
     <div class="trust"><div><i class="fa-solid fa-shield-halved"></i>Admin resmi</div><div><i class="fa-solid fa-bolt"></i>Proses cepat</div><div><i class="fa-solid fa-lock"></i>Data aman</div></div>
-
    </section>
-
    <section class="pay-card"><h3>SETELAH KIRIM BUKTI</h3><p class="muted" style="margin-top:10px">Admin akan memeriksa pembayaranmu.<br>Item dikirim ke world kamu sesuai cara kirim.<br>Pantau status di Pesanan Saya.</p></section>
-
    <button class="btn secondary block" onclick="showCheckoutStep('details')"><i class="fa-solid fa-arrow-left"></i> Kembali ke detail pesanan</button>
-
   </div>
-
  </div>
-
 </main>
 
 <footer>© 2026 BLACK MARKET · CPS MARKETPLACE</footer>
-
 <a class="whatsapp-float" href="https://wa.me/6285864582161" target="_blank" aria-label="WhatsApp Admin"><i class="fa-brands fa-whatsapp"></i></a>
-
 <div id="toast"></div>
 
 <script>
-
 /* KONFIGURASI */
-
 const ADMIN_PASSWORD="nainggolan123";
-
 const DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/1567365781015236668/oBL_SMmtYyKq31ZyWparS8cmMhbA-Q8M1t6KK9MQ_88VZoKl9ssmGVsDYUuK4Ia4oONW";
-
 const DEFAULT_PRICE={buy:{bgl:1100,black:108000},sell:{bgl:900,black:95000}};
-
 const MIN={buy:{bgl:10,black:1},sell:{bgl:30,black:1}};
-
 const ADMINS={boopa:{name:"BOOPA",phone:"6285864582161"},raden:{name:"RADEN",phone:"6287735220343"}};
-
 const $=id=>document.getElementById(id);
-
 const rp=n=>"Rp"+Number(n||0).toLocaleString("id-ID");
 
 function readStore(key,fallback){
-
- try{
-
-  const value=JSON.parse(localStorage.getItem(key));
-
-  return value===null?fallback:value;
-
- }catch(e){return fallback}
-
+ try{const value=JSON.parse(localStorage.getItem(key));return value===null?fallback:value}
+ catch(e){return fallback}
 }
-
 function saveStore(key,value){localStorage.setItem(key,JSON.stringify(value))}
-
 let PRICE=readStore("bmPrices",DEFAULT_PRICE);
-
 if(!PRICE||!PRICE.buy||!PRICE.sell)PRICE=DEFAULT_PRICE;
-
 function getOrders(){return readStore("bmOrders",[])}
-
 function getReviews(){return readStore("bmReviews",[])}
-
 function amount(type,product,qty){return PRICE[type][product]*qty}
 
 function toast(msg){
-
  $("toast").textContent=msg;
-
  $("toast").style.display="block";
-
  clearTimeout(window.toastTimer);
-
  window.toastTimer=setTimeout(()=>$("toast").style.display="none",3000);
-
 }
-
 function escapeHTML(s){
-
  return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-
 }
-
 function toggleMenu(){
-
  $("sidebar").classList.toggle("open");
-
  $("sidebarOverlay").classList.toggle("show");
-
 }
-
 function showPage(name,el){
-
  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-
  $(name+"Page").classList.add("active");
-
  document.querySelectorAll(".menu-item").forEach(x=>x.classList.remove("active"));
-
  if(el)el.classList.add("active");
-
  else{
-
   const index=["home","market","guide","orders"].indexOf(name);
-
   if(index>=0)document.querySelectorAll(".menu-item")[index]?.classList.add("active");
-
  }
-
  $("sidebar").classList.remove("open");
-
  $("sidebarOverlay").classList.remove("show");
-
  if(name==="orders")renderOrders();
-
  if(name==="home")renderPublicReviews();
-
  if(name==="admin")renderAdmin();
-
  window.scrollTo({top:0,behavior:"smooth"});
-
 }
-
 function openCheckout(type,product){
-
  const u=new URL(location.href);
-
  u.searchParams.set("checkout","1");
-
  u.searchParams.set("type",type);
-
  u.searchParams.set("product",product);
-
  location.href=u.toString();
-
 }
-
 function backToMarket(){
-
  const u=new URL(location.href);
-
  ["checkout","type","product"].forEach(k=>u.searchParams.delete(k));
-
  location.href=u.toString();
-
 }
 
 let checkoutType="buy",checkoutProduct="bgl",pendingOrder=null;
-
 function initializeCheckout(){
-
  const p=new URLSearchParams(location.search);
-
  if(p.get("checkout")!=="1")return;
-
  checkoutType=p.get("type")==="sell"?"sell":"buy";
-
  checkoutProduct=p.get("product")==="black"?"black":"bgl";
-
  document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
-
  $("checkoutPage").classList.add("active");
-
  $("checkoutQty").value=MIN[checkoutType][checkoutProduct];
-
  updateCheckout();
-
  window.scrollTo(0,0);
-
 }
-
 function selectCheckoutProduct(p){checkoutProduct=p;updateCheckout()}
-
 function changeCheckoutQty(n){
-
  $("checkoutQty").value=Math.max(MIN[checkoutType][checkoutProduct],(Number($("checkoutQty").value)||1)+n);
-
  updateCheckout();
-
 }
-
 function updateCheckout(){
-
  const min=MIN[checkoutType][checkoutProduct];
-
  const qty=Math.max(min,Number($("checkoutQty").value)||min);
-
  $("checkoutQty").min=min;
-
  $("checkoutQty").value=qty;
-
  const price=PRICE[checkoutType][checkoutProduct],total=price*qty;
-
  $("cpBglPrice").textContent=rp(PRICE[checkoutType].bgl);
-
  $("cpBlackPrice").textContent=rp(PRICE[checkoutType].black);
-
  $("cpBgl").classList.toggle("selected",checkoutProduct==="bgl");
-
  $("cpBlack").classList.toggle("selected",checkoutProduct==="black");
-
  $("checkoutTitle").textContent=checkoutType==="buy"?"CHECKOUT PEMBELIAN":"CHECKOUT PENJUALAN";
-
  $("checkoutMinimum").textContent="Minimum "+(checkoutType==="buy"?"pembelian ":"penjualan ")+checkoutProduct.toUpperCase()+": "+min+" unit";
-
  $("orderProduct").textContent=checkoutProduct.toUpperCase();
-
  $("orderPrice").textContent=rp(price);
-
  $("orderQty").textContent=qty+" unit";
-
  $("orderTotalLabel").textContent=checkoutType==="buy"?"Total pembayaran":"Estimasi diterima";
-
  $("orderTotal").textContent=rp(total);
-
  $("sideProduct").textContent=checkoutProduct==="black"?"Black Gem Lock":"Blue Gem Lock";
-
  $("sideQty").textContent=qty+" unit";
-
  $("sideTotal").textContent=rp(total);
-
  ["payoutMethodWrap","payoutAccountWrap","payoutNameWrap"].forEach(id=>$(id).classList.toggle("hidden",checkoutType!=="sell"));
-
 }
 
 $("checkoutForm").addEventListener("submit",e=>{
-
  e.preventDefault();
-
  const qty=Number($("checkoutQty").value),min=MIN[checkoutType][checkoutProduct];
-
  if(qty<min)return toast("Minimum transaksi "+min+" unit.");
-
  const grow=$("checkoutGrow").value.trim();
-
  const world=$("checkoutWorld").value.trim();
-
  const phone=$("checkoutPhone").value.trim();
-
  if(!grow||!world||!phone)return toast("Lengkapi Grow ID, World, dan WhatsApp.");
-
  if(checkoutType==="sell"){
-
   const acc=$("payoutAccount").value.trim(),holder=$("payoutName").value.trim();
-
   if(!acc||!holder)return toast("Lengkapi data pencairan.");
-
   const msg=["*BLACK MARKET - PESANAN PENJUALAN*","Produk: "+checkoutProduct.toUpperCase(),"Jumlah: "+qty,"Grow ID: "+grow,"World: "+world,"WhatsApp: "+phone,"Metode pencairan: "+$("payoutMethod").value,"Nomor akun: "+acc,"Nama pemilik: "+holder].join("\n");
-
   window.open("https://wa.me/6285864582161?text="+encodeURIComponent(msg),"_blank");
-
   return;
-
  }
-
  pendingOrder={
-
   id:"BM"+Date.now().toString().slice(-8),
-
   type:checkoutType,product:checkoutProduct,qty,
-
   price:PRICE[checkoutType][checkoutProduct],
-
   total:amount(checkoutType,checkoutProduct,qty),
-
   grow,world,phone,status:"BELUM DIBAYAR",
-
   created:new Date().toLocaleString("id-ID")
-
  };
-
  const title=checkoutProduct==="black"?"Black Gem Lock":"Blue Gem Lock";
-
  $("payProductName").textContent=title;
-
  $("payProductCount").textContent=qty+" unit";
-
  $("payLineTotal").textContent=rp(pendingOrder.total);
-
  $("payQtyPrice").textContent=qty+" × "+rp(pendingOrder.price);
-
  $("payWorld").textContent=world;
-
  $("payGrow").textContent=grow;
-
  $("payPhone").textContent=phone;
-
  ["payExactTotal","paySubtotal","payGrandTotal"].forEach(id=>$(id).textContent=rp(pendingOrder.total));
-
  $("paySubtotalLabel").textContent="Subtotal ("+qty+")";
-
  showCheckoutStep("payment");
-
 });
 
 $("paymentProof").addEventListener("change",()=>{
-
  const f=$("paymentProof").files[0];
-
  $("proofName").textContent=f?"Bukti dipilih: "+f.name:"";
-
 });
-
 function copyPaymentTotal(){
-
  const n=pendingOrder?.total||0;
-
  if(navigator.clipboard?.writeText)navigator.clipboard.writeText(String(n)).then(()=>toast("Nominal berhasil disalin")).catch(()=>toast(rp(n)));
-
  else toast(rp(n));
-
 }
-
 function showCheckoutStep(step){
-
  $("checkoutDetails").classList.toggle("active",step==="details");
-
  $("checkoutPayment").classList.toggle("active",step==="payment");
-
  window.scrollTo({top:0,behavior:"smooth"});
-
 }
 
 /* DISCORD WEBHOOK */
-
 let sendingPaymentProof=false;
-
 async function sendPaymentProof(){
-
  if(!pendingOrder)return toast("Detail pesanan belum tersedia.");
-
  if(sendingPaymentProof)return toast("Pesanan sedang dikirim. Tunggu sebentar.");
-
  const file=$("paymentProof").files[0];
-
  if(!file)return toast("Pilih foto bukti bayar terlebih dahulu.");
-
  if(!["image/jpeg","image/png","image/webp"].includes(file.type))return toast("Format foto harus JPG, PNG, atau WEBP.");
-
  if(file.size>8*1024*1024)return toast("Ukuran foto maksimal 8 MB.");
-
  if(!DISCORD_WEBHOOK_URL.startsWith("https://discord.com/api/webhooks/"))return toast("Masukkan URL Discord Webhook baru terlebih dahulu.");
-
  const button=$("sendProofButton");
-
  sendingPaymentProof=true;
-
  button.disabled=true;
-
  button.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Mengirim pesanan...';
-
  try{
-
   const formData=new FormData();
-
   const payload={
-
    content:
-
     "🛒 **BLACK MARKET - PESANAN BARU**\n\n"+
-
     "**Order ID:** "+pendingOrder.id+"\n"+
-
     "**Jenis:** Pembelian\n"+
-
     "**Produk:** "+(pendingOrder.product==="black"?"Black Gem Lock":"Blue Gem Lock")+"\n"+
-
     "**Jumlah:** "+pendingOrder.qty+"\n"+
-
     "**Harga satuan:** "+rp(pendingOrder.price)+"\n"+
-
     "**Total:** "+rp(pendingOrder.total)+"\n"+
-
     "**Grow ID:** "+pendingOrder.grow+"\n"+
-
     "**World:** "+pendingOrder.world+"\n"+
-
     "**WhatsApp:** "+pendingOrder.phone+"\n"+
-
     "**Pembayaran:** QRIS\n\n"+
-
     "📎 Bukti pembayaran terlampir.",
-
    allowed_mentions:{parse:[]}
-
   };
-
   formData.append("payload_json",JSON.stringify(payload));
-
   formData.append("files[0]",file,file.name);
-
   await fetch(DISCORD_WEBHOOK_URL,{method:"POST",mode:"no-cors",body:formData});
-
   pendingOrder.status="PENDING";
-
   pendingOrder.created=new Date().toLocaleString("id-ID");
-
   const orders=getOrders();
-
   orders.unshift(pendingOrder);
-
   saveStore("bmOrders",orders);
-
   renderOrders();
-
   toast("Pesanan dicatat dengan status PENDING. Admin perlu memeriksa Discord.");
-
   showPage("orders");
-
  }catch(error){
-
   console.error(error);
-
   toast("Pengiriman gagal. Periksa koneksi dan coba lagi.");
-
  }finally{
-
   sendingPaymentProof=false;
-
   button.disabled=false;
-
   button.innerHTML='<i class="fa-solid fa-paper-plane"></i> Kirim bukti & buat pesanan';
-
  }
-
 }
 
 /* PESANAN PEMBELI */
-
 function renderOrders(){
-
  const orders=getOrders();
-
  if(!orders.length){
-
   $("ordersList").innerHTML='<div class="orders-empty"><i class="fa-solid fa-box-open" style="font-size:35px;display:block;margin-bottom:13px"></i>Belum ada pesanan.</div>';
-
   return;
-
  }
-
  $("ordersList").innerHTML=orders.map(o=>{
-
   const review=getReviews().find(r=>r.orderId===o.id);
-
   const product=o.product==="black"?"Black Gem Lock":"Blue Gem Lock";
-
   let reviewHTML="";
-
   if(o.status==="SUCCESS"){
-
    reviewHTML=review
-
     ?'<div class="note">Kamu sudah mengirim ulasan untuk pesanan ini. Terima kasih!</div>'
-
     :`<div class="note"><b>Pesanan selesai!</b><br>Berikan rating dan ulasan untuk transaksi ini.
-
       <div class="field"><label>Rating</label><select id="rating-${escapeHTML(o.id)}"><option value="5">★★★★★ - Sangat puas</option><option value="4">★★★★ - Puas</option><option value="3">★★★ - Cukup</option><option value="2">★★ - Kurang puas</option><option value="1">★ - Tidak puas</option></select></div>
-
       <div class="field"><label>Ulasan</label><textarea id="review-${escapeHTML(o.id)}" placeholder="Tulis pengalaman transaksi kamu..."></textarea></div>
-
       <button class="btn primary" onclick="submitReview('${escapeHTML(o.id)}')">Kirim Ulasan</button></div>`;
-
   }
-
   return `<div class="order-saved">
-
    <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><strong>${escapeHTML(o.id)}</strong><small>${escapeHTML(o.created)}</small></div>
-
    <h3 style="margin:10px 0">${product} × ${Number(o.qty)||0}</h3>
-
    <p class="small-note">World: ${escapeHTML(o.world)} · Grow ID: ${escapeHTML(o.grow)}</p>
-
    <p style="margin-top:9px">Total: <strong>${rp(o.total)}</strong></p>
-
    <p style="margin-top:10px">Status: <span class="status ${escapeHTML(o.status)}">${escapeHTML(o.status)}</span></p>
-
    ${reviewHTML}
-
   </div>`;
-
  }).join("");
-
 }
 
 /* REVIEW */
-
 function submitReview(orderId){
-
  const orders=getOrders();
-
  const order=orders.find(o=>o.id===orderId);
-
  if(!order||order.status!=="SUCCESS")return toast("Ulasan hanya tersedia setelah pesanan SUCCESS.");
-
  const reviews=getReviews();
-
  if(reviews.some(r=>r.orderId===orderId))return toast("Ulasan untuk pesanan ini sudah dikirim.");
-
  const rating=Number($("rating-"+orderId).value);
-
  const message=$("review-"+orderId).value.trim();
-
  if(!message)return toast("Tulis ulasan terlebih dahulu.");
-
  reviews.unshift({
-
   id:"RV"+Date.now(),
-
   orderId,
-
   product:order.product,
-
+  qty:order.qty,
   rating,
-
   message,
-
   created:new Date().toLocaleString("id-ID")
-
  });
-
  saveStore("bmReviews",reviews);
-
  renderOrders();
-
  renderPublicReviews();
-
+ renderAdminReviews();
  toast("Terima kasih! Ulasan berhasil disimpan.");
+}
 
+/* REVIEW PELANGGAN */
+const OLD_REVIEWS=[
+ {message:"josjis",product:"bgl",qty:20,date:"20/10/24"},
+ {message:"GILA CEPET BET",product:"bgl",qty:40,date:""},
+ {message:"Cepat banget saya lagi belajar udah loh",product:"bgl",qty:53,date:""},
+ {message:"Mantap",product:"black",qty:1,date:""},
+ {message:"baikkk bangett adminnyaaa",product:"bgl",qty:82,date:""},
+ {message:"cepet amat",product:"bgl",qty:46,date:""},
+ {message:"Mantappp",product:"bgl",qty:40,date:""},
+ {message:"GG Real Terpercaya",product:"bgl",qty:15,date:""},
+ {message:"gg banget",product:"bgl",qty:16,date:""},
+ {message:"fast",product:"bgl",qty:75,date:""},
+ {message:"Ntpas",product:"black",qty:1,date:""},
+ {message:"Fast kirim",product:"bgl",qty:45,date:""},
+ {message:"makasih dikasih bonus pula",product:"bgl",qty:18,date:""},
+ {message:"cepet banget",product:"bgl",qty:35,date:""}
+];
+
+function showReviewTab(tab){
+ const reviewActive=tab==="review";
+ $("publicReviewPanel").style.display=reviewActive?"block":"none";
+ $("howOrderPanel").classList.toggle("show",!reviewActive);
+ $("reviewTabButton").classList.toggle("active",reviewActive);
+ $("howTabButton").classList.toggle("active",!reviewActive);
 }
 
 function renderPublicReviews(){
-
- const reviews=getReviews();
-
- if(!reviews.length){
-
-  $("publicReviews").innerHTML='<div class="orders-empty">Belum ada ulasan.</div>';
-
-  return;
-
- }
-
- $("publicReviews").innerHTML=reviews.map(r=>`
-
-  <div class="review-card">
-
-   <div class="stars">${"★".repeat(Math.max(0,Math.min(5,Number(r.rating)||0)))}${"☆".repeat(5-Math.max(0,Math.min(5,Number(r.rating)||0)))}</div>
-
-   <p style="margin:10px 0;line-height:1.7;font-size:13px">${escapeHTML(r.message)}</p>
-
-   <small class="small-note">${r.product==="black"?"Black Gem Lock":"Blue Gem Lock"} · ${escapeHTML(r.created)}</small>
-
-  </div>`).join("");
-
+ const live=getReviews().map(r=>({
+  message:r.message,
+  product:r.product==="black"?"black":"bgl",
+  qty:Number(r.qty)||0,
+  rating:Number(r.rating)||5,
+  date:r.created||""
+ }));
+ const all=[...live,...OLD_REVIEWS];
+ const logo=p=>p==="black"?"logo-black.png":"logo-bgl-black.png";
+ $("publicReviews").innerHTML=all.map(r=>`
+  <article class="public-review">
+   <div class="public-review-top">
+    <span class="public-review-stars">${"★".repeat(Math.max(1,Math.min(5,Number(r.rating)||5)))}</span>
+    <span class="public-review-date">${escapeHTML(r.date||"Customer")}</span>
+   </div>
+   <p class="public-review-message">${escapeHTML(r.message)}</p>
+   <div class="public-review-bottom">
+    <img src="${logo(r.product)}" alt="${r.product==="black"?"BLACK":"BGL"}">
+    <span class="public-review-product">${r.product==="black"?"BLACK GEM LOCK":"BLUE GEM LOCK"}</span>
+    <span class="public-review-qty">${Number(r.qty)||0} ${r.product==="black"?"BLACK":"BGL"}</span>
+   </div>
+  </article>`).join("");
 }
 
 /* ADMIN */
-
 let adminAuthenticated=false;
-
 function openAdmin(){
-
  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-
  $("adminPage").classList.add("active");
-
  $("sidebar").classList.remove("open");
-
  $("sidebarOverlay").classList.remove("show");
-
  window.scrollTo(0,0);
-
 }
-
 function adminLogin(){
  const password=$("adminPasswordInput").value;
-
- if(password!==ADMIN_PASSWORD){
-  return toast("Password admin salah.");
- }
-
+ if(password!==ADMIN_PASSWORD)return toast("Password admin salah.");
  adminAuthenticated=true;
-
  $("adminLoginBox").classList.add("hidden");
  $("adminDashboard").classList.remove("hidden");
-
  renderAdmin();
-
  toast("Login admin berhasil.");
 }
-
 function adminLogout(){
-
  adminAuthenticated=false;
-
  $("adminLoginBox").classList.remove("hidden");
-
  $("adminDashboard").classList.add("hidden");
-
  $("adminPasswordInput").value="";
-
  toast("Kamu sudah logout.");
-
 }
-
 function renderAdmin(){
-
  if(!adminAuthenticated)return;
-
  PRICE=readStore("bmPrices",DEFAULT_PRICE);
-
  $("priceBuyBgl").value=PRICE.buy.bgl;
-
  $("priceSellBgl").value=PRICE.sell.bgl;
-
  $("priceBuyBlack").value=PRICE.buy.black;
-
  $("priceSellBlack").value=PRICE.sell.black;
-
  renderAdminOrders();
-
  renderAdminReviews();
-
 }
-
 function savePrices(){
-
  if(!adminAuthenticated)return;
-
  const values={
-
-  buy:{
-
-   bgl:Number($("priceBuyBgl").value),
-
-   black:Number($("priceBuyBlack").value)
-
-  },
-
-  sell:{
-
-   bgl:Number($("priceSellBgl").value),
-
-   black:Number($("priceSellBlack").value)
-
-  }
-
+  buy:{bgl:Number($("priceBuyBgl").value),black:Number($("priceBuyBlack").value)},
+  sell:{bgl:Number($("priceSellBgl").value),black:Number($("priceSellBlack").value)}
  };
-
- if(Object.values(values.buy).concat(Object.values(values.sell)).some(n=>!Number.isFinite(n)||n<=0))
-
-  return toast("Semua harga harus lebih dari 0.");
-
+ if(Object.values(values.buy).concat(Object.values(values.sell)).some(n=>!Number.isFinite(n)||n<=0))return toast("Semua harga harus lebih dari 0.");
  PRICE=values;
-
  saveStore("bmPrices",PRICE);
-
  updateMarketPrices();
-
  if(new URLSearchParams(location.search).get("checkout")==="1")updateCheckout();
-
  toast("Harga berhasil disimpan di browser ini.");
-
 }
-
 function updateMarketPrices(){
-
  $("marketBuyBgl").innerHTML=rp(PRICE.buy.bgl)+' <small>/ unit</small>';
-
  $("marketSellBgl").innerHTML=rp(PRICE.sell.bgl)+' <small>/ unit</small>';
-
  $("marketBuyBlack").innerHTML=rp(PRICE.buy.black)+' <small>/ unit</small>';
-
  $("marketSellBlack").innerHTML=rp(PRICE.sell.black)+' <small>/ unit</small>';
-
  $("wizardBglPrice").textContent=rp(PRICE[assist.type||"buy"].bgl)+" / unit";
-
  $("wizardBlackPrice").textContent=rp(PRICE[assist.type||"buy"].black)+" / unit";
-
 }
-
 function changeOrderStatus(orderId,status){
-
  if(!adminAuthenticated)return;
-
  const orders=getOrders();
-
  const order=orders.find(o=>o.id===orderId);
-
  if(!order)return toast("Pesanan tidak ditemukan.");
-
  order.status=status;
-
  order.updated=new Date().toLocaleString("id-ID");
-
  saveStore("bmOrders",orders);
-
  renderAdminOrders();
-
  renderOrders();
-
  toast("Status pesanan diubah menjadi "+status+".");
-
 }
-
 function renderAdminOrders(){
-
  const orders=getOrders();
-
  if(!orders.length){
-
   $("adminOrders").innerHTML='<div class="orders-empty">Belum ada pesanan.</div>';
-
   return;
-
  }
-
  $("adminOrders").innerHTML=orders.map(o=>`
-
   <div class="admin-order">
-
    <strong>${escapeHTML(o.id)}</strong>
-
    <span class="status ${escapeHTML(o.status)}">${escapeHTML(o.status)}</span>
-
    <p>
-
     Produk: ${o.product==="black"?"Black Gem Lock":"Blue Gem Lock"}<br>
-
     Jumlah: ${Number(o.qty)||0}<br>
-
     Total: ${rp(o.total)}<br>
-
     Grow ID: ${escapeHTML(o.grow)}<br>
-
     World: ${escapeHTML(o.world)}<br>
-
     WhatsApp: ${escapeHTML(o.phone)}<br>
-
     Dibuat: ${escapeHTML(o.created)}
-
    </p>
-
    <div class="admin-actions">
-
     <button class="green" onclick="changeOrderStatus('${escapeHTML(o.id)}','SUCCESS')"><i class="fa-solid fa-check"></i> SUCCESS</button>
-
     <button class="danger" onclick="changeOrderStatus('${escapeHTML(o.id)}','REJECTED')"><i class="fa-solid fa-xmark"></i> REJECTED</button>
-
     <button class="secondary" onclick="changeOrderStatus('${escapeHTML(o.id)}','PENDING')">PENDING</button>
-
    </div>
-
   </div>`).join("");
-
 }
-
 function renderAdminReviews(){
-
  const reviews=getReviews();
-
  if(!reviews.length){
-
   $("adminReviews").innerHTML='<div class="orders-empty">Belum ada ulasan.</div>';
-
   return;
-
  }
-
  $("adminReviews").innerHTML=reviews.map(r=>`
-
   <div class="review-card">
-
    <strong>${escapeHTML(r.orderId)}</strong>
-
    <div class="stars">${"★".repeat(Number(r.rating)||0)}${"☆".repeat(5-(Number(r.rating)||0))}</div>
-
    <p style="margin:10px 0;font-size:12px;line-height:1.7">${escapeHTML(r.message)}</p>
-
    <small class="small-note">${escapeHTML(r.created)}</small>
-
   </div>`).join("");
-
 }
 
 /* ADMIN ASSISTED ORDER */
-
 let currentStep=1,assist={type:"",product:"",qty:10,method:"",admin:""};
-
 function toggleAssisted(){
-
  $("assistedPanel").classList.toggle("open");
-
  if($("assistedPanel").classList.contains("open"))$("assistedPanel").scrollIntoView({behavior:"smooth",block:"start"});
-
 }
-
 function showWizard(n){
-
  currentStep=n;
-
  document.querySelectorAll(".wizard-page").forEach(p=>p.classList.toggle("active",Number(p.dataset.step)===n));
-
  for(let i=1;i<=5;i++)$("p"+i).classList.toggle("active",i<=n);
-
  $("wizardNext").style.display=n===5?"none":"inline-flex";
-
  if(n===5)renderAssistSummary();
-
 }
-
 function nextStep(){
-
  if(currentStep===1&&!assist.type)return toast("Pilih jenis transaksi.");
-
  if(currentStep===2){
-
   if(!assist.product)return toast("Pilih produk.");
-
   assist.qty=Number($("wizardQty").value);
-
   if(assist.qty<MIN[assist.type][assist.product])return toast("Jumlah kurang dari minimum.");
-
  }
-
  if(currentStep===3&&!assist.method)return toast("Pilih metode.");
-
  if(currentStep===4&&!assist.admin)return toast("Pilih admin.");
-
  if(currentStep<5)showWizard(currentStep+1);
-
 }
-
 function prevStep(){if(currentStep>1)showWizard(currentStep-1)}
-
 function chooseType(type,el){
-
  assist.type=type;assist.product="";assist.method="";assist.admin="";
-
  el.parentElement.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));
-
  el.classList.add("selected");
-
  $("wizardQty").value=MIN[type].bgl;
-
  $("wizardBglPrice").textContent=rp(PRICE[type].bgl)+" / unit";
-
  $("wizardBlackPrice").textContent=rp(PRICE[type].black)+" / unit";
-
  $("wizardBuyMethod").classList.toggle("hidden",type!=="buy");
-
  $("wizardSellMethod").classList.toggle("hidden",type!=="sell");
-
  updateWizard();
-
 }
-
 function chooseProduct(product,el){
-
  assist.product=product;
-
  el.parentElement.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));
-
  el.classList.add("selected");
-
  updateWizard();
-
 }
-
 function updateWizard(){
-
  if(!assist.type||!assist.product){$("wizardTotal").textContent="Rp0";return}
-
  const q=Number($("wizardQty").value)||0;
-
  $("wizardTotal").textContent=rp(amount(assist.type,assist.product,q));
-
 }
-
 function chooseMethod(method,el){
-
  assist.method=method;
-
  el.parentElement.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));
-
  el.classList.add("selected");
-
 }
-
 function chooseAdmin(admin,el){
-
  assist.admin=admin;
-
  document.querySelectorAll(".admin-card").forEach(x=>x.classList.remove("selected"));
-
  el.classList.add("selected");
-
 }
-
 function renderAssistSummary(){
-
  const total=amount(assist.type,assist.product,assist.qty);
-
  $("sumType").textContent=assist.type==="buy"?"PEMBELIAN":"PENJUALAN";
-
  $("sumProduct").textContent=assist.product.toUpperCase();
-
  $("sumQty").textContent=assist.qty+" unit";
-
  $("sumMethod").textContent=assist.method;
-
  $("sumAdmin").textContent=ADMINS[assist.admin].name;
-
  $("sumTotal").textContent=rp(total);
-
 }
-
 function sendAssisted(){
-
  const name=$("assistName").value.trim();
-
  const grow=$("assistGrow").value.trim();
-
  const world=$("assistWorld").value.trim();
-
  const phone=$("assistPhone").value.trim();
-
  const account=$("assistAccount").value.trim();
-
  if(!name||!grow||!world||!phone)return toast("Lengkapi semua detail pesanan.");
-
  if(assist.type==="sell"&&!account)return toast("Masukkan nomor akun pencairan.");
-
  const admin=ADMINS[assist.admin],total=amount(assist.type,assist.product,assist.qty);
-
  const msg=["*BLACK MARKET - PESANAN*","Jenis: "+assist.type,"Produk: "+assist.product.toUpperCase(),"Jumlah: "+assist.qty,"Metode: "+assist.method,"Admin: "+admin.name,"Total: "+rp(total),"Nama: "+name,"Grow ID: "+grow,"World: "+world,"WhatsApp: "+phone];
-
  if(assist.type==="sell")msg.push("Nomor akun: "+account);
-
  window.open("https://wa.me/"+admin.phone+"?text="+encodeURIComponent(msg.join("\n")),"_blank");
-
 }
 
 /* TRANSAKSI BERJALAN - CONTOH ANIMASI */
-
 (function(){
-
  const target=$("realtimeText");
-
  if(!target)return;
-
  const quantities=[5,8,10,12,15,18,20,25,30,35,40,45,50,60,75,100,120,150,200];
-
  const types=["membeli","menjual"];
-
  const chars="ABCDEFGHJKLMNPQRSTUVWXYZ0123456789";
-
  function randomItem(arr){return arr[Math.floor(Math.random()*arr.length)]}
-
  function randomTime(){return Math.floor(Math.random()*19)+6+" jam "+Math.floor(Math.random()*60)+" menit lalu"}
-
  function randomCode(){
-
   let code="#TX-";
-
   for(let i=0;i<7;i++)code+=chars[Math.floor(Math.random()*chars.length)];
-
   return code;
-
  }
-
  function showTransaction(){
-
   const qty=randomItem(quantities),type=randomItem(types);
-
   target.innerHTML="Transaksi "+type+' <strong>'+qty+" BGL</strong>"+'<span style="color:#91a5c4;margin:0 8px">'+randomTime()+"</span>"+'<span style="text-decoration:underline">'+randomCode()+"</span>";
-
   target.style.animation="none";
-
   void target.offsetWidth;
-
   target.style.animation="transactionSlide 9s linear forwards";
-
  }
-
  showTransaction();
-
  setInterval(showTransaction,9500);
-
 })();
 
 /* INISIALISASI */
-
 updateMarketPrices();
-
 initializeCheckout();
-
 renderOrders();
-
 renderPublicReviews();
 
 /* AKSES ADMIN MELALUI URL ?admin=login */
-
 const urlParams=new URLSearchParams(location.search);
-
-if(urlParams.get("admin")==="login"){
-
- openAdmin();
-
-}
-
+if(urlParams.get("admin")==="login")openAdmin();
 </script>
-
 </body>
-
 </html>
