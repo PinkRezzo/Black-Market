@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -6,9 +7,10 @@
 <meta name="theme-color" content="#080d19">
 <title>BLACK MARKET | CPS Store</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#080d19;--panel:#101c30;--panel2:#14243c;--blue:#278cff;--cyan:#72c5ff;--text:#f5f8ff;--muted:#91a5c4;--border:rgba(91,157,255,.2);--green:#39d69b}
+:root{--bg:#080d19;--panel:#101c30;--blue:#278cff;--text:#f5f8ff;--muted:#91a5c4;--border:rgba(91,157,255,.2);--green:#39d69b}
 body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
@@ -117,7 +119,7 @@ section{padding:48px 0;scroll-margin-top:85px}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:#278cff}
 .field input::placeholder,.field textarea::placeholder{color:#607793}
 .wizard-actions{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
-.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.admin-grid{display:grid;grid-template-columns:1fr;gap:10px}
 .admin-card{padding:15px;text-align:left;border:1px solid var(--border);background:#102039;color:white;border-radius:12px}
 .admin-card.selected{border-color:#278cff;background:#173a61}
 .admin-card strong{display:block;font-size:13px}.admin-card small{color:#91a5c4;font-size:10px}
@@ -191,15 +193,21 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:#
 .whatsapp-float{position:fixed;right:18px;bottom:18px;z-index:90;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:#19b86d;color:white;font-size:24px;box-shadow:0 5px 25px #0007;text-decoration:none}
 #toast{position:fixed;z-index:500;bottom:82px;left:50%;transform:translateX(-50%);background:#18365a;color:white;padding:12px 18px;border-radius:11px;font-size:11px;display:none;max-width:90%;text-align:center}
 
-/* DASHBOARD REVIEW */
+/* REVIEW DASHBOARD */
 .review-dashboard{padding:18px;background:linear-gradient(145deg,#122641,#0b1729);border:1px solid rgba(91,157,255,.25);border-radius:18px}
-.review-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.review-stat{min-width:0;padding:15px 9px;text-align:center;background:#091729;border:1px solid #284666;border-radius:13px}
-.review-stat .stat-number{font-size:clamp(19px,4vw,27px);font-weight:1000;color:#fff;white-space:nowrap}
-.review-stat .stat-label{font-size:9px;color:#91a5c4;margin-top:7px;letter-spacing:.7px}
-.review-stat .stat-stars{color:#ffd34f;font-size:11px;letter-spacing:1px;margin-top:5px}
-.review-stat-product{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:5px}
-.review-stat-product img{width:25px;height:25px;object-fit:contain}
+.review-carousel{position:relative;overflow:hidden;border-radius:15px;touch-action:pan-y}
+.review-track{display:flex;transition:transform .65s cubic-bezier(.22,.75,.25,1);will-change:transform}
+.review-slide{flex:0 0 100%;min-width:100%;padding:20px 12px;text-align:center;background:#091729;border:1px solid #284666;border-radius:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:190px}
+.review-slide .stat-number{font-size:clamp(35px,8vw,48px);font-weight:1000;color:#fff;white-space:nowrap}
+.review-slide .stat-label{font-size:12px;color:#91a5c4;margin-top:12px;letter-spacing:1.5px}
+.review-slide .stat-stars{color:#ffd34f;font-size:23px;letter-spacing:3px;margin-top:9px}
+.review-slide .stat-icon{font-size:32px;color:#ffd34f;margin-top:10px}
+.review-slide .review-stat-product{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:10px}
+.review-slide .review-stat-product img{width:38px;height:38px;object-fit:contain}
+.review-slide .review-stat-product span{font-size:22px;font-weight:900;color:#72c5ff}
+.review-carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
+.review-carousel-dot{width:8px;height:8px;border:0;border-radius:20px;background:#405673;transition:.3s;padding:0}
+.review-carousel-dot.active{width:25px;background:#278cff}
 .review-tabs{display:flex;gap:8px;margin:17px 0 13px;padding:5px;background:#091525;border:1px solid #263e5d;border-radius:12px}
 .review-tab{flex:1;border:0;border-radius:9px;padding:12px 8px;background:transparent;color:#91a5c4;font-size:11px;font-weight:900;letter-spacing:1px}
 .review-tab.active{background:linear-gradient(110deg,#1269dc,#269cff);color:white;box-shadow:0 4px 15px #0877ff30}
@@ -218,7 +226,7 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:#
 .how-order .step{margin:15px 0}
 .review-note{font-size:10px;color:#7188a6;text-align:center;margin-top:13px;line-height:1.6}
 @media(max-width:720px){.checkout-layout{grid-template-columns:1fr}.checkout-summary{position:static}.checkout-fields{grid-template-columns:1fr}.wide{grid-column:auto}}
-@media(max-width:520px){.realtime-wrap{gap:9px;padding:10px}.realtime-label{font-size:10px;padding:10px}.realtime-text{font-size:12px}.review-dashboard{padding:12px}.review-stats{gap:6px}.review-stat{padding:12px 4px}.review-stat .stat-label{font-size:8px}.review-list{grid-template-columns:1fr}.public-review{padding:12px}}
+@media(max-width:520px){.realtime-wrap{gap:9px;padding:10px}.realtime-label{font-size:10px;padding:10px}.realtime-text{font-size:12px}.review-dashboard{padding:12px}.review-slide{min-height:175px;padding:16px 8px}.review-slide .stat-label{font-size:10px}.review-list{grid-template-columns:1fr}.public-review{padding:12px}}
 @media(max-width:430px){.market-grid{gap:9px}.product-card{padding:13px}.product-logo{width:51px;height:51px}.product-card h3{font-size:12px}.price{font-size:18px}.checkout-panel{padding:15px}.checkout-products{gap:7px}.checkout-product{padding:10px}.checkout-product img{width:43px;height:43px}.checkout-product .cp-price{font-size:15px}.admin-price-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -275,27 +283,29 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:#
   </div>
 
   <div class="review-dashboard">
-   <div class="review-stats">
-    <div class="review-stat">
-     <div class="stat-number">5,0</div>
-     <div class="stat-stars">★★★★★</div>
-     <div class="stat-label">RATING PEMBELI</div>
-    </div>
-    <div class="review-stat">
-     <div class="stat-number">23</div>
-     <div class="stat-label">TOTAL ULASAN</div>
-     <div class="stat-stars"><i class="fa-solid fa-comments"></i> CUSTOMER</div>
-    </div>
-    <div class="review-stat">
-     <div class="stat-number">732</div>
-     <div class="review-stat-product"><img src="logo-bgl-black.png" alt="BGL"><span style="font-size:12px;font-weight:900;color:#72c5ff">BGL</span></div>
-     <div class="stat-label">TOTAL BGL TERJUAL</div>
+   <div class="review-carousel" id="reviewCarousel">
+    <div class="review-track" id="reviewTrack">
+     <div class="review-slide">
+      <div class="stat-number">5,0</div>
+      <div class="stat-stars">★★★★★</div>
+      <div class="stat-label">RATING PEMBELI</div>
+     </div>
+     <div class="review-slide">
+      <div class="stat-number">23</div>
+      <div class="stat-icon"><i class="fa-solid fa-comments"></i></div>
+      <div class="stat-label">TOTAL ULASAN CUSTOMER</div>
+     </div>
+     <div class="review-slide">
+      <div class="stat-number">732</div>
+      <div class="review-stat-product"><img src="logo-bgl-black.png" alt="BGL"><span>BGL</span></div>
+      <div class="stat-label">TOTAL BGL TERJUAL</div>
+     </div>
     </div>
    </div>
-
-   <div class="review-stats" style="grid-template-columns:1fr;margin-top:9px">
-    <div class="review-stat" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:11px">
-   </div>
+   <div class="review-carousel-dots">
+    <button class="review-carousel-dot active" aria-label="Statistik 1" onclick="goReviewSlide(0)"></button>
+    <button class="review-carousel-dot" aria-label="Statistik 2" onclick="goReviewSlide(1)"></button>
+    <button class="review-carousel-dot" aria-label="Statistik 3" onclick="goReviewSlide(2)"></button>
    </div>
 
    <div class="review-tabs">
@@ -340,7 +350,7 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:#
     <div class="wizard-page active" data-step="1"><h4 style="margin-bottom:14px">Pilih jenis transaksi</h4><div class="choice-grid"><button class="choice" onclick="chooseType('buy',this)"><i class="fa-solid fa-cart-shopping"></i><strong>Beli CPS</strong></button><button class="choice" onclick="chooseType('sell',this)"><i class="fa-solid fa-wallet"></i><strong>Jual CPS</strong></button></div></div>
     <div class="wizard-page" data-step="2"><h4 style="margin-bottom:14px">Pilih produk dan jumlah</h4><div class="choice-grid"><button class="choice" onclick="chooseProduct('bgl',this)"><i class="fa-solid fa-gem"></i><strong>Blue Gem Lock</strong><small id="wizardBglPrice"></small></button><button class="choice" onclick="chooseProduct('black',this)"><i class="fa-solid fa-lock"></i><strong>Black Gem Lock</strong><small id="wizardBlackPrice"></small></button></div><div class="field"><label>Jumlah</label><input id="wizardQty" type="number" value="10" min="1" oninput="updateWizard()"></div><div class="total"><span>Total</span><strong id="wizardTotal">Rp0</strong></div></div>
     <div class="wizard-page" data-step="3"><h4 style="margin-bottom:14px">Pilih metode</h4><div class="choice-grid" id="wizardBuyMethod"><button class="choice selected" onclick="chooseMethod('QRIS',this)"><i class="fa-solid fa-qrcode"></i><strong>QRIS</strong></button><button class="choice" onclick="chooseMethod('Ewallet/Bank',this)"><i class="fa-solid fa-building-columns"></i><strong>Ewallet / Bank</strong></button></div><div class="choice-grid hidden" id="wizardSellMethod"><button class="choice" onclick="chooseMethod('DANA',this)"><i class="fa-solid fa-wallet"></i><strong>DANA</strong></button><button class="choice" onclick="chooseMethod('OVO',this)"><i class="fa-solid fa-wallet"></i><strong>OVO</strong></button></div></div>
-    <div class="wizard-page" data-step="4"><h4 style="margin-bottom:14px">Pilih admin</h4><div class="admin-grid"><button class="admin-card" onclick="chooseAdmin('boopa',this)"><strong>BOOPA</strong><small>Admin BLACK MARKET</small></button><button class="admin-card" onclick="chooseAdmin('raden',this)"><strong>RADEN</strong><small>Admin BLACK MARKET</small></button></div></div>
+    <div class="wizard-page" data-step="4"><h4 style="margin-bottom:14px">Pilih admin</h4><div class="admin-grid"><button class="admin-card" onclick="chooseAdmin('boopa',this)"><strong>BOOPA</strong><small>Admin BLACK MARKET</small></button></div></div>
     <div class="wizard-page" data-step="5"><h4 style="margin-bottom:12px">Detail pesanan</h4><div class="line"><span>Transaksi</span><strong id="sumType">-</strong></div><div class="line"><span>Produk</span><strong id="sumProduct">-</strong></div><div class="line"><span>Jumlah</span><strong id="sumQty">-</strong></div><div class="line"><span>Metode</span><strong id="sumMethod">-</strong></div><div class="line"><span>Admin</span><strong id="sumAdmin">-</strong></div><div class="total"><span>Total</span><strong id="sumTotal">Rp0</strong></div>
      <div class="field"><label>Nama Kamu</label><input id="assistName" placeholder="Masukkan nama"></div><div class="field"><label>Grow ID</label><input id="assistGrow" placeholder="Grow ID"></div><div class="field"><label>Nama World</label><input id="assistWorld" placeholder="Nama World"></div><div class="field"><label>Nomor WhatsApp</label><input id="assistPhone" placeholder="08xxxxxxxxxx"></div><div class="field"><label>Nomor rekening / Ewallet (khusus jual)</label><input id="assistAccount" placeholder="Nomor akun"></div><button class="btn green block" onclick="sendAssisted()">Kirim ke Admin WhatsApp</button>
     </div>
@@ -487,11 +497,11 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:#
 
 <script>
 /* KONFIGURASI */
-const ADMIN_PASSWORD="nainggolan123";
-const DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/1567365781015236668/oBL_SMmtYyKq31ZyWparS8cmMhbA-Q8M1t6KK9MQ_88VZoKl9ssmGVsDYUuK4Ia4oONW";
+const ADMIN_PASSWORD="GANTI_PASSWORD_ADMIN";
+const DISCORD_WEBHOOK_URL="GANTI_DENGAN_WEBHOOK_DISCORD_BARU";
 const DEFAULT_PRICE={buy:{bgl:1100,black:108000},sell:{bgl:900,black:95000}};
 const MIN={buy:{bgl:10,black:1},sell:{bgl:30,black:1}};
-const ADMINS={boopa:{name:"BOOPA",phone:"6285864582161"},raden:{name:"RADEN",phone:"6287735220343"}};
+const ADMINS={boopa:{name:"BOOPA",phone:"6285864582161"}};
 const $=id=>document.getElementById(id);
 const rp=n=>"Rp"+Number(n||0).toLocaleString("id-ID");
 
@@ -797,6 +807,33 @@ function renderPublicReviews(){
     <span class="public-review-qty">${Number(r.qty)||0} ${r.product==="black"?"BLACK":"BGL"}</span>
    </div>
   </article>`).join("");
+}
+
+/* CAROUSEL STATISTIK: GANTI SETIAP 5 DETIK */
+let reviewSlideIndex=0;
+let reviewSlideTimer=null;
+function goReviewSlide(index){
+ const track=$("reviewTrack");
+ if(!track)return;
+ reviewSlideIndex=(index+3)%3;
+ track.style.transform="translateX(-"+(reviewSlideIndex*100)+"%)";
+ document.querySelectorAll(".review-carousel-dot").forEach((dot,i)=>{
+  dot.classList.toggle("active",i===reviewSlideIndex);
+ });
+}
+function startReviewCarousel(){
+ if(reviewSlideTimer)clearInterval(reviewSlideTimer);
+ reviewSlideTimer=setInterval(()=>{
+  goReviewSlide(reviewSlideIndex+1);
+ },5000);
+}
+const reviewCarousel=$("reviewCarousel");
+if(reviewCarousel){
+ reviewCarousel.addEventListener("mouseenter",()=>clearInterval(reviewSlideTimer));
+ reviewCarousel.addEventListener("mouseleave",startReviewCarousel);
+ reviewCarousel.addEventListener("touchstart",()=>clearInterval(reviewSlideTimer),{passive:true});
+ reviewCarousel.addEventListener("touchend",startReviewCarousel,{passive:true});
+ startReviewCarousel();
 }
 
 /* ADMIN */
