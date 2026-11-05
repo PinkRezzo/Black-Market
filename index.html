@@ -7,230 +7,174 @@
 <meta name="theme-color" content="#080d19">
 <title>BLACK MARKET | CPS Store</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#080d19;--panel:#101c30;--blue:#278cff;--text:#f5f8ff;--muted:#91a5c4;--border:rgba(91,157,255,.2);--green:#39d69b}
-body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
-.container{width:min(1100px,92%);margin:auto}
-.page{display:none;min-height:75vh}
-.page.active{display:block;animation:fade .35s ease}
+:root{--bg:#080d19;--panel:#101c30;--panel2:#14243c;--blue:#278cff;--cyan:#72c5ff;--text:#f5f8ff;--muted:#91a5c4;--border:rgba(91,157,255,.2);--green:#39d69b}
+body{background:radial-gradient(ellipse at 50% 18%,#10284a 0%,#080d19 48%,#060a13 100%);color:var(--text);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
+/* Lapisan CPS terbang di latar belakang */
+.floating-cps-layer{position:fixed;inset:70px 0 0;z-index:0;overflow:hidden;pointer-events:none;contain:paint}
+.floating-cps{position:absolute;width:clamp(30px,5vw,66px);height:clamp(30px,5vw,66px);object-fit:contain;opacity:.14;filter:drop-shadow(0 0 13px #278cff88);animation:gemFlight 18s ease-in-out infinite}
+.floating-cps.black{opacity:.12;filter:drop-shadow(0 0 14px #a9cfff88);animation-name:gemFlightReverse}
+.floating-cps.g1{left:5%;top:14%;animation-duration:19s}.floating-cps.g2{right:8%;top:20%;animation-duration:23s;animation-delay:-7s}.floating-cps.g3{left:16%;top:57%;width:42px;animation-duration:21s;animation-delay:-11s}.floating-cps.g4{right:17%;top:66%;width:48px;animation-duration:25s;animation-delay:-4s}.floating-cps.g5{left:48%;top:8%;width:34px;animation-duration:17s;animation-delay:-9s}.floating-cps.g6{right:42%;top:82%;width:38px;animation-duration:22s;animation-delay:-13s}
+@keyframes gemFlight{0%,100%{transform:translate3d(0,0,0) rotate(-12deg)}25%{transform:translate3d(28px,-36px,0) rotate(28deg)}50%{transform:translate3d(-14px,-72px,0) rotate(75deg)}75%{transform:translate3d(-35px,-24px,0) rotate(130deg)}}
+@keyframes gemFlightReverse{0%,100%{transform:translate3d(0,0,0) rotate(12deg)}25%{transform:translate3d(-30px,34px,0) rotate(-30deg)}50%{transform:translate3d(15px,68px,0) rotate(-80deg)}75%{transform:translate3d(36px,20px,0) rotate(-135deg)}}
+header,main{position:relative;z-index:1}
+button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}.container{width:min(1100px,92%);margin:auto}
+.page{display:none;min-height:75vh}.page.active{display:block;animation:fade .35s ease}
 @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .card{background:linear-gradient(145deg,#12223a,#0c1728);border:1px solid var(--border);border-radius:18px}
 .btn{border:0;border-radius:11px;padding:13px 18px;font-weight:bold;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:.2s}
-.btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
-.primary{background:linear-gradient(110deg,#1269dc,#269cff);color:white;box-shadow:0 7px 22px #0877ff30}
-.secondary{background:#192d49;color:#d8eaff;border:1px solid var(--border)}
-.green{background:#159b67;color:white}
-.danger{background:#9c303b;color:white}
-.block{width:100%}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.12)}.primary{background:linear-gradient(110deg,#1269dc,#269cff);color:white;box-shadow:0 7px 22px #0877ff30}
+.secondary{background:#192d49;color:#d8eaff;border:1px solid var(--border)}.green{background:#159b67;color:white}.block{width:100%}
 header{height:70px;position:sticky;top:0;z-index:100;background:#080e1bed;backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-.nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.nav-left{display:flex;align-items:center;gap:13px}
+.nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}.nav-left{display:flex;align-items:center;gap:13px}
 .menu-toggle{height:43px;width:43px;border:1px solid #34518b;border-radius:12px;background:#14264d;color:white;font-size:19px}
-.nav-brand{font-weight:900;letter-spacing:1px;font-size:14px}
-.cart-nav{height:42px;width:42px;border-radius:12px;background:#14264d;color:#8bcaff;border:1px solid #34518b;font-size:17px}
-.sidebar-overlay{position:fixed;inset:0;background:#0009;z-index:199;display:none}
-.sidebar-overlay.show{display:block}
-.sidebar{position:fixed;z-index:200;top:0;left:-290px;width:275px;height:100dvh;background:#101d35;border-right:1px solid #29477f;padding:22px 16px;transition:left .32s ease}
-.sidebar.open{left:0}
-.sidebar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:38px}
-.sidebar-close{width:36px;height:36px;background:#203963;border:1px solid #36578e;border-radius:10px;color:white}
+.nav-brand{font-weight:900;letter-spacing:1px;font-size:14px}.cart-nav{height:42px;width:42px;border-radius:12px;background:#14264d;color:#8bcaff;border:1px solid #34518b;font-size:17px}
+.sidebar-overlay{position:fixed;inset:0;background:#0009;z-index:199;display:none}.sidebar-overlay.show{display:block}
+.sidebar{position:fixed;z-index:200;top:0;left:-290px;width:275px;height:100dvh;background:#101d35;border-right:1px solid #29477f;padding:22px 16px;transition:left .32s ease}.sidebar.open{left:0}
+.sidebar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:38px}.sidebar-close{width:36px;height:36px;background:#203963;border:1px solid #36578e;border-radius:10px;color:white}
 .sidebar-label{font-size:10px;letter-spacing:2px;color:#7895c2;font-weight:900;margin:0 10px 14px}
 .menu-item{display:flex;align-items:center;gap:14px;padding:15px;margin-bottom:8px;border-radius:12px;color:#c4d5ef;text-decoration:none;font-size:14px;font-weight:bold;transition:.2s}
-.menu-item i{width:22px;text-align:center;font-size:18px;color:#70b7ff}
-.menu-item.active,.menu-item:hover{background:#203f70;color:white;box-shadow:inset 3px 0 #62b8ff}
-.logo-animation{width:47px;height:47px;position:relative;flex-shrink:0}
-.logo-stage{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transform:scale(.25);pointer-events:none}
-.logo-stage.stage-b{opacity:1;transform:scale(1)}
-.logo-box{width:46px;height:46px;border-radius:13px;background:linear-gradient(140deg,#147bff,#4eb6ff);display:grid;place-items:center;color:#fff;font-size:32px;font-weight:1000;font-style:italic;box-shadow:0 0 22px #278cff55}
-.logo-round{width:42px;height:42px;border-radius:50%;background:linear-gradient(140deg,#147bff,#65caff);box-shadow:0 0 22px #278cff66}
-.logo-love{font-size:40px;color:#42a4ff;text-shadow:0 0 20px #278cff88}
-.logo-animation.play .stage-b{animation:stageB 26s infinite}
-.logo-animation.play .stage-round{animation:stageRound 26s infinite}
-.logo-animation.play .stage-love{animation:stageLove 26s infinite}
+.menu-item i{width:22px;text-align:center;font-size:18px;color:#70b7ff}.menu-item.active,.menu-item:hover{background:#203f70;color:white;box-shadow:inset 3px 0 #62b8ff}
+.logo-animation{width:47px;height:47px;position:relative;flex-shrink:0}.logo-stage{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transform:scale(.25);pointer-events:none}
+.logo-stage.stage-b{opacity:1;transform:scale(1)}.logo-box{width:46px;height:46px;border-radius:13px;background:linear-gradient(140deg,#147bff,#4eb6ff);display:grid;place-items:center;color:#fff;font-size:32px;font-weight:1000;font-style:italic;box-shadow:0 0 22px #278cff55}
+.logo-round{width:42px;height:42px;border-radius:50%;background:linear-gradient(140deg,#147bff,#65caff);box-shadow:0 0 22px #278cff66}.logo-love{font-size:40px;color:#42a4ff;text-shadow:0 0 20px #278cff88}
+.logo-animation.play .stage-b{animation:stageB 26s infinite}.logo-animation.play .stage-round{animation:stageRound 26s infinite}.logo-animation.play .stage-love{animation:stageLove 26s infinite}
 @keyframes stageB{0%,5%,20%,23.08%,100%{opacity:1;transform:scale(1)}7%,10%,14%,18%,20.5%{opacity:0;transform:scale(.3)}}
 @keyframes stageRound{0%,9%,13%,100%{opacity:0;transform:scale(.2)}10%,12%{opacity:1;transform:scale(1.15)}13%{opacity:1;transform:scale(1)}}
 @keyframes stageLove{0%,13%,17%,100%{opacity:0;transform:scale(.2) rotate(-35deg)}14%,16%{opacity:1;transform:scale(1.15) rotate(8deg)}17%{opacity:1;transform:scale(1) rotate(0)}}
-.hero{min-height:calc(100vh - 70px);display:flex;align-items:center;text-align:center;padding:55px 0}
-.hero-content{width:100%}
+.hero{min-height:calc(100vh - 70px);display:flex;align-items:center;text-align:center;padding:55px 0}.hero-content{width:100%}
 .pill{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;background:#112b4b;border:1px solid var(--border);border-radius:30px;color:#91ccff;font-size:10px;letter-spacing:1px}
 .dot{width:7px;height:7px;border-radius:50%;background:#40e1a0;box-shadow:0 0 10px #40e1a0}
 .hero h1{font-size:clamp(40px,9vw,78px);font-weight:1000;letter-spacing:-3px;margin:24px 0 15px;background:linear-gradient(110deg,#fff,#65baff,#fff);background-size:200%;color:transparent;background-clip:text;animation:shine 5s linear infinite}
-@keyframes shine{to{background-position:200%}}
-.hero p{max-width:540px;margin:0 auto 24px;color:var(--muted);font-size:13px;line-height:1.8}
-.hero-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.hero-logos{display:flex;justify-content:center;gap:35px;margin-top:40px}
-.hero-logos img{width:75px;height:75px;object-fit:contain;filter:drop-shadow(0 0 13px #278cff66);animation:float 3s ease-in-out infinite}
-.hero-logos img:nth-child(2){animation-delay:1s}
-@keyframes float{50%{transform:translateY(-10px)}}
-.realtime-wrap{width:min(790px,100%);margin:24px auto 0;min-height:66px;padding:10px 16px;display:flex;align-items:center;gap:14px;overflow:hidden;border:1px solid rgba(65,157,255,.35);border-radius:18px;background:#071327}
-.realtime-label{flex-shrink:0;display:flex;align-items:center;gap:9px;padding:11px 14px;border-radius:30px;background:#082b45;border:1px solid #0875a8;color:#39d5ff;font-size:12px;font-weight:900;white-space:nowrap}
-.realtime-dot{width:9px;height:9px;border-radius:50%;background:#38d9ff}
+@keyframes shine{to{background-position:200%}}.hero p{max-width:540px;margin:0 auto 24px;color:var(--muted);font-size:13px;line-height:1.8}
+.hero-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.hero-logos{width:min(300px,90%);height:116px;position:relative;margin:24px auto 0;display:block;isolation:isolate}
+.hero-logos::before{content:"";position:absolute;width:178px;height:72px;left:50%;top:18px;transform:translateX(-50%);border:1px dashed #398fe955;border-radius:50%;box-shadow:0 0 28px #168bff12}
+.hero-logos img{position:absolute;left:50%;top:15px;width:70px;height:70px;object-fit:contain;filter:drop-shadow(0 0 15px #278cff99);will-change:transform}
+.hero-logos img:first-child{animation:logoOrbitBgl 7s ease-in-out infinite}
+.hero-logos img:nth-child(2){animation:logoOrbitBlack 7s ease-in-out infinite}
+@keyframes logoOrbitBgl{0%,100%{transform:translate(-92px,4px) rotate(-12deg) scale(1)}25%{transform:translate(-35px,-8px) rotate(8deg) scale(1.08)}50%{transform:translate(22px,4px) rotate(18deg) scale(1)}75%{transform:translate(-35px,18px) rotate(-8deg) scale(.94)}}
+@keyframes logoOrbitBlack{0%,100%{transform:translate(22px,4px) rotate(12deg) scale(1)}25%{transform:translate(-35px,18px) rotate(-8deg) scale(.94)}50%{transform:translate(-92px,4px) rotate(-18deg) scale(1)}75%{transform:translate(-35px,-8px) rotate(8deg) scale(1.08)}}
+.realtime-wrap{width:min(790px,100%);margin:24px auto 0;min-height:66px;padding:10px 16px;display:flex;align-items:center;gap:14px;overflow:hidden;border:1px solid rgba(65,157,255,.35);border-radius:18px;background:#071327;box-shadow:0 8px 25px #0003}
+.realtime-label{flex-shrink:0;display:flex;align-items:center;gap:9px;padding:11px 14px;border-radius:30px;background:#082b45;border:1px solid #0875a8;color:#39d5ff;font-size:12px;font-weight:900;letter-spacing:.5px;white-space:nowrap}
+.realtime-dot{width:9px;height:9px;border-radius:50%;background:#38d9ff;box-shadow:0 0 12px #38d9ff}
 .realtime-window{flex:1;min-width:0;overflow:hidden;position:relative;height:32px;display:flex;align-items:center}
 .realtime-text{position:absolute;white-space:nowrap;font-size:14px;color:#c8d9ef;animation:transactionSlide 9s linear forwards}
-.realtime-text strong{color:#ffd84d;font-size:16px;margin:0 5px}
+.realtime-text strong{color:#ffd84d;font-size:16px;margin:0 5px}.realtime-text .tx-time{color:#91a5c4;margin:0 8px}.realtime-text .tx-code{color:#c6d5ed;text-decoration:underline;text-decoration-style:dotted}
 @keyframes transactionSlide{0%{transform:translateX(110%);opacity:0}8%{opacity:1}85%{opacity:1}100%{transform:translateX(-120%);opacity:0}}
-section{padding:48px 0;scroll-margin-top:85px}
-.section-head{text-align:center;margin-bottom:28px}
-.eyebrow{font-size:10px;color:#70bdff;letter-spacing:3px;font-weight:900;margin-bottom:10px}
-.section-title{font-size:clamp(26px,5vw,38px);font-weight:1000}
+section{padding:48px 0;scroll-margin-top:85px}.section-head{text-align:center;margin-bottom:28px}
+.eyebrow{font-size:10px;color:#70bdff;letter-spacing:3px;font-weight:900;margin-bottom:10px}.section-title{font-size:clamp(26px,5vw,38px);font-weight:1000}
 .section-desc{color:var(--muted);font-size:12px;line-height:1.7;margin-top:9px}
 .market-label{display:flex;align-items:center;gap:10px;margin:25px 0 15px;font-size:11px;font-weight:900;letter-spacing:1.5px;color:#c7dcf7}
 .market-label:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,#278cff66,transparent)}
-.market-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.product-card{padding:19px;transition:.25s}
-.product-card:hover{transform:translateY(-4px);border-color:#278cff88}
-.product-top{display:flex;justify-content:space-between;align-items:center}
-.product-logo{width:65px;height:65px;object-fit:contain}
-.product-tag{font-size:9px;background:#12345a;color:#8bcaff;padding:7px 9px;border-radius:20px}
-.product-tag.sell{background:#10372d;color:#72e6b8}
-.product-card h3{font-size:15px;margin:12px 0 7px}
-.price{font-size:22px;font-weight:900;color:#76c3ff}
-.price small{font-size:10px;color:#8da5c4;font-weight:normal}
+.market-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.product-card{padding:19px;transition:.25s}
+.product-card:hover{transform:translateY(-4px);border-color:#278cff88}.product-top{display:flex;justify-content:space-between;align-items:center}
+.product-logo{width:65px;height:65px;object-fit:contain}.product-tag{font-size:9px;background:#12345a;color:#8bcaff;padding:7px 9px;border-radius:20px}
+.product-tag.sell{background:#10372d;color:#72e6b8}.product-card h3{font-size:15px;margin:12px 0 7px}.price{font-size:22px;font-weight:900;color:#76c3ff}.price small{font-size:10px;color:#8da5c4;font-weight:normal}
 .product-action{width:100%;padding:11px;border:1px solid #278cff66;background:#102e50;color:#bfe3ff;border-radius:10px;margin-top:14px;font-weight:bold}
-.product-action.sell{background:#10362d;color:#83ebc3;border-color:#36c99555}
-.guide{padding:22px}
-.step{display:flex;gap:14px;margin:19px 0}
+.product-action.sell{background:#10362d;color:#83ebc3;border-color:#36c99555}.guide{padding:22px}.step{display:flex;gap:14px;margin:19px 0}
 .step-icon{height:43px;width:43px;flex-shrink:0;border-radius:13px;background:#173457;color:#78c4ff;display:grid;place-items:center;font-size:18px}
-.step h4{font-size:12px;margin:4px 0 6px}
-.step p{font-size:11px;color:var(--muted);line-height:1.7}
+.step h4{font-size:12px;margin:4px 0 6px}.step p{font-size:11px;color:var(--muted);line-height:1.7}
 .assist-launch{width:100%;display:flex;align-items:center;gap:15px;text-align:left;padding:17px;background:#159b60;color:white;border:0;border-radius:18px}
 .assist-launch .wa{width:52px;height:52px;background:white;color:#13965c;border-radius:16px;display:grid;place-items:center;font-size:29px}
 .assist-launch strong{font-size:19px}.assist-launch small{display:block;margin-top:5px;font-size:11px}
-.assisted-panel{display:none;margin-top:18px}.assisted-panel.open{display:block}
-.assisted{padding:20px}
-.progress{display:flex;justify-content:space-between;margin:20px 0}
-.progress span{width:28px;height:28px;border-radius:50%;background:#1a2d48;color:#9cb5d4;display:grid;place-items:center;font-size:11px}
-.progress span.active{background:#278cff;color:white}
-.wizard-page{display:none}.wizard-page.active{display:block}
-.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.choice{padding:15px 8px;background:#102039;border:1px solid var(--border);color:white;border-radius:12px}
-.choice.selected{border-color:#278cff;background:#173a61}
-.choice i{display:block;font-size:21px;color:#7bc4ff;margin-bottom:9px}
-.choice strong{font-size:12px}.choice small{display:block;color:#91a5c4;margin-top:5px;font-size:10px}
-.field{margin:14px 0}
-.field label{display:block;color:#b7cbe5;font-size:11px;margin-bottom:7px}
-.field input,.field select,.field textarea{width:100%;padding:13px;background:#091525;border:1px solid #29415f;border-radius:10px;color:white;outline:none;font-size:12px}
-.field textarea{min-height:85px;resize:vertical}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:#278cff}
-.field input::placeholder,.field textarea::placeholder{color:#607793}
-.wizard-actions{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
-.admin-grid{display:grid;grid-template-columns:1fr;gap:10px}
-.admin-card{padding:15px;text-align:left;border:1px solid var(--border);background:#102039;color:white;border-radius:12px}
-.admin-card.selected{border-color:#278cff;background:#173a61}
+.assisted-panel{display:none;margin-top:18px}.assisted-panel.open{display:block}.assisted{padding:20px}
+.progress{display:flex;justify-content:space-between;margin:20px 0}.progress span{width:28px;height:28px;border-radius:50%;background:#1a2d48;color:#9cb5d4;display:grid;place-items:center;font-size:11px}
+.progress span.active{background:#278cff;color:white}.wizard-page{display:none}.wizard-page.active{display:block}
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice{padding:15px 8px;background:#102039;border:1px solid var(--border);color:white;border-radius:12px}
+.choice.selected{border-color:#278cff;background:#173a61}.choice i{display:block;font-size:21px;color:#7bc4ff;margin-bottom:9px}.choice strong{font-size:12px}.choice small{display:block;color:#91a5c4;margin-top:5px;font-size:10px}
+.field{margin:14px 0}.field label{display:block;color:#b7cbe5;font-size:11px;margin-bottom:7px}
+.field input,.field select{width:100%;padding:13px;background:#091525;border:1px solid #29415f;border-radius:10px;color:white;outline:none;font-size:12px}
+.field input:focus,.field select:focus{border-color:#278cff}.field input::placeholder{color:#607793}
+.wizard-actions{display:flex;justify-content:space-between;gap:10px;margin-top:20px}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.admin-card{padding:15px;text-align:left;border:1px solid var(--border);background:#102039;color:white;border-radius:12px}.admin-card.selected{border-color:#278cff;background:#173a61}
 .admin-card strong{display:block;font-size:13px}.admin-card small{color:#91a5c4;font-size:10px}
-.line{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #ffffff12;color:#9eb3ce;font-size:11px;gap:12px}
-.line strong{color:white;text-align:right}
-.total{display:flex;justify-content:space-between;align-items:center;padding:15px 0;font-weight:900}
-.total strong{font-size:22px;color:#7cc6ff}
-.checkout-wrap{width:min(1000px,92%);margin:auto;padding:27px 0 60px}
-.checkout-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.line{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #ffffff12;color:#9eb3ce;font-size:11px;gap:12px}.line strong{color:white;text-align:right}
+.total{display:flex;justify-content:space-between;align-items:center;padding:15px 0;font-weight:900}.total strong{font-size:22px;color:#7cc6ff}
+.checkout-wrap{width:min(1000px,92%);margin:auto;padding:27px 0 60px}.checkout-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
 .checkout-back{padding:10px 13px;border-radius:10px;border:1px solid var(--border);background:#12233b;color:#cde3ff;font-size:11px}
-.checkout-brand{display:flex;align-items:center;gap:12px;margin-bottom:25px}
-.checkout-heading{margin-bottom:22px}
-.checkout-heading h1{font-size:clamp(27px,5vw,38px);margin:8px 0}
-.checkout-heading p{font-size:12px;color:var(--muted);line-height:1.7}
+.checkout-brand{display:flex;align-items:center;gap:12px;margin-bottom:25px}.checkout-heading{margin-bottom:22px}
+.checkout-heading h1{font-size:clamp(27px,5vw,38px);margin:8px 0}.checkout-heading p{font-size:12px;color:var(--muted);line-height:1.7}
 .checkout-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,.7fr);gap:16px;align-items:start}
-.checkout-panel{padding:20px;margin-bottom:14px}
-.checkout-panel h3{font-size:15px;margin-bottom:6px}
-.muted{color:var(--muted);font-size:10px;line-height:1.7;margin-bottom:14px}
-.checkout-products{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.checkout-panel{padding:20px;margin-bottom:14px}.checkout-panel h3{font-size:15px;margin-bottom:6px}
+.muted{color:var(--muted);font-size:10px;line-height:1.7;margin-bottom:14px}.checkout-products{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .checkout-product{position:relative;text-align:left;padding:13px;border-radius:13px;border:1px solid #29415f;background:#0d1b30;color:white}
-.checkout-product.selected{border-color:#278cff;background:#123255}
-.checkout-product img{width:51px;height:51px;object-fit:contain;display:block;margin-bottom:9px}
-.checkout-product strong{font-size:12px;display:block}
-.checkout-product small{font-size:9px;color:#91a5c4;display:block;margin-top:5px}
+.checkout-product.selected{border-color:#278cff;background:#123255}.checkout-product img{width:51px;height:51px;object-fit:contain;display:block;margin-bottom:9px}
+.checkout-product strong{font-size:12px;display:block}.checkout-product small{font-size:9px;color:#91a5c4;display:block;margin-top:5px}
 .checkout-product .cp-price{font-size:17px;color:#7bc6ff;font-weight:900;margin-top:9px;display:block}
-.checkmark{position:absolute;right:10px;top:10px;color:transparent}
-.checkout-product.selected .checkmark{color:#60b9ff}
+.checkmark{position:absolute;right:10px;top:10px;color:transparent}.checkout-product.selected .checkmark{color:#60b9ff}
 .qty-row{display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:11px;color:#b9cde6}
-.qty-control{display:flex;gap:7px;align-items:center}
-.qty-control button{width:30px;height:30px;background:#173454;color:#8dcaff;border:1px solid #315778;border-radius:8px}
+.qty-control{display:flex;gap:7px;align-items:center}.qty-control button{width:30px;height:30px;background:#173454;color:#8dcaff;border:1px solid #315778;border-radius:8px}
 .qty-control input{width:55px;text-align:center;padding:7px;background:#091525;border:1px solid #315778;color:white;border-radius:8px}
-.checkout-fields{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
-.wide{grid-column:1/-1}
+.checkout-fields{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.wide{grid-column:1/-1}
 .small-note{font-size:9px;color:#7188a6;line-height:1.6;display:block;margin-top:6px}
 .note{background:#102947;border:1px solid #268cff35;padding:11px;border-radius:10px;color:#a9c6e7;font-size:10px;line-height:1.7;margin:12px 0}
-.checkout-summary{position:sticky;top:85px}
-.checkout-submit{width:100%;margin-top:16px}
+.checkout-summary{position:sticky;top:85px}.checkout-submit{width:100%;margin-top:16px}
 .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}
 .trust div{text-align:center;background:#0b172a;border:1px solid var(--border);border-radius:10px;padding:10px 4px;font-size:9px;color:#b8cbe4}
-.trust i{display:block;font-size:17px;color:#72baff;margin-bottom:6px}
-.checkout-step{display:none}.checkout-step.active{display:block}
+.trust i{display:block;font-size:17px;color:#72baff;margin-bottom:6px}.checkout-step{display:none}.checkout-step.active{display:block}
 .pay-card{padding:19px;border-radius:17px;background:linear-gradient(145deg,#12223a,#0c1728);border:1px solid var(--border);margin:14px 0}
-.pay-card h2{font-size:20px;margin-bottom:10px}
-.pay-method{border:1px solid #278cff;border-radius:14px;padding:14px;background:#10233d}
-.pay-method-head{display:flex;align-items:center;gap:12px;font-weight:bold}
-.pay-method-head img{width:55px;height:42px;object-fit:contain;background:white;border-radius:8px;padding:4px}
+.pay-card h2{font-size:20px;margin-bottom:10px}.pay-method{border:1px solid #278cff;border-radius:14px;padding:14px;background:#10233d}
+.pay-method-head{display:flex;align-items:center;gap:12px;font-weight:bold}.pay-method-head img{width:55px;height:42px;object-fit:contain;background:white;border-radius:8px;padding:4px}
 .pay-exact{display:flex;align-items:center;justify-content:space-between;padding:13px;background:#091525;border-radius:10px;margin:14px 0}
-.pay-exact strong{font-size:22px;color:#7cc6ff}
-.qris-image{width:min(260px,100%);display:block;margin:16px auto;background:white;border-radius:12px;padding:10px}
+.pay-exact strong{font-size:22px;color:#7cc6ff}.qris-image{width:min(260px,100%);display:block;margin:16px auto;background:white;border-radius:12px;padding:10px}
 .upload-proof{display:block;text-align:center;padding:18px;border:1px dashed #438dd5;border-radius:12px;background:#0b1a2e;cursor:pointer}
-.upload-proof input{display:none}
-.upload-proof i{font-size:24px;color:#7cc6ff;margin-bottom:9px}
-.payment-total{border-top:1px dashed #426080;padding-top:13px;margin-top:8px}
-.orders-empty{text-align:center;padding:35px;color:var(--muted);font-size:12px}
-.order-saved{padding:15px;border:1px solid var(--border);border-radius:13px;background:#0d1b30;margin:12px 0}
-.order-saved strong{color:#7cc6ff}
-.status{display:inline-block;padding:6px 10px;border-radius:20px;font-size:10px;font-weight:bold;background:#57441b;color:#ffe08a}
-.status.SUCCESS{background:#104c38;color:#75efbd}
-.status.REJECTED{background:#58252d;color:#ff9ca6}
-.review-card{padding:15px;border:1px solid var(--border);border-radius:13px;background:#0d1b30;margin:10px 0}
-.stars{color:#ffd34f;letter-spacing:3px}
-.admin-section{padding:18px;margin:15px 0}
-.admin-section h3{margin-bottom:14px}
-.admin-input{width:100%;padding:12px;background:#091525;border:1px solid #29415f;border-radius:10px;color:white;margin-top:6px}
-.admin-price-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.admin-order{padding:14px;background:#0d1b30;border:1px solid var(--border);border-radius:12px;margin:10px 0}
-.admin-order p{font-size:11px;color:#a9bdd8;line-height:1.8;margin:8px 0}
-.admin-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.admin-actions button{padding:9px 12px;border:0;border-radius:8px;font-size:11px;font-weight:bold}
-footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:#7189a8;font-size:10px}
+.upload-proof input{display:none}.upload-proof i{font-size:24px;color:#7cc6ff;margin-bottom:9px}.payment-total{border-top:1px dashed #426080;padding-top:13px;margin-top:8px}
+.orders-empty{text-align:center;padding:35px;color:var(--muted);font-size:12px}.order-saved{padding:15px;border:1px solid var(--border);border-radius:13px;background:#0d1b30;margin:12px 0}
+.order-saved strong{color:#7cc6ff}footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:#7189a8;font-size:10px}
 .whatsapp-float{position:fixed;right:18px;bottom:18px;z-index:90;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:#19b86d;color:white;font-size:24px;box-shadow:0 5px 25px #0007;text-decoration:none}
 #toast{position:fixed;z-index:500;bottom:82px;left:50%;transform:translateX(-50%);background:#18365a;color:white;padding:12px 18px;border-radius:11px;font-size:11px;display:none;max-width:90%;text-align:center}
-
-/* REVIEW DASHBOARD */
-.review-dashboard{padding:18px;background:linear-gradient(145deg,#122641,#0b1729);border:1px solid rgba(91,157,255,.25);border-radius:18px}
-.review-carousel{position:relative;overflow:hidden;border-radius:15px;touch-action:pan-y}
-.review-track{display:flex;transition:transform .65s cubic-bezier(.22,.75,.25,1);will-change:transform}
-.review-slide{flex:0 0 100%;min-width:100%;padding:20px 12px;text-align:center;background:#091729;border:1px solid #284666;border-radius:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:190px}
-.review-slide .stat-number{font-size:clamp(35px,8vw,48px);font-weight:1000;color:#fff;white-space:nowrap}
-.review-slide .stat-label{font-size:12px;color:#91a5c4;margin-top:12px;letter-spacing:1.5px}
-.review-slide .stat-stars{color:#ffd34f;font-size:23px;letter-spacing:3px;margin-top:9px}
-.review-slide .stat-icon{font-size:32px;color:#ffd34f;margin-top:10px}
-.review-slide .review-stat-product{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:10px}
-.review-slide .review-stat-product img{width:38px;height:38px;object-fit:contain}
-.review-slide .review-stat-product span{font-size:22px;font-weight:900;color:#72c5ff}
-.review-carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
-.review-carousel-dot{width:8px;height:8px;border:0;border-radius:20px;background:#405673;transition:.3s;padding:0}
-.review-carousel-dot.active{width:25px;background:#278cff}
-.review-tabs{display:flex;gap:8px;margin:17px 0 13px;padding:5px;background:#091525;border:1px solid #263e5d;border-radius:12px}
-.review-tab{flex:1;border:0;border-radius:9px;padding:12px 8px;background:transparent;color:#91a5c4;font-size:11px;font-weight:900;letter-spacing:1px}
-.review-tab.active{background:linear-gradient(110deg,#1269dc,#269cff);color:white;box-shadow:0 4px 15px #0877ff30}
-.review-list{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.public-review{min-width:0;padding:13px;background:#091729;border:1px solid #263f5e;border-radius:12px}
-.public-review-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.public-review-stars{color:#ffd34f;font-size:11px;letter-spacing:1px;white-space:nowrap}
-.public-review-date{font-size:9px;color:#7188a6}
-.public-review-message{font-size:12px;color:#e1ebfa;line-height:1.6;margin:10px 0}
-.public-review-bottom{display:flex;align-items:center;gap:8px;border-top:1px solid #ffffff12;padding-top:9px}
-.public-review-bottom img{width:28px;height:28px;object-fit:contain;flex-shrink:0}
-.public-review-product{font-size:10px;color:#a9c6e7;font-weight:bold}
-.public-review-qty{font-size:10px;color:#72c5ff;margin-left:auto;font-weight:900;white-space:nowrap}
-.how-order{display:none;padding:15px;background:#091729;border:1px solid #263f5e;border-radius:12px}
-.how-order.show{display:block}
-.how-order .step{margin:15px 0}
-.review-note{font-size:10px;color:#7188a6;text-align:center;margin-top:13px;line-height:1.6}
 @media(max-width:720px){.checkout-layout{grid-template-columns:1fr}.checkout-summary{position:static}.checkout-fields{grid-template-columns:1fr}.wide{grid-column:auto}}
-@media(max-width:520px){.realtime-wrap{gap:9px;padding:10px}.realtime-label{font-size:10px;padding:10px}.realtime-text{font-size:12px}.review-dashboard{padding:12px}.review-slide{min-height:175px;padding:16px 8px}.review-slide .stat-label{font-size:10px}.review-list{grid-template-columns:1fr}.public-review{padding:12px}}
-@media(max-width:430px){.market-grid{gap:9px}.product-card{padding:13px}.product-logo{width:51px;height:51px}.product-card h3{font-size:12px}.price{font-size:18px}.checkout-panel{padding:15px}.checkout-products{gap:7px}.checkout-product{padding:10px}.checkout-product img{width:43px;height:43px}.checkout-product .cp-price{font-size:15px}.admin-price-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.realtime-wrap{gap:9px;padding:10px}.realtime-label{font-size:10px;padding:10px}.realtime-text{font-size:12px}.realtime-text strong{font-size:14px}}
+@media(max-width:430px){.market-grid{gap:9px}.product-card{padding:13px}.product-logo{width:51px;height:51px}.product-card h3{font-size:12px}.price{font-size:18px}.checkout-panel{padding:15px}.checkout-products{gap:7px}.checkout-product{padding:10px}.checkout-product img{width:43px;height:43px}.checkout-product .cp-price{font-size:15px}}
+
+/* BLACK MARKET HUB */
+.hub-section{padding:34px 0 58px}.hub-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.hub-card{position:relative;overflow:hidden;min-height:132px;padding:18px;text-align:left;color:#f5f8ff;border:1px solid rgba(91,157,255,.2);border-radius:17px;background:linear-gradient(145deg,#14243c,#0c1728);transition:transform .22s,border-color .22s,box-shadow .22s}.hub-card:hover{transform:translateY(-4px);border-color:#4ca8ff88;box-shadow:0 12px 28px #0005}.hub-card i{display:grid;place-items:center;width:39px;height:39px;border-radius:12px;background:#1b3a61;color:#80c7ff;font-size:17px;margin-bottom:13px}.hub-card strong{display:block;font-size:12px;letter-spacing:.7px}.hub-card small{display:block;color:#91a5c4;font-size:10px;line-height:1.6;margin-top:7px}.hub-card .hub-arrow{position:absolute;right:16px;top:17px;color:#6689b5;background:none;width:auto;height:auto;margin:0;font-size:12px}.hub-modal{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:18px;background:#020711c9;backdrop-filter:blur(9px)}.hub-modal.show{display:flex;animation:fade .2s ease}.hub-dialog{width:min(540px,100%);max-height:min(78dvh,680px);overflow:auto;border:1px solid #31527d;border-radius:20px;background:linear-gradient(145deg,#14243c,#091525);box-shadow:0 24px 80px #0009}.hub-dialog-head{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;background:#101e33ed;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff12}.hub-dialog-head h3{font-size:15px;letter-spacing:.6px}.hub-close{width:35px;height:35px;border:1px solid #345178;border-radius:10px;background:#1a3150;color:white}.hub-dialog-body{padding:20px;color:#dce8f8;font-size:12px;line-height:1.8}.hub-info{padding:14px;border:1px solid #ffffff12;background:#0b192c;border-radius:13px;margin:10px 0}.hub-info strong{color:#fff}.hub-info p{color:#9db1cc;margin-top:5px}.hub-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}.hub-actions button{flex:1;min-width:130px}.hub-list{padding-left:18px;color:#aebfd7}.hub-list li{margin:7px 0}.hub-tag{display:inline-flex;padding:5px 9px;border-radius:20px;background:#12375a;color:#8ccaff;font-size:9px;font-weight:900;letter-spacing:.7px;margin-bottom:8px}
+@media(max-width:650px){.hub-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.hub-card{padding:14px;min-height:126px}.hub-card strong{font-size:10px}.hub-card small{font-size:9px}}
+@media(max-width:360px){.hub-grid{grid-template-columns:1fr}}
+
+/* FEATURE STRIP */
+.experience-section{padding:8px 0 36px}.experience-panel{position:relative;overflow:hidden;display:grid;grid-template-columns:1.15fr 1fr auto;align-items:center;gap:25px;padding:27px 30px;border:1px solid #2b5a8c;border-radius:22px;background:radial-gradient(ellipse at 8% 0%,#17447788,transparent 48%),linear-gradient(115deg,#10233d,#0b1729 70%);box-shadow:0 18px 45px #0003}.experience-glow{position:absolute;width:210px;height:210px;right:16%;top:-145px;border-radius:50%;background:#278cff55;filter:blur(55px);pointer-events:none}.experience-intro,.experience-features,.experience-cta{position:relative;z-index:1}.experience-intro h2{font-size:clamp(22px,3vw,32px);font-weight:1000;line-height:1.15;margin:8px 0}.experience-intro h2 span{color:#72c5ff}.experience-intro p{max-width:370px;color:#9cb2d0;font-size:11px;line-height:1.8}.experience-features{display:grid;gap:12px}.experience-feature{display:flex;align-items:center;gap:11px}.experience-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:11px;background:#1b3e65;color:#86caff;box-shadow:inset 0 0 0 1px #4b91d455}.experience-feature strong{display:block;font-size:11px}.experience-feature small{display:block;color:#91a8c7;font-size:10px;margin-top:4px}.experience-cta{border:1px solid #4a9fe9;background:linear-gradient(110deg,#1269dc,#278cff);color:#fff;border-radius:12px;padding:13px 15px;font-size:10px;font-weight:900;letter-spacing:.7px;white-space:nowrap;box-shadow:0 8px 22px #0877ff33}.experience-cta i{margin-left:8px}.review-avatar{display:none!important}.review-person{gap:0!important}.review-name{font-size:12px;font-weight:800;color:#f3f7ff}.review-person:before{content:'BUYER REVIEW';display:inline-flex;align-items:center;margin-right:9px;padding:6px 8px;border-radius:7px;background:#18395d;color:#8bcaff;font-size:8px;font-weight:900;letter-spacing:.7px}.review-card{position:relative}.review-card:after{content:'“';position:absolute;right:15px;bottom:-15px;font-family:Georgia,serif;font-size:78px;color:#3e83c51b;line-height:1;pointer-events:none}
+@media(max-width:760px){.experience-panel{grid-template-columns:1fr 1fr;gap:18px;padding:22px}.experience-intro{grid-column:1/-1}.experience-cta{justify-self:start}}
+@media(max-width:480px){.experience-panel{grid-template-columns:1fr;gap:17px;padding:20px}.experience-intro{grid-column:auto}.experience-features{grid-template-columns:1fr 1fr;gap:12px}.experience-feature{align-items:flex-start}.experience-feature small{line-height:1.4}.experience-cta{width:100%}}
+
+/* CUSTOMER REVIEWS - SWIPE CAROUSEL */
+.review-section{padding:8px 0 58px}.review-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:18px}.review-controls{display:flex;gap:8px}.review-arrow{width:38px;height:38px;border:1px solid #29466b;border-radius:12px;background:#10213a;color:#d9eaff}.review-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:3px 2px 14px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#31577f transparent}.review-card{flex:0 0 min(310px,82vw);scroll-snap-align:start;border:1px solid #243e60;border-radius:17px;padding:17px;background:linear-gradient(145deg,#14243c,#0b1728);min-height:170px}.review-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.review-person{display:flex;align-items:center;gap:10px;min-width:0}.review-avatar{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:50%;background:#1c3b60;color:#8bcaff;font-weight:900}.review-name{font-size:12px;font-weight:800;color:#f3f7ff}.review-date{font-size:10px;color:#8098b8;margin-top:3px}.review-stars{color:#ffc857;letter-spacing:2px;font-size:12px;white-space:nowrap}.review-product{display:inline-flex;margin-top:14px;padding:5px 9px;border-radius:20px;background:#102d4a;color:#9bd1ff;font-size:10px;font-weight:800}.review-comment{font-size:12px;color:#b9c9df;line-height:1.7;margin-top:10px}.review-empty{width:100%;padding:25px 18px;text-align:center;border:1px dashed #345174;border-radius:16px;color:#91a6c4;background:#0c192b;font-size:12px;line-height:1.7}.review-count{font-size:11px;color:#8fa7c7}.review-sold-item{padding:12px;border:1px solid #ffffff12;background:#0b192c;border-radius:12px;margin:9px 0}.review-sold-item strong{color:#fff}.review-sold-item small{display:block;color:#8fa7c7;margin-top:4px}
+@media(max-width:520px){.review-head{align-items:center}.review-card{flex-basis:84vw}}
+
+/* REVIEW CAROUSEL: satu kartu saja, bergeser otomatis */
+.review-section{padding:8px 0 42px}
+.review-viewport{width:100%;max-width:760px;margin:0 auto;overflow:hidden;border-radius:19px;position:relative}
+.review-track{display:flex;gap:0;width:100%;overflow:visible;padding:3px 0 8px;scroll-snap-type:none;scrollbar-width:none;transition:transform .55s cubic-bezier(.22,.75,.25,1);will-change:transform}
+.review-track::-webkit-scrollbar{display:none}
+.review-card{flex:0 0 100%;width:100%;min-width:100%;min-height:190px;scroll-snap-align:none;box-sizing:border-box}
+.review-dots{display:flex;justify-content:center;align-items:center;gap:7px;margin-top:12px}
+.review-dot{width:7px;height:7px;padding:0;border:0;border-radius:20px;background:#35516f;transition:all .25s;cursor:pointer}
+.review-dot.active{width:22px;background:#58adff;box-shadow:0 0 12px #278cff77}
+.review-count{margin-top:7px}
+@media(max-width:520px){.review-viewport{max-width:100%}.review-card{min-height:205px;padding:18px}.review-controls{gap:6px}.review-arrow{width:34px;height:34px}}
+
+/* CURSOR DEMO DECORATIVO */
+.demo-cursor{position:fixed;left:0;top:0;z-index:99999;width:30px;height:38px;pointer-events:none;opacity:0;transform:translate3d(-100px,-100px,0);transition:transform 850ms cubic-bezier(.2,.8,.2,1),opacity .25s ease;filter:drop-shadow(0 2px 7px #278cffaa)}
+.demo-cursor svg{width:100%;height:100%;display:block}
+.demo-cursor .cursor-ripple{position:absolute;left:7px;top:8px;width:17px;height:17px;border:2px solid #72c5ff;border-radius:50%;opacity:0;transform:scale(.4)}
+.demo-cursor.is-clicking .cursor-ripple{animation:demoClickRipple .65s ease-out}
+@keyframes demoClickRipple{0%{opacity:.95;transform:scale(.35)}100%{opacity:0;transform:scale(2.5)}}
+.demo-cursor-label{position:absolute;left:23px;top:25px;padding:4px 7px;border:1px solid #278cff88;border-radius:6px;background:#0b1a2deF;color:#c9e8ff;font:700 9px Arial,sans-serif;letter-spacing:.6px;white-space:nowrap;box-shadow:0 4px 15px #0008}
+@media(pointer:coarse){.demo-cursor{width:25px;height:32px;opacity:.88}}
+@media(prefers-reduced-motion:reduce){.demo-cursor{display:none!important}}
 </style>
 </head>
 <body>
+
+<div class="floating-cps-layer" aria-hidden="true">
+ <img class="floating-cps g1" src="logo-bgl-black.png" alt="">
+ <img class="floating-cps black g2" src="logo-black.png" alt="">
+ <img class="floating-cps black g3" src="logo-black.png" alt="">
+ <img class="floating-cps g4" src="logo-bgl-black.png" alt="">
+ <img class="floating-cps g5" src="logo-bgl-black.png" alt="">
+ <img class="floating-cps black g6" src="logo-black.png" alt="">
+</div>
 
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
 <nav class="sidebar" id="sidebar">
@@ -249,120 +193,222 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:#
  <a class="menu-item" onclick="showPage('orders',this)"><i class="fa-solid fa-basket-shopping"></i><span>Pesanan Saya</span></a>
 </nav>
 
-<header><div class="container nav">
- <div class="nav-left">
-  <button class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
-  <div class="logo-animation play">
-   <div class="logo-stage stage-b"><div class="logo-box">B</div></div>
-   <div class="logo-stage stage-round"><div class="logo-round"></div></div>
-   <div class="logo-stage stage-love"><i class="fa-solid fa-heart logo-love"></i></div>
+<header>
+ <div class="container nav">
+  <div class="nav-left">
+   <button class="menu-toggle" onclick="toggleMenu()" aria-label="Buka menu"><i class="fa-solid fa-bars"></i></button>
+   <div class="logo-animation play">
+    <div class="logo-stage stage-b"><div class="logo-box">B</div></div>
+    <div class="logo-stage stage-round"><div class="logo-round"></div></div>
+    <div class="logo-stage stage-love"><i class="fa-solid fa-heart logo-love"></i></div>
+   </div>
+   <span class="nav-brand">BLACK MARKET</span>
   </div>
-  <span class="nav-brand">BLACK MARKET</span>
+  <button class="cart-nav" onclick="showPage('orders')" title="Pesanan Saya"><i class="fa-solid fa-cart-shopping"></i></button>
  </div>
- <button class="cart-nav" onclick="showPage('orders')" title="Pesanan Saya"><i class="fa-solid fa-cart-shopping"></i></button>
-</div></header>
+</header>
 
 <main class="page active" id="homePage">
- <section class="hero"><div class="container hero-content">
-  <div class="pill"><span class="dot"></span> CPS MARKETPLACE</div>
-  <div class="realtime-wrap">
-   <div class="realtime-label"><span class="realtime-dot"></span>TRANSAKSI REALTIME</div>
-   <div class="realtime-window"><div id="realtimeText" class="realtime-text"></div></div>
+ <section class="hero">
+  <div class="container hero-content">
+   <div class="pill"><span class="dot"></span> CPS MARKETPLACE</div>
+   <div class="realtime-wrap">
+    <div class="realtime-label"><span class="realtime-dot"></span>TRANSAKSI REALTIME</div>
+    <div class="realtime-window"><div id="realtimeText" class="realtime-text"></div></div>
+   </div>
+   <h1>BLACK MARKET</h1>
+   <p>Tempat jual beli CPS dengan proses mudah, cepat, dan aman. Pilih produk yang kamu butuhkan dan lanjutkan pesanan bersama admin.</p>
+   <div class="hero-actions">
+    <button class="btn primary" onclick="showPage('market')"><i class="fa-solid fa-store"></i> Jelajahi</button>
+   </div>
+   <div class="hero-logos">
+    <img src="logo-bgl-black.png" alt="BGL">
+    <img src="logo-black.png" alt="BLACK">
+   </div>
   </div>
-  <h1>BLACK MARKET</h1>
-  <p>Tempat jual beli CPS dengan proses mudah, cepat, dan aman. Pilih produk yang kamu butuhkan dan lanjutkan pesanan bersama admin.</p>
-  <div class="hero-actions"><button class="btn primary" onclick="showPage('market')"><i class="fa-solid fa-store"></i> Jelajahi</button></div>
-  <div class="hero-logos"><img src="logo-bgl-black.png" alt="BGL"><img src="logo-black.png" alt="BLACK"></div>
- </div></section>
+ </section>
 
- <section class="container">
-  <div class="section-head">
-   <div class="eyebrow">CUSTOMER REVIEW</div>
-   <h2 class="section-title">Ulasan Pembeli</h2>
-   <p class="section-desc">Bukti pengalaman transaksi pelanggan BLACK MARKET.</p>
+ <section class="experience-section">
+  <div class="container">
+   <div class="experience-panel">
+    <div class="experience-glow"></div>
+    <div class="experience-intro">
+     <span class="eyebrow">THE BLACK MARKET EXPERIENCE</span>
+     <h2>Trading CPS, <span>Made Simple.</span></h2>
+     <p>Mulai dari memilih item sampai mengirim detail pesanan, semua dibuat lebih praktis dalam satu tempat.</p>
+    </div>
+    <div class="experience-features">
+     <div class="experience-feature"><span class="experience-icon"><i class="fa-solid fa-gem"></i></span><div><strong>Pilihan CPS</strong><small>BGL & Black Gem Lock</small></div></div>
+     <div class="experience-feature"><span class="experience-icon"><i class="fa-solid fa-bolt"></i></span><div><strong>Checkout Praktis</strong><small>Alur pemesanan lebih mudah</small></div></div>
+     <div class="experience-feature"><span class="experience-icon"><i class="fa-solid fa-headset"></i></span><div><strong>Admin Support</strong><small>Bantuan saat dibutuhkan</small></div></div>
+    </div>
+    <button class="experience-cta" onclick="showPage('market')">EXPLORE MARKET <i class="fa-solid fa-arrow-right"></i></button>
+   </div>
   </div>
+ </section>
 
-  <div class="review-dashboard">
-   <div class="review-carousel" id="reviewCarousel">
-    <div class="review-track" id="reviewTrack">
-     <div class="review-slide">
-      <div class="stat-number">5,0</div>
-      <div class="stat-stars">★★★★★</div>
-      <div class="stat-label">RATING PEMBELI</div>
-     </div>
-     <div class="review-slide">
-      <div class="stat-number">23</div>
-      <div class="stat-icon"><i class="fa-solid fa-comments"></i></div>
-      <div class="stat-label">TOTAL ULASAN CUSTOMER</div>
-     </div>
-     <div class="review-slide">
-      <div class="stat-number">732</div>
-      <div class="review-stat-product"><img src="logo-bgl-black.png" alt="BGL"><span>BGL</span></div>
-      <div class="stat-label">TOTAL BGL TERJUAL</div>
-     </div>
+ <section class="hub-section">
+  <div class="container">
+   <div class="section-head">
+    <div class="eyebrow">EXPLORE MORE</div>
+    <h2 class="section-title">BLACK MARKET HUB</h2>
+    <p class="section-desc">Semua informasi toko dalam satu tempat. Pilih menu untuk melihat detail tanpa meninggalkan website.</p>
+   </div>
+   <div class="hub-grid">
+    <button class="hub-card" onclick="openHub('deals')"><i class="fa-solid fa-fire"></i><strong>HOT DEALS</strong><small>Promo dan penawaran spesial.</small><i class="fa-solid fa-arrow-up-right-from-square hub-arrow"></i></button>
+    <button class="hub-card" onclick="openHub('sold')"><i class="fa-solid fa-bag-shopping"></i><strong>RECENTLY SOLD</strong><small>Informasi aktivitas penjualan.</small><i class="fa-solid fa-arrow-up-right-from-square hub-arrow"></i></button>
+    <button class="hub-card" onclick="openHub('announcements')"><i class="fa-solid fa-bullhorn"></i><strong>STORE ANNOUNCEMENTS</strong><small>Pengumuman resmi BLACK MARKET.</small><i class="fa-solid fa-arrow-up-right-from-square hub-arrow"></i></button>
+    <button class="hub-card" onclick="openHub('arrivals')"><i class="fa-solid fa-sparkles"></i><strong>NEW ARRIVALS</strong><small>Lihat pilihan produk yang tersedia.</small><i class="fa-solid fa-arrow-up-right-from-square hub-arrow"></i></button>
+    <button class="hub-card" onclick="openHub('top')"><i class="fa-solid fa-trophy"></i><strong>TOP PRODUCTS</strong><small>Kenali produk utama marketplace.</small><i class="fa-solid fa-arrow-up-right-from-square hub-arrow"></i></button>
+    <button class="hub-card" onclick="openHub('member')"><i class="fa-solid fa-crown"></i><strong>MEMBER BENEFITS</strong><small>Informasi layanan pelanggan.</small><i class="fa-solid fa-arrow-up-right-from-square hub-arrow"></i></button>
+    <button class="hub-card" onclick="openHub('payment')"><i class="fa-solid fa-credit-card"></i><strong>PAYMENT METHODS</strong><small>Informasi metode pembayaran.</small><i class="fa-solid fa-arrow-up-right-from-square hub-arrow"></i></button>
+    <button class="hub-card" onclick="openHub('help')"><i class="fa-solid fa-circle-question"></i><strong>HELP CENTER</strong><small>Panduan dan bantuan transaksi.</small><i class="fa-solid fa-arrow-up-right-from-square hub-arrow"></i></button>
+   </div>
+  </div>
+ </section>
+
+ <section class="review-section">
+  <div class="container">
+   <div class="review-head">
+    <div>
+     <div class="eyebrow">CUSTOMER FEEDBACK</div>
+     <h2 class="section-title">Customer Reviews</h2>
+     <p class="section-desc">Cerita dan pengalaman pelanggan BLACK MARKET.</p>
+     <div class="review-count" id="reviewCount">0 ulasan</div>
+    </div>
+    <div class="review-controls">
+     <button class="review-arrow" onclick="slideReviews(-1)" aria-label="Ulasan sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+     <button class="review-arrow" onclick="slideReviews(1)" aria-label="Ulasan berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
    </div>
-   <div class="review-carousel-dots">
-    <button class="review-carousel-dot active" aria-label="Statistik 1" onclick="goReviewSlide(0)"></button>
-    <button class="review-carousel-dot" aria-label="Statistik 2" onclick="goReviewSlide(1)"></button>
-    <button class="review-carousel-dot" aria-label="Statistik 3" onclick="goReviewSlide(2)"></button>
+   <div class="review-viewport" id="reviewViewport">
+    <div class="review-track" id="reviewTrack" aria-label="Customer reviews"></div>
    </div>
-
-   <div class="review-tabs">
-    <button class="review-tab active" id="reviewTabButton" onclick="showReviewTab('review')"><i class="fa-solid fa-star"></i> REVIEW</button>
-    <button class="review-tab" id="howTabButton" onclick="showReviewTab('how')"><i class="fa-solid fa-book-open"></i> CARA ORDER</button>
-   </div>
-
-   <div id="publicReviewPanel">
-    <div id="publicReviews" class="review-list"></div>
-    <div class="review-note">Terima kasih sudah mempercayakan transaksi CPS kepada BLACK MARKET.</div>
-   </div>
-
-   <div id="howOrderPanel" class="how-order">
-    <div class="step"><div class="step-icon"><i class="fa-solid fa-store"></i></div><div><h4>01 — PILIH PRODUK</h4><p>Pilih BGL atau Black Gem Lock di halaman Market, lalu tentukan pembelian atau penjualan.</p></div></div>
-    <div class="step"><div class="step-icon"><i class="fa-solid fa-user-pen"></i></div><div><h4>02 — ISI DETAIL PESANAN</h4><p>Masukkan Grow ID, nama World, dan nomor WhatsApp aktif dengan benar.</p></div></div>
-    <div class="step"><div class="step-icon"><i class="fa-solid fa-qrcode"></i></div><div><h4>03 — LAKUKAN PEMBAYARAN</h4><p>Untuk pembelian, scan QRIS sesuai nominal pesanan dan unggah bukti pembayaran.</p></div></div>
-    <div class="step"><div class="step-icon"><i class="fa-solid fa-headset"></i></div><div><h4>04 — TUNGGU ADMIN</h4><p>Admin akan memeriksa pembayaran dan memproses pesananmu. Pantau status melalui menu Pesanan Saya.</p></div></div>
-   </div>
+   <div class="review-dots" id="reviewDots" aria-label="Pilih ulasan"></div>
   </div>
  </section>
 </main>
 
 <main class="page" id="marketPage">
  <section class="container">
-  <div class="section-head"><div class="eyebrow">BLACK MARKET CPS</div><h1 class="section-title">Explore Market</h1><p class="section-desc">Pilih transaksi pembelian atau penjualan CPS.</p></div>
+  <div class="section-head">
+   <div class="eyebrow">BLACK MARKET CPS</div>
+   <h1 class="section-title">Explore Market</h1>
+   <p class="section-desc">Pilih transaksi pembelian atau penjualan CPS.</p>
+  </div>
+
   <div class="market-label"><i class="fa-solid fa-gem"></i> BLUE GEM LOCK</div>
   <div class="market-grid">
-   <article class="card product-card"><div class="product-top"><img class="product-logo" src="logo-bgl-black.png" alt="BGL"><span class="product-tag">BUY CPS</span></div><h3>Buy Blue Gem Lock</h3><div class="price" id="marketBuyBgl">Rp1.100 <small>/ unit</small></div><button class="product-action" onclick="openCheckout('buy','bgl')"><i class="fa-solid fa-cart-shopping"></i> Beli Sekarang</button></article>
-   <article class="card product-card"><div class="product-top"><img class="product-logo" src="logo-bgl-black.png" alt="BGL"><span class="product-tag sell">SELL CPS</span></div><h3>Sell Blue Gem Lock</h3><div class="price" id="marketSellBgl">Rp900 <small>/ unit</small></div><button class="product-action sell" onclick="openCheckout('sell','bgl')"><i class="fa-solid fa-wallet"></i> Jual Sekarang</button></article>
+   <article class="card product-card">
+    <div class="product-top"><img class="product-logo" src="logo-bgl-black.png" alt="BGL"><span class="product-tag">BUY CPS</span></div>
+    <h3>Buy Blue Gem Lock</h3>
+    <div class="price">Rp1.100 <small>/ unit</small></div>
+    <button class="product-action" onclick="openCheckout('buy','bgl')"><i class="fa-solid fa-cart-shopping"></i> Beli Sekarang</button>
+   </article>
+   <article class="card product-card">
+    <div class="product-top"><img class="product-logo" src="logo-bgl-black.png" alt="BGL"><span class="product-tag sell">SELL CPS</span></div>
+    <h3>Sell Blue Gem Lock</h3>
+    <div class="price">Rp900 <small>/ unit</small></div>
+    <button class="product-action sell" onclick="openCheckout('sell','bgl')"><i class="fa-solid fa-wallet"></i> Jual Sekarang</button>
+   </article>
   </div>
+
   <div class="market-label"><i class="fa-solid fa-lock"></i> BLACK GEM LOCK</div>
   <div class="market-grid">
-   <article class="card product-card"><div class="product-top"><img class="product-logo" src="logo-black.png" alt="BLACK"><span class="product-tag">BUY CPS</span></div><h3>Buy Black Gem Lock</h3><div class="price" id="marketBuyBlack">Rp108.000 <small>/ unit</small></div><button class="product-action" onclick="openCheckout('buy','black')"><i class="fa-solid fa-cart-shopping"></i> Beli Sekarang</button></article>
-   <article class="card product-card"><div class="product-top"><img class="product-logo" src="logo-black.png" alt="BLACK"><span class="product-tag sell">SELL CPS</span></div><h3>Sell Black Gem Lock</h3><div class="price" id="marketSellBlack">Rp95.000 <small>/ unit</small></div><button class="product-action sell" onclick="openCheckout('sell','black')"><i class="fa-solid fa-wallet"></i> Jual Sekarang</button></article>
+   <article class="card product-card">
+    <div class="product-top"><img class="product-logo" src="logo-black.png" alt="BLACK"><span class="product-tag">BUY CPS</span></div>
+    <h3>Buy Black Gem Lock</h3>
+    <div class="price">Rp108.000 <small>/ unit</small></div>
+    <button class="product-action" onclick="openCheckout('buy','black')"><i class="fa-solid fa-cart-shopping"></i> Beli Sekarang</button>
+   </article>
+   <article class="card product-card">
+    <div class="product-top"><img class="product-logo" src="logo-black.png" alt="BLACK"><span class="product-tag sell">SELL CPS</span></div>
+    <h3>Sell Black Gem Lock</h3>
+    <div class="price">Rp95.000 <small>/ unit</small></div>
+    <button class="product-action sell" onclick="openCheckout('sell','black')"><i class="fa-solid fa-wallet"></i> Jual Sekarang</button>
+   </article>
   </div>
+
   <section>
-   <div class="section-head"><div class="eyebrow">ADMIN SUPPORT</div><h2 class="section-title">Bantuan Admin</h2><p class="section-desc">Buat pesanan melalui admin jika membutuhkan bantuan.</p></div>
-   <button class="assist-launch" onclick="toggleAssisted()"><span class="wa"><i class="fa-brands fa-whatsapp"></i></span><span><strong>Pesan lewat admin</strong><small>Ikuti langkah transaksi di sini</small></span><i class="fa-solid fa-arrow-right" style="margin-left:auto;font-size:23px"></i></button>
-   <div class="assisted-panel" id="assistedPanel"><div class="card assisted">
-    <h3 style="margin-bottom:10px">Form bantuan admin</h3>
-    <div class="progress"><span id="p1" class="active">1</span><span id="p2">2</span><span id="p3">3</span><span id="p4">4</span><span id="p5">5</span></div>
-    <div class="wizard-page active" data-step="1"><h4 style="margin-bottom:14px">Pilih jenis transaksi</h4><div class="choice-grid"><button class="choice" onclick="chooseType('buy',this)"><i class="fa-solid fa-cart-shopping"></i><strong>Beli CPS</strong></button><button class="choice" onclick="chooseType('sell',this)"><i class="fa-solid fa-wallet"></i><strong>Jual CPS</strong></button></div></div>
-    <div class="wizard-page" data-step="2"><h4 style="margin-bottom:14px">Pilih produk dan jumlah</h4><div class="choice-grid"><button class="choice" onclick="chooseProduct('bgl',this)"><i class="fa-solid fa-gem"></i><strong>Blue Gem Lock</strong><small id="wizardBglPrice"></small></button><button class="choice" onclick="chooseProduct('black',this)"><i class="fa-solid fa-lock"></i><strong>Black Gem Lock</strong><small id="wizardBlackPrice"></small></button></div><div class="field"><label>Jumlah</label><input id="wizardQty" type="number" value="10" min="1" oninput="updateWizard()"></div><div class="total"><span>Total</span><strong id="wizardTotal">Rp0</strong></div></div>
-    <div class="wizard-page" data-step="3"><h4 style="margin-bottom:14px">Pilih metode</h4><div class="choice-grid" id="wizardBuyMethod"><button class="choice selected" onclick="chooseMethod('QRIS',this)"><i class="fa-solid fa-qrcode"></i><strong>QRIS</strong></button><button class="choice" onclick="chooseMethod('Ewallet/Bank',this)"><i class="fa-solid fa-building-columns"></i><strong>Ewallet / Bank</strong></button></div><div class="choice-grid hidden" id="wizardSellMethod"><button class="choice" onclick="chooseMethod('DANA',this)"><i class="fa-solid fa-wallet"></i><strong>DANA</strong></button><button class="choice" onclick="chooseMethod('OVO',this)"><i class="fa-solid fa-wallet"></i><strong>OVO</strong></button></div></div>
-    <div class="wizard-page" data-step="4"><h4 style="margin-bottom:14px">Pilih admin</h4><div class="admin-grid"><button class="admin-card" onclick="chooseAdmin('boopa',this)"><strong>BOOPA</strong><small>Admin BLACK MARKET</small></button></div></div>
-    <div class="wizard-page" data-step="5"><h4 style="margin-bottom:12px">Detail pesanan</h4><div class="line"><span>Transaksi</span><strong id="sumType">-</strong></div><div class="line"><span>Produk</span><strong id="sumProduct">-</strong></div><div class="line"><span>Jumlah</span><strong id="sumQty">-</strong></div><div class="line"><span>Metode</span><strong id="sumMethod">-</strong></div><div class="line"><span>Admin</span><strong id="sumAdmin">-</strong></div><div class="total"><span>Total</span><strong id="sumTotal">Rp0</strong></div>
-     <div class="field"><label>Nama Kamu</label><input id="assistName" placeholder="Masukkan nama"></div><div class="field"><label>Grow ID</label><input id="assistGrow" placeholder="Grow ID"></div><div class="field"><label>Nama World</label><input id="assistWorld" placeholder="Nama World"></div><div class="field"><label>Nomor WhatsApp</label><input id="assistPhone" placeholder="08xxxxxxxxxx"></div><div class="field"><label>Nomor rekening / Ewallet (khusus jual)</label><input id="assistAccount" placeholder="Nomor akun"></div><button class="btn green block" onclick="sendAssisted()">Kirim ke Admin WhatsApp</button>
+   <div class="section-head">
+    <div class="eyebrow">ADMIN SUPPORT</div>
+    <h2 class="section-title">Bantuan Admin</h2>
+    <p class="section-desc">Buat pesanan melalui admin jika membutuhkan bantuan.</p>
+   </div>
+   <button class="assist-launch" onclick="toggleAssisted()">
+    <span class="wa"><i class="fa-brands fa-whatsapp"></i></span>
+    <span><strong>Pesan lewat admin</strong><small>Ikuti langkah transaksi di sini</small></span>
+    <i class="fa-solid fa-arrow-right" style="margin-left:auto;font-size:23px"></i>
+   </button>
+   <div class="assisted-panel" id="assistedPanel">
+    <div class="card assisted">
+     <h3 style="margin-bottom:10px">Form bantuan admin</h3>
+     <div class="progress"><span id="p1" class="active">1</span><span id="p2">2</span><span id="p3">3</span><span id="p4">4</span><span id="p5">5</span></div>
+     <div class="wizard-page active" data-step="1">
+      <h4 style="margin-bottom:14px">Pilih jenis transaksi</h4>
+      <div class="choice-grid">
+       <button class="choice" onclick="chooseType('buy',this)"><i class="fa-solid fa-cart-shopping"></i><strong>Beli CPS</strong></button>
+       <button class="choice" onclick="chooseType('sell',this)"><i class="fa-solid fa-wallet"></i><strong>Jual CPS</strong></button>
+      </div>
+     </div>
+     <div class="wizard-page" data-step="2">
+      <h4 style="margin-bottom:14px">Pilih produk dan jumlah</h4>
+      <div class="choice-grid">
+       <button class="choice" onclick="chooseProduct('bgl',this)"><i class="fa-solid fa-gem"></i><strong>Blue Gem Lock</strong><small id="wizardBglPrice"></small></button>
+       <button class="choice" onclick="chooseProduct('black',this)"><i class="fa-solid fa-lock"></i><strong>Black Gem Lock</strong><small id="wizardBlackPrice"></small></button>
+      </div>
+      <div class="field"><label>Jumlah</label><input id="wizardQty" type="number" value="10" min="1" oninput="updateWizard()"></div>
+      <div class="total"><span>Total</span><strong id="wizardTotal">Rp0</strong></div>
+     </div>
+     <div class="wizard-page" data-step="3">
+      <h4 style="margin-bottom:14px">Pilih metode</h4>
+      <div class="choice-grid" id="wizardBuyMethod">
+       <button class="choice selected" onclick="chooseMethod('QRIS',this)"><i class="fa-solid fa-qrcode"></i><strong>QRIS</strong></button>
+       <button class="choice" onclick="chooseMethod('Ewallet/Bank',this)"><i class="fa-solid fa-building-columns"></i><strong>Ewallet / Bank</strong></button>
+      </div>
+      <div class="choice-grid hidden" id="wizardSellMethod">
+       <button class="choice" onclick="chooseMethod('DANA',this)"><i class="fa-solid fa-wallet"></i><strong>DANA</strong></button>
+       <button class="choice" onclick="chooseMethod('OVO',this)"><i class="fa-solid fa-wallet"></i><strong>OVO</strong></button>
+      </div>
+     </div>
+     <div class="wizard-page" data-step="4">
+      <h4 style="margin-bottom:14px">Pilih admin</h4>
+      <div class="admin-grid">
+       <button class="admin-card selected" onclick="chooseAdmin('boopa',this)"><strong>BOOPA</strong><small>Admin BLACK MARKET</small></button>
+      </div>
+     </div>
+     <div class="wizard-page" data-step="5">
+      <h4 style="margin-bottom:12px">Detail pesanan</h4>
+      <div class="line"><span>Transaksi</span><strong id="sumType">-</strong></div>
+      <div class="line"><span>Produk</span><strong id="sumProduct">-</strong></div>
+      <div class="line"><span>Jumlah</span><strong id="sumQty">-</strong></div>
+      <div class="line"><span>Metode</span><strong id="sumMethod">-</strong></div>
+      <div class="line"><span>Admin</span><strong id="sumAdmin">-</strong></div>
+      <div class="total"><span>Total</span><strong id="sumTotal">Rp0</strong></div>
+      <div class="field"><label>Nama Kamu</label><input id="assistName" placeholder="Masukkan nama"></div>
+      <div class="field"><label>Grow ID</label><input id="assistGrow" placeholder="Grow ID"></div>
+      <div class="field"><label>Nama World</label><input id="assistWorld" placeholder="Nama World"></div>
+      <div class="field"><label>Nomor WhatsApp</label><input id="assistPhone" placeholder="08xxxxxxxxxx"></div>
+      <div class="field"><label>Nomor rekening / Ewallet (khusus jual)</label><input id="assistAccount" placeholder="Nomor akun"></div>
+      <button class="btn green block" onclick="sendAssisted()">Kirim ke Admin WhatsApp</button>
+     </div>
+     <div class="wizard-actions">
+      <button class="btn secondary" onclick="prevStep()">Kembali</button>
+      <button class="btn primary" id="wizardNext" onclick="nextStep()">Lanjut <i class="fa-solid fa-arrow-right"></i></button>
+     </div>
     </div>
-    <div class="wizard-actions"><button class="btn secondary" onclick="prevStep()">Kembali</button><button class="btn primary" id="wizardNext" onclick="nextStep()">Lanjut <i class="fa-solid fa-arrow-right"></i></button></div>
-   </div></div>
+   </div>
   </section>
  </section>
 </main>
 
 <main class="page" id="guidePage">
  <section class="container">
-  <div class="section-head"><div class="eyebrow">HELP CENTER</div><h1 class="section-title">Panduan Transaksi</h1><p class="section-desc">Ikuti langkah mudah untuk menyelesaikan pesanan.</p></div>
+  <div class="section-head">
+   <div class="eyebrow">HELP CENTER</div>
+   <h1 class="section-title">Panduan Transaksi</h1>
+   <p class="section-desc">Ikuti langkah mudah untuk menyelesaikan pesanan.</p>
+  </div>
   <div class="card guide">
    <div class="step"><div class="step-icon"><i class="fa-solid fa-store"></i></div><div><h4>01 — PILIH PRODUK</h4><p>Pilih BGL atau Black Gem Lock, lalu tentukan pembelian atau penjualan.</p></div></div>
    <div class="step"><div class="step-icon"><i class="fa-solid fa-user-pen"></i></div><div><h4>02 — ISI DETAIL PESANAN</h4><p>Masukkan Grow ID, nama World, dan nomor WhatsApp aktif.</p></div></div>
@@ -375,60 +421,68 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:#
 
 <main class="page" id="ordersPage">
  <section class="container">
-  <div class="section-head"><div class="eyebrow">ORDER CENTER</div><h1 class="section-title"><i class="fa-solid fa-basket-shopping" style="color:#72baff"></i> Pesanan Saya</h1><p class="section-desc">Pantau pesanan dan status pembayaranmu di sini.</p></div>
-  <div class="card checkout-panel" id="ordersList"><div class="orders-empty">Belum ada pesanan.</div></div>
+  <div class="section-head">
+   <div class="eyebrow">ORDER CENTER</div>
+   <h1 class="section-title"><i class="fa-solid fa-basket-shopping" style="color:#72baff"></i> Pesanan Saya</h1>
+   <p class="section-desc">Pantau pesanan dan status pembayaranmu di sini.</p>
+  </div>
+  <div class="card checkout-panel" id="ordersList">
+   <div class="orders-empty"><i class="fa-solid fa-box-open" style="font-size:35px;display:block;margin-bottom:13px"></i>Belum ada pesanan.</div>
+  </div>
   <button class="btn primary" onclick="showPage('market')"><i class="fa-solid fa-store"></i> Jelajahi Market</button>
- </section>
-</main>
-
-<main class="page" id="adminPage">
- <section class="container">
-  <div class="section-head"><div class="eyebrow">PRIVATE CONTROL PANEL</div><h1 class="section-title">Admin Dashboard</h1><p class="section-desc">Kelola harga, pesanan, dan ulasan pelanggan.</p></div>
-  <div class="card admin-section" id="adminLoginBox">
-   <h3><i class="fa-solid fa-lock"></i> Login Admin</h3>
-   <div class="field"><label>Password Admin</label><input id="adminPasswordInput" type="password" placeholder="Masukkan password admin"></div>
-   <button class="btn primary block" onclick="adminLogin()">Login</button>
-  </div>
-  <div id="adminDashboard" class="hidden">
-   <div class="card admin-section">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h3><i class="fa-solid fa-tags"></i> Pengaturan Harga</h3><button class="btn secondary" onclick="adminLogout()">Logout</button></div>
-    <p class="muted">Ubah harga beli dan jual. Harga tersimpan di browser ini.</p>
-    <div class="admin-price-grid">
-     <div class="field"><label>Harga Beli BGL</label><input class="admin-input" type="number" id="priceBuyBgl"></div>
-     <div class="field"><label>Harga Jual BGL</label><input class="admin-input" type="number" id="priceSellBgl"></div>
-     <div class="field"><label>Harga Beli Black GL</label><input class="admin-input" type="number" id="priceBuyBlack"></div>
-     <div class="field"><label>Harga Jual Black GL</label><input class="admin-input" type="number" id="priceSellBlack"></div>
-    </div>
-    <button class="btn primary block" onclick="savePrices()"><i class="fa-solid fa-floppy-disk"></i> Simpan Harga</button>
-   </div>
-   <div class="card admin-section"><h3><i class="fa-solid fa-box"></i> Daftar Pesanan Masuk</h3><div id="adminOrders"><div class="orders-empty">Belum ada pesanan.</div></div></div>
-   <div class="card admin-section"><h3><i class="fa-solid fa-star"></i> Ulasan Pelanggan</h3><div id="adminReviews"><div class="orders-empty">Belum ada ulasan.</div></div></div>
-  </div>
  </section>
 </main>
 
 <main class="page" id="checkoutPage">
  <div class="checkout-wrap">
-  <div class="checkout-top"><button class="checkout-back" onclick="backToMarket()"><i class="fa-solid fa-arrow-left"></i> Kembali</button><span class="eyebrow">BLACK MARKET / CHECKOUT</span></div>
+  <div class="checkout-top">
+   <button class="checkout-back" onclick="backToMarket()"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+   <span class="eyebrow">BLACK MARKET / CHECKOUT</span>
+  </div>
   <div class="checkout-brand">
-   <div class="logo-animation play"><div class="logo-stage stage-b"><div class="logo-box">B</div></div><div class="logo-stage stage-round"><div class="logo-round"></div></div><div class="logo-stage stage-love"><i class="fa-solid fa-heart logo-love"></i></div></div>
+   <div class="logo-animation play">
+    <div class="logo-stage stage-b"><div class="logo-box">B</div></div>
+    <div class="logo-stage stage-round"><div class="logo-round"></div></div>
+    <div class="logo-stage stage-love"><i class="fa-solid fa-heart logo-love"></i></div>
+   </div>
    <div><b style="font-size:18px">BLACK MARKET</b><small class="small-note">SECURE CHECKOUT</small></div>
   </div>
+
   <div class="checkout-step active" id="checkoutDetails">
-   <div class="checkout-heading"><div class="eyebrow">SECURE CPS CHECKOUT</div><h1 id="checkoutTitle">CHECKOUT PEMBELIAN</h1><p>Lengkapi detail pesananmu, lalu lanjut ke pembayaran.</p></div>
+   <div class="checkout-heading">
+    <div class="eyebrow">SECURE CPS CHECKOUT</div>
+    <h1 id="checkoutTitle">CHECKOUT PEMBELIAN</h1>
+    <p>Lengkapi detail pesananmu, lalu lanjut ke pembayaran.</p>
+   </div>
    <div class="checkout-layout">
     <div>
      <section class="card checkout-panel">
-      <h3><i class="fa-solid fa-gem" style="color:#72baff"></i> 01. Pilih produk CPS</h3><p class="muted">Pilih produk dan jumlah yang ingin dibeli.</p>
+      <h3><i class="fa-solid fa-gem" style="color:#72baff"></i> 01. Pilih produk CPS</h3>
+      <p class="muted">Pilih produk dan jumlah yang ingin dibeli.</p>
       <div class="checkout-products">
-       <button class="checkout-product" id="cpBgl" onclick="selectCheckoutProduct('bgl')"><i class="fa-solid fa-circle-check checkmark"></i><img src="logo-bgl-black.png" alt="BGL"><strong>CPS Blue Gem Lock</strong><small>BGL · Gem Lock</small><span class="cp-price" id="cpBglPrice">Rp1.100</span></button>
-       <button class="checkout-product" id="cpBlack" onclick="selectCheckoutProduct('black')"><i class="fa-solid fa-circle-check checkmark"></i><img src="logo-black.png" alt="BLACK"><strong>CPS Black Gem Lock</strong><small>BLACK · Gem Lock</small><span class="cp-price" id="cpBlackPrice">Rp108.000</span></button>
+       <button class="checkout-product" id="cpBgl" onclick="selectCheckoutProduct('bgl')">
+        <i class="fa-solid fa-circle-check checkmark"></i><img src="logo-bgl-black.png" alt="BGL">
+        <strong>CPS Blue Gem Lock</strong><small>BGL · Gem Lock</small><span class="cp-price" id="cpBglPrice">Rp1.100</span>
+       </button>
+       <button class="checkout-product" id="cpBlack" onclick="selectCheckoutProduct('black')">
+        <i class="fa-solid fa-circle-check checkmark"></i><img src="logo-black.png" alt="BLACK">
+        <strong>CPS Black Gem Lock</strong><small>BLACK · Gem Lock</small><span class="cp-price" id="cpBlackPrice">Rp108.000</span>
+       </button>
       </div>
-      <div class="qty-row"><span>Jumlah produk</span><div class="qty-control"><button onclick="changeCheckoutQty(-1)">−</button><input id="checkoutQty" type="number" value="10" oninput="updateCheckout()"><button onclick="changeCheckoutQty(1)">+</button></div></div>
+      <div class="qty-row">
+       <span>Jumlah produk</span>
+       <div class="qty-control">
+        <button onclick="changeCheckoutQty(-1)">−</button>
+        <input id="checkoutQty" type="number" value="10" oninput="updateCheckout()">
+        <button onclick="changeCheckoutQty(1)">+</button>
+       </div>
+      </div>
       <small class="small-note" id="checkoutMinimum"></small>
      </section>
+
      <section class="card checkout-panel">
-      <h3><i class="fa-solid fa-clipboard-list" style="color:#72baff"></i> 02. Detail pesanan</h3><p class="muted">Masukkan Grow ID dan nama world tujuan pengiriman.</p>
+      <h3><i class="fa-solid fa-clipboard-list" style="color:#72baff"></i> 02. Detail pesanan</h3>
+      <p class="muted">Masukkan Grow ID dan nama world tujuan pengiriman.</p>
       <form id="checkoutForm">
        <div class="checkout-fields">
         <div class="field"><label>Grow ID</label><input id="checkoutGrow" required placeholder="Masukkan Grow ID"></div>
@@ -445,28 +499,49 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:#
        <div class="total"><span id="orderTotalLabel">Total pembayaran</span><strong id="orderTotal">Rp11.000</strong></div>
        <button class="btn primary block checkout-submit" type="submit">Lanjut ke pembayaran <i class="fa-solid fa-arrow-right"></i></button>
       </form>
-      <div class="trust"><div><i class="fa-solid fa-shield-halved"></i>Admin resmi</div><div><i class="fa-solid fa-bolt"></i>Proses cepat</div><div><i class="fa-solid fa-lock"></i>Data aman</div></div>
+      <div class="trust">
+       <div><i class="fa-solid fa-shield-halved"></i>Admin resmi</div>
+       <div><i class="fa-solid fa-bolt"></i>Proses cepat</div>
+       <div><i class="fa-solid fa-lock"></i>Data aman</div>
+      </div>
      </section>
     </div>
-    <aside class="card checkout-panel checkout-summary"><h3><i class="fa-solid fa-receipt"></i> Ringkasan pesanan</h3><div class="line"><span>Produk</span><strong id="sideProduct">BGL</strong></div><div class="line"><span>Jumlah</span><strong id="sideQty">10 unit</strong></div><div class="total"><span>Total</span><strong id="sideTotal">Rp11.000</strong></div></aside>
+    <aside class="card checkout-panel checkout-summary">
+     <h3><i class="fa-solid fa-receipt"></i> Ringkasan pesanan</h3>
+     <div class="line"><span>Produk</span><strong id="sideProduct">BGL</strong></div>
+     <div class="line"><span>Jumlah</span><strong id="sideQty">10 unit</strong></div>
+     <div class="total"><span>Total</span><strong id="sideTotal">Rp11.000</strong></div>
+    </aside>
    </div>
   </div>
 
   <div class="checkout-step" id="checkoutPayment">
-   <div class="checkout-heading"><div class="eyebrow">BLACK MARKET / PEMBAYARAN</div><h1>Bayar pesanan</h1><p>Pilih cara bayar, bayar sesuai total, lalu kirim bukti. Admin akan memeriksa pesananmu.</p></div>
+   <div class="checkout-heading">
+    <div class="eyebrow">BLACK MARKET / PEMBAYARAN</div>
+    <h1>Bayar pesanan</h1>
+    <p>Pilih cara bayar, bayar sesuai total, lalu kirim bukti. Admin langsung memproses pesananmu.</p>
+   </div>
    <section class="pay-card">
     <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h2>Pesanan kamu</h2><span class="muted" id="payProductCount">1 produk</span></div>
-    <div class="line"><span id="payProductName">Black Gem Lock</span><strong id="payLineTotal">Rp11.000</strong></div>
-    <div class="line"><span id="payQtyPrice">10 × Rp1.100</span><strong></strong></div>
+    <div class="line"><span id="payProductName">Black Gem Lock</span><strong id="payLineTotal">Rp880</strong></div>
+    <div class="line"><span id="payQtyPrice">1 × Rp880</span><strong></strong></div>
     <div class="line"><span>World :</span><strong id="payWorld">-</strong></div>
     <div class="line"><span>Grow ID :</span><strong id="payGrow">-</strong></div>
     <div class="line"><span>WhatsApp :</span><strong id="payPhone">-</strong></div>
    </section>
    <section class="pay-card">
-    <h2>1. Cara bayar</h2><p class="muted">Bayar sesuai total pesanan.</p>
+    <h2>1. Cara bayar</h2>
+    <p class="muted">Pilih cara pembayaran, lalu bayar sesuai total pesanan.</p>
     <div class="pay-method">
-     <div class="pay-method-head"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/QRIS_logo.svg" alt="QRIS"><div>QRIS<small class="small-note">Semua aplikasi bank & e-wallet</small></div><i class="fa-solid fa-circle-check" style="margin-left:auto;color:#4bd7a1"></i></div>
-     <div class="pay-exact"><div><small class="small-note">BAYAR TEPAT</small><strong id="payExactTotal">Rp11.000</strong></div><button class="btn secondary" onclick="copyPaymentTotal()"><i class="fa-regular fa-copy"></i> Salin nominal</button></div>
+     <div class="pay-method-head">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/QRIS_logo.svg" alt="QRIS">
+      <div>QRIS<small class="small-note">Semua aplikasi bank & e-wallet</small></div>
+      <i class="fa-solid fa-circle-check" style="margin-left:auto;color:#4bd7a1"></i>
+     </div>
+     <div class="pay-exact">
+      <div><small class="small-note">BAYAR TEPAT</small><strong id="payExactTotal">Rp880</strong></div>
+      <button class="btn secondary" onclick="copyPaymentTotal()"><i class="fa-regular fa-copy"></i> Salin nominal</button>
+     </div>
      <img src="qris-black-market.JPG" class="qris-image" alt="QRIS BLACK MARKET">
      <p class="muted">Scan QRIS menggunakan aplikasi bank atau e-wallet. Masukkan nominal sesuai total pesanan.</p>
     </div>
@@ -474,56 +549,62 @@ footer{text-align:center;border-top:1px solid var(--border);padding:25px;color:#
    <section class="pay-card">
     <h2>2. Kirim Bukti Bayar</h2>
     <p class="small-note" style="margin-bottom:14px">Screenshot yang menampilkan nominal & waktu transfer.</p>
-    <label class="upload-proof"><input type="file" id="paymentProof" accept="image/jpeg,image/png,image/webp"><i class="fa-solid fa-cloud-arrow-up"></i><br><strong>Pilih foto bukti bayar</strong><small class="small-note">JPG, PNG, atau WEBP · maksimal 8 MB.</small></label>
+    <label class="upload-proof">
+     <input type="file" id="paymentProof" accept="image/jpeg,image/png,image/webp">
+     <i class="fa-solid fa-cloud-arrow-up"></i><br>
+     <strong>Pilih foto bukti bayar</strong>
+     <small class="small-note">JPG, PNG, atau WEBP · maksimal 8 MB.</small>
+    </label>
     <p class="small-note" id="proofName"></p>
    </section>
    <section class="pay-card">
     <h2>Ringkasan bayar</h2>
     <div class="line"><span>Metode pembayaran</span><strong>QRIS</strong></div>
-    <div class="line"><span id="paySubtotalLabel">Subtotal (10)</span><strong id="paySubtotal">Rp11.000</strong></div>
-    <div class="total payment-total"><span>Total bayar</span><strong id="payGrandTotal">Rp11.000</strong></div>
-    <button class="btn primary block checkout-submit" id="sendProofButton" onclick="sendPaymentProof()"><i class="fa-solid fa-paper-plane"></i> Kirim bukti & buat pesanan</button>
-    <div class="trust"><div><i class="fa-solid fa-shield-halved"></i>Admin resmi</div><div><i class="fa-solid fa-bolt"></i>Proses cepat</div><div><i class="fa-solid fa-lock"></i>Data aman</div></div>
+    <div class="line"><span id="paySubtotalLabel">Subtotal (1)</span><strong id="paySubtotal">Rp880</strong></div>
+    <div class="total payment-total"><span>Total bayar</span><strong id="payGrandTotal">Rp880</strong></div>
+    <button class="btn primary block checkout-submit" onclick="sendPaymentProof()"><i class="fa-solid fa-paper-plane"></i> Kirim bukti & buat pesanan</button>
+    <div class="trust">
+     <div><i class="fa-solid fa-shield-halved"></i>Admin resmi</div>
+     <div><i class="fa-solid fa-bolt"></i>Proses cepat</div>
+     <div><i class="fa-solid fa-lock"></i>Data aman</div>
+    </div>
    </section>
-   <section class="pay-card"><h3>SETELAH KIRIM BUKTI</h3><p class="muted" style="margin-top:10px">Admin akan memeriksa pembayaranmu.<br>Item dikirim ke world kamu sesuai cara kirim.<br>Pantau status di Pesanan Saya.</p></section>
+   <section class="pay-card">
+    <h3>SETELAH KIRIM BUKTI</h3>
+    <p class="muted" style="margin-top:10px">Admin cek pembayaranmu (biasanya beberapa menit).<br>Item dikirim ke world kamu sesuai cara kirim.<br>Pantau kapan saja di Pesanan Saya.</p>
+   </section>
    <button class="btn secondary block" onclick="showCheckoutStep('details')"><i class="fa-solid fa-arrow-left"></i> Kembali ke detail pesanan</button>
   </div>
  </div>
 </main>
 
 <footer>© 2026 BLACK MARKET · CPS MARKETPLACE</footer>
-<a class="whatsapp-float" href="https://wa.me/6285864582161" target="_blank" aria-label="WhatsApp Admin"><i class="fa-brands fa-whatsapp"></i></a>
+<a class="whatsapp-float" href="https://wa.me/6285864582161" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Admin"><i class="fa-brands fa-whatsapp"></i></a>
+
+<div class="hub-modal" id="hubModal" role="dialog" aria-modal="true" aria-labelledby="hubModalTitle" onclick="if(event.target===this)closeHub()">
+ <div class="hub-dialog">
+  <div class="hub-dialog-head">
+   <div><span class="hub-tag">BLACK MARKET HUB</span><h3 id="hubModalTitle">STORE INFORMATION</h3></div>
+   <button class="hub-close" onclick="closeHub()" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="hub-dialog-body" id="hubModalBody"></div>
+ </div>
+</div>
 <div id="toast"></div>
 
 <script>
-/* KONFIGURASI */
-const ADMIN_PASSWORD="GANTI_PASSWORD_ADMIN";
-const DISCORD_WEBHOOK_URL="GANTI_DENGAN_WEBHOOK_DISCORD_BARU";
-const DEFAULT_PRICE={buy:{bgl:1100,black:108000},sell:{bgl:900,black:95000}};
+const PRICE={buy:{bgl:1100,black:108000},sell:{bgl:900,black:95000}};
 const MIN={buy:{bgl:10,black:1},sell:{bgl:30,black:1}};
 const ADMINS={boopa:{name:"BOOPA",phone:"6285864582161"}};
 const $=id=>document.getElementById(id);
 const rp=n=>"Rp"+Number(n||0).toLocaleString("id-ID");
-
-function readStore(key,fallback){
- try{const value=JSON.parse(localStorage.getItem(key));return value===null?fallback:value}
- catch(e){return fallback}
-}
-function saveStore(key,value){localStorage.setItem(key,JSON.stringify(value))}
-let PRICE=readStore("bmPrices",DEFAULT_PRICE);
-if(!PRICE||!PRICE.buy||!PRICE.sell)PRICE=DEFAULT_PRICE;
-function getOrders(){return readStore("bmOrders",[])}
-function getReviews(){return readStore("bmReviews",[])}
-function amount(type,product,qty){return PRICE[type][product]*qty}
+const amount=(type,product,qty)=>PRICE[type][product]*qty;
 
 function toast(msg){
  $("toast").textContent=msg;
  $("toast").style.display="block";
  clearTimeout(window.toastTimer);
- window.toastTimer=setTimeout(()=>$("toast").style.display="none",3000);
-}
-function escapeHTML(s){
- return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ window.toastTimer=setTimeout(()=>$("toast").style.display="none",2800);
 }
 function toggleMenu(){
  $("sidebar").classList.toggle("open");
@@ -534,15 +615,11 @@ function showPage(name,el){
  $(name+"Page").classList.add("active");
  document.querySelectorAll(".menu-item").forEach(x=>x.classList.remove("active"));
  if(el)el.classList.add("active");
- else{
-  const index=["home","market","guide","orders"].indexOf(name);
-  if(index>=0)document.querySelectorAll(".menu-item")[index]?.classList.add("active");
- }
+ else document.querySelectorAll(".menu-item")[["home","market","guide","orders"].indexOf(name)]?.classList.add("active");
  $("sidebar").classList.remove("open");
  $("sidebarOverlay").classList.remove("show");
+ document.body.classList.remove("checkout-mode");
  if(name==="orders")renderOrders();
- if(name==="home")renderPublicReviews();
- if(name==="admin")renderAdmin();
  window.scrollTo({top:0,behavior:"smooth"});
 }
 function openCheckout(type,product){
@@ -559,6 +636,7 @@ function backToMarket(){
 }
 
 let checkoutType="buy",checkoutProduct="bgl",pendingOrder=null;
+
 function initializeCheckout(){
  const p=new URLSearchParams(location.search);
  if(p.get("checkout")!=="1")return;
@@ -570,17 +648,19 @@ function initializeCheckout(){
  updateCheckout();
  window.scrollTo(0,0);
 }
-function selectCheckoutProduct(p){checkoutProduct=p;updateCheckout()}
+function selectCheckoutProduct(p){
+ checkoutProduct=p;
+ updateCheckout();
+}
 function changeCheckoutQty(n){
  $("checkoutQty").value=Math.max(MIN[checkoutType][checkoutProduct],(Number($("checkoutQty").value)||1)+n);
  updateCheckout();
 }
 function updateCheckout(){
- const min=MIN[checkoutType][checkoutProduct];
- const qty=Math.max(min,Number($("checkoutQty").value)||min);
+ let min=MIN[checkoutType][checkoutProduct],qty=Math.max(min,Number($("checkoutQty").value)||min);
  $("checkoutQty").min=min;
  $("checkoutQty").value=qty;
- const price=PRICE[checkoutType][checkoutProduct],total=price*qty;
+ let price=PRICE[checkoutType][checkoutProduct],total=price*qty;
  $("cpBglPrice").textContent=rp(PRICE[checkoutType].bgl);
  $("cpBlackPrice").textContent=rp(PRICE[checkoutType].black);
  $("cpBgl").classList.toggle("selected",checkoutProduct==="bgl");
@@ -600,16 +680,14 @@ function updateCheckout(){
 
 $("checkoutForm").addEventListener("submit",e=>{
  e.preventDefault();
- const qty=Number($("checkoutQty").value),min=MIN[checkoutType][checkoutProduct];
+ let qty=Number($("checkoutQty").value),min=MIN[checkoutType][checkoutProduct];
  if(qty<min)return toast("Minimum transaksi "+min+" unit.");
- const grow=$("checkoutGrow").value.trim();
- const world=$("checkoutWorld").value.trim();
- const phone=$("checkoutPhone").value.trim();
+ let grow=$("checkoutGrow").value.trim(),world=$("checkoutWorld").value.trim(),phone=$("checkoutPhone").value.trim();
  if(!grow||!world||!phone)return toast("Lengkapi Grow ID, World, dan WhatsApp.");
  if(checkoutType==="sell"){
-  const acc=$("payoutAccount").value.trim(),holder=$("payoutName").value.trim();
+  let acc=$("payoutAccount").value.trim(),holder=$("payoutName").value.trim();
   if(!acc||!holder)return toast("Lengkapi data pencairan.");
-  const msg=["*BLACK MARKET - PESANAN PENJUALAN*","Produk: "+checkoutProduct.toUpperCase(),"Jumlah: "+qty,"Grow ID: "+grow,"World: "+world,"WhatsApp: "+phone,"Metode pencairan: "+$("payoutMethod").value,"Nomor akun: "+acc,"Nama pemilik: "+holder].join("\n");
+  let msg=["*BLACK MARKET - PESANAN PENJUALAN*","Produk: "+checkoutProduct.toUpperCase(),"Jumlah: "+qty,"Grow ID: "+grow,"World: "+world,"WhatsApp: "+phone,"Metode pencairan: "+$("payoutMethod").value,"Nomor akun: "+acc,"Nama pemilik: "+holder].join("\n");
   window.open("https://wa.me/6285864582161?text="+encodeURIComponent(msg),"_blank");
   return;
  }
@@ -618,12 +696,12 @@ $("checkoutForm").addEventListener("submit",e=>{
   type:checkoutType,product:checkoutProduct,qty,
   price:PRICE[checkoutType][checkoutProduct],
   total:amount(checkoutType,checkoutProduct,qty),
-  grow,world,phone,status:"BELUM DIBAYAR",
+  grow,world,phone,status:"Menunggu bukti pembayaran",
   created:new Date().toLocaleString("id-ID")
  };
- const title=checkoutProduct==="black"?"Black Gem Lock":"Blue Gem Lock";
+ let title=checkoutProduct==="black"?"Black Gem Lock":"Blue Gem Lock";
  $("payProductName").textContent=title;
- $("payProductCount").textContent=qty+" unit";
+ $("payProductCount").textContent=qty+" produk";
  $("payLineTotal").textContent=rp(pendingOrder.total);
  $("payQtyPrice").textContent=qty+" × "+rp(pendingOrder.price);
  $("payWorld").textContent=world;
@@ -636,317 +714,81 @@ $("checkoutForm").addEventListener("submit",e=>{
 
 $("paymentProof").addEventListener("change",()=>{
  const f=$("paymentProof").files[0];
- $("proofName").textContent=f?"Bukti dipilih: "+f.name:"";
+ $("proofName").textContent=f?"Bukti dipilih: "+f.name+" ("+(f.size/1024/1024).toFixed(2)+" MB)":"";
 });
+
 function copyPaymentTotal(){
- const n=pendingOrder?.total||0;
+ let n=pendingOrder?.total||0;
  if(navigator.clipboard?.writeText)navigator.clipboard.writeText(String(n)).then(()=>toast("Nominal berhasil disalin")).catch(()=>toast(rp(n)));
  else toast(rp(n));
 }
+
+let sendingPaymentProof=false;
+
+async function sendPaymentProof(){
+ if(!pendingOrder)return toast("Detail pesanan belum tersedia.");
+ if(sendingPaymentProof)return toast("Pesanan sedang dikirim. Tunggu sebentar.");
+ const file=$("paymentProof").files[0];
+ if(!file)return toast("Pilih foto bukti bayar terlebih dahulu.");
+ if(!["image/jpeg","image/png","image/webp"].includes(file.type))return toast("Format file harus JPG, PNG, atau WEBP.");
+ if(file.size>8*1024*1024)return toast("Ukuran foto maksimal 8 MB.");
+ const submitButton=document.querySelector('#checkoutPayment button[onclick="sendPaymentProof()"]');
+ sendingPaymentProof=true;
+ if(submitButton){submitButton.disabled=true;submitButton.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Mengirim pesanan...';}
+ try{
+  const formData=new FormData();
+  formData.append("orderId",pendingOrder.id);
+  formData.append("product",pendingOrder.product==="black"?"Black Gem Lock":"Blue Gem Lock");
+  formData.append("quantity",String(pendingOrder.qty));
+  formData.append("total",rp(pendingOrder.total));
+  formData.append("growId",pendingOrder.grow);
+  formData.append("world",pendingOrder.world);
+  formData.append("whatsapp",pendingOrder.phone);
+  formData.append("paymentMethod","QRIS");
+  formData.append("paymentProof",file,file.name);
+  const response=await fetch("https://black-market-discord.adrialanggiat-c39.workers.dev",{method:"POST",body:formData});
+  let result;
+  try{result=await response.json()}catch{throw new Error("Server memberikan respons yang tidak valid.");}
+  if(!response.ok||!result.success)throw new Error(result.error||"Gagal mengirim pesanan ke Discord.");
+  pendingOrder.status="Bukti dikirim · menunggu verifikasi admin";
+  pendingOrder.created=new Date().toLocaleString("id-ID");
+  const orders=JSON.parse(localStorage.getItem("bmOrders")||"[]");
+  orders.unshift(pendingOrder);
+  localStorage.setItem("bmOrders",JSON.stringify(orders));
+  renderOrders();
+  $("proofName").textContent="Bukti berhasil dikirim.";
+  toast("Pesanan dan foto bukti berhasil dikirim ke Discord!");
+ }catch(error){
+  console.error("Pengiriman pesanan gagal:",error);
+  toast(error.message||"Gagal mengirim pesanan. Silakan coba lagi.");
+ }
+ finally{
+  sendingPaymentProof=false;
+  if(submitButton){submitButton.disabled=false;submitButton.innerHTML='<i class="fa-solid fa-paper-plane"></i> Kirim bukti & buat pesanan';}
+ }
+}
+
 function showCheckoutStep(step){
  $("checkoutDetails").classList.toggle("active",step==="details");
  $("checkoutPayment").classList.toggle("active",step==="payment");
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-/* DISCORD WEBHOOK */
-let sendingPaymentProof=false;
-async function sendPaymentProof(){
- if(!pendingOrder)return toast("Detail pesanan belum tersedia.");
- if(sendingPaymentProof)return toast("Pesanan sedang dikirim. Tunggu sebentar.");
- const file=$("paymentProof").files[0];
- if(!file)return toast("Pilih foto bukti bayar terlebih dahulu.");
- if(!["image/jpeg","image/png","image/webp"].includes(file.type))return toast("Format foto harus JPG, PNG, atau WEBP.");
- if(file.size>8*1024*1024)return toast("Ukuran foto maksimal 8 MB.");
- if(!DISCORD_WEBHOOK_URL.startsWith("https://discord.com/api/webhooks/"))return toast("Masukkan URL Discord Webhook baru terlebih dahulu.");
- const button=$("sendProofButton");
- sendingPaymentProof=true;
- button.disabled=true;
- button.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Mengirim pesanan...';
- try{
-  const formData=new FormData();
-  const payload={
-   content:
-    "🛒 **BLACK MARKET - PESANAN BARU**\n\n"+
-    "**Order ID:** "+pendingOrder.id+"\n"+
-    "**Jenis:** Pembelian\n"+
-    "**Produk:** "+(pendingOrder.product==="black"?"Black Gem Lock":"Blue Gem Lock")+"\n"+
-    "**Jumlah:** "+pendingOrder.qty+"\n"+
-    "**Harga satuan:** "+rp(pendingOrder.price)+"\n"+
-    "**Total:** "+rp(pendingOrder.total)+"\n"+
-    "**Grow ID:** "+pendingOrder.grow+"\n"+
-    "**World:** "+pendingOrder.world+"\n"+
-    "**WhatsApp:** "+pendingOrder.phone+"\n"+
-    "**Pembayaran:** QRIS\n\n"+
-    "📎 Bukti pembayaran terlampir.",
-   allowed_mentions:{parse:[]}
-  };
-  formData.append("payload_json",JSON.stringify(payload));
-  formData.append("files[0]",file,file.name);
-  await fetch(DISCORD_WEBHOOK_URL,{method:"POST",mode:"no-cors",body:formData});
-  pendingOrder.status="PENDING";
-  pendingOrder.created=new Date().toLocaleString("id-ID");
-  const orders=getOrders();
-  orders.unshift(pendingOrder);
-  saveStore("bmOrders",orders);
-  renderOrders();
-  toast("Pesanan dicatat dengan status PENDING. Admin perlu memeriksa Discord.");
-  showPage("orders");
- }catch(error){
-  console.error(error);
-  toast("Pengiriman gagal. Periksa koneksi dan coba lagi.");
- }finally{
-  sendingPaymentProof=false;
-  button.disabled=false;
-  button.innerHTML='<i class="fa-solid fa-paper-plane"></i> Kirim bukti & buat pesanan';
- }
-}
-
-/* PESANAN PEMBELI */
 function renderOrders(){
- const orders=getOrders();
+ let orders=JSON.parse(localStorage.getItem("bmOrders")||"[]");
  if(!orders.length){
   $("ordersList").innerHTML='<div class="orders-empty"><i class="fa-solid fa-box-open" style="font-size:35px;display:block;margin-bottom:13px"></i>Belum ada pesanan.</div>';
   return;
  }
- $("ordersList").innerHTML=orders.map(o=>{
-  const review=getReviews().find(r=>r.orderId===o.id);
-  const product=o.product==="black"?"Black Gem Lock":"Blue Gem Lock";
-  let reviewHTML="";
-  if(o.status==="SUCCESS"){
-   reviewHTML=review
-    ?'<div class="note">Kamu sudah mengirim ulasan untuk pesanan ini. Terima kasih!</div>'
-    :`<div class="note"><b>Pesanan selesai!</b><br>Berikan rating dan ulasan untuk transaksi ini.
-      <div class="field"><label>Rating</label><select id="rating-${escapeHTML(o.id)}"><option value="5">★★★★★ - Sangat puas</option><option value="4">★★★★ - Puas</option><option value="3">★★★ - Cukup</option><option value="2">★★ - Kurang puas</option><option value="1">★ - Tidak puas</option></select></div>
-      <div class="field"><label>Ulasan</label><textarea id="review-${escapeHTML(o.id)}" placeholder="Tulis pengalaman transaksi kamu..."></textarea></div>
-      <button class="btn primary" onclick="submitReview('${escapeHTML(o.id)}')">Kirim Ulasan</button></div>`;
-  }
-  return `<div class="order-saved">
-   <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><strong>${escapeHTML(o.id)}</strong><small>${escapeHTML(o.created)}</small></div>
-   <h3 style="margin:10px 0">${product} × ${Number(o.qty)||0}</h3>
-   <p class="small-note">World: ${escapeHTML(o.world)} · Grow ID: ${escapeHTML(o.grow)}</p>
-   <p style="margin-top:9px">Total: <strong>${rp(o.total)}</strong></p>
-   <p style="margin-top:10px">Status: <span class="status ${escapeHTML(o.status)}">${escapeHTML(o.status)}</span></p>
-   ${reviewHTML}
-  </div>`;
- }).join("");
+ $("ordersList").innerHTML=orders.map(o=>`<div class="order-saved"><div style="display:flex;justify-content:space-between;gap:10px"><strong>${escapeHTML(o.id)}</strong><small>${escapeHTML(o.created)}</small></div><h3 style="margin:10px 0">${o.product==="black"?"Black Gem Lock":"Blue Gem Lock"} × ${Number(o.qty)||0}</h3><p class="small-note">World: ${escapeHTML(o.world)} · Grow ID: ${escapeHTML(o.grow)}</p><p style="margin-top:9px">Total: <strong>${rp(o.total)}</strong></p><p class="small-note" style="margin-top:8px">Status: ${escapeHTML(o.status)}</p></div>`).join("");
 }
-
-/* REVIEW */
-function submitReview(orderId){
- const orders=getOrders();
- const order=orders.find(o=>o.id===orderId);
- if(!order||order.status!=="SUCCESS")return toast("Ulasan hanya tersedia setelah pesanan SUCCESS.");
- const reviews=getReviews();
- if(reviews.some(r=>r.orderId===orderId))return toast("Ulasan untuk pesanan ini sudah dikirim.");
- const rating=Number($("rating-"+orderId).value);
- const message=$("review-"+orderId).value.trim();
- if(!message)return toast("Tulis ulasan terlebih dahulu.");
- reviews.unshift({
-  id:"RV"+Date.now(),
-  orderId,
-  product:order.product,
-  qty:order.qty,
-  rating,
-  message,
-  created:new Date().toLocaleString("id-ID")
- });
- saveStore("bmReviews",reviews);
- renderOrders();
- renderPublicReviews();
- renderAdminReviews();
- toast("Terima kasih! Ulasan berhasil disimpan.");
-}
-
-/* REVIEW PELANGGAN */
-const OLD_REVIEWS=[
- {message:"josjis",product:"bgl",qty:20,date:"20/10/24"},
- {message:"GILA CEPET BET",product:"bgl",qty:40,date:""},
- {message:"Cepat banget saya lagi belajar udah loh",product:"bgl",qty:53,date:""},
- {message:"Mantap",product:"black",qty:1,date:""},
- {message:"baikkk bangett adminnyaaa",product:"bgl",qty:82,date:""},
- {message:"cepet amat",product:"bgl",qty:46,date:""},
- {message:"Mantappp",product:"bgl",qty:40,date:""},
- {message:"GG Real Terpercaya",product:"bgl",qty:15,date:""},
- {message:"gg banget",product:"bgl",qty:16,date:""},
- {message:"fast",product:"bgl",qty:75,date:""},
- {message:"Ntpas",product:"black",qty:1,date:""},
- {message:"Fast kirim",product:"bgl",qty:45,date:""},
- {message:"makasih dikasih bonus pula",product:"bgl",qty:18,date:""},
- {message:"cepet banget",product:"bgl",qty:35,date:""}
-];
-
-function showReviewTab(tab){
- const reviewActive=tab==="review";
- $("publicReviewPanel").style.display=reviewActive?"block":"none";
- $("howOrderPanel").classList.toggle("show",!reviewActive);
- $("reviewTabButton").classList.toggle("active",reviewActive);
- $("howTabButton").classList.toggle("active",!reviewActive);
-}
-
-function renderPublicReviews(){
- const live=getReviews().map(r=>({
-  message:r.message,
-  product:r.product==="black"?"black":"bgl",
-  qty:Number(r.qty)||0,
-  rating:Number(r.rating)||5,
-  date:r.created||""
- }));
- const all=[...live,...OLD_REVIEWS];
- const logo=p=>p==="black"?"logo-black.png":"logo-bgl-black.png";
- $("publicReviews").innerHTML=all.map(r=>`
-  <article class="public-review">
-   <div class="public-review-top">
-    <span class="public-review-stars">${"★".repeat(Math.max(1,Math.min(5,Number(r.rating)||5)))}</span>
-    <span class="public-review-date">${escapeHTML(r.date||"Customer")}</span>
-   </div>
-   <p class="public-review-message">${escapeHTML(r.message)}</p>
-   <div class="public-review-bottom">
-    <img src="${logo(r.product)}" alt="${r.product==="black"?"BLACK":"BGL"}">
-    <span class="public-review-product">${r.product==="black"?"BLACK GEM LOCK":"BLUE GEM LOCK"}</span>
-    <span class="public-review-qty">${Number(r.qty)||0} ${r.product==="black"?"BLACK":"BGL"}</span>
-   </div>
-  </article>`).join("");
-}
-
-/* CAROUSEL STATISTIK: GANTI SETIAP 5 DETIK */
-let reviewSlideIndex=0;
-let reviewSlideTimer=null;
-function goReviewSlide(index){
- const track=$("reviewTrack");
- if(!track)return;
- reviewSlideIndex=(index+3)%3;
- track.style.transform="translateX(-"+(reviewSlideIndex*100)+"%)";
- document.querySelectorAll(".review-carousel-dot").forEach((dot,i)=>{
-  dot.classList.toggle("active",i===reviewSlideIndex);
- });
-}
-function startReviewCarousel(){
- if(reviewSlideTimer)clearInterval(reviewSlideTimer);
- reviewSlideTimer=setInterval(()=>{
-  goReviewSlide(reviewSlideIndex+1);
- },5000);
-}
-const reviewCarousel=$("reviewCarousel");
-if(reviewCarousel){
- reviewCarousel.addEventListener("mouseenter",()=>clearInterval(reviewSlideTimer));
- reviewCarousel.addEventListener("mouseleave",startReviewCarousel);
- reviewCarousel.addEventListener("touchstart",()=>clearInterval(reviewSlideTimer),{passive:true});
- reviewCarousel.addEventListener("touchend",startReviewCarousel,{passive:true});
- startReviewCarousel();
-}
-
-/* ADMIN */
-let adminAuthenticated=false;
-function openAdmin(){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- $("adminPage").classList.add("active");
- $("sidebar").classList.remove("open");
- $("sidebarOverlay").classList.remove("show");
- window.scrollTo(0,0);
-}
-function adminLogin(){
- const password=$("adminPasswordInput").value;
- if(password!==ADMIN_PASSWORD)return toast("Password admin salah.");
- adminAuthenticated=true;
- $("adminLoginBox").classList.add("hidden");
- $("adminDashboard").classList.remove("hidden");
- renderAdmin();
- toast("Login admin berhasil.");
-}
-function adminLogout(){
- adminAuthenticated=false;
- $("adminLoginBox").classList.remove("hidden");
- $("adminDashboard").classList.add("hidden");
- $("adminPasswordInput").value="";
- toast("Kamu sudah logout.");
-}
-function renderAdmin(){
- if(!adminAuthenticated)return;
- PRICE=readStore("bmPrices",DEFAULT_PRICE);
- $("priceBuyBgl").value=PRICE.buy.bgl;
- $("priceSellBgl").value=PRICE.sell.bgl;
- $("priceBuyBlack").value=PRICE.buy.black;
- $("priceSellBlack").value=PRICE.sell.black;
- renderAdminOrders();
- renderAdminReviews();
-}
-function savePrices(){
- if(!adminAuthenticated)return;
- const values={
-  buy:{bgl:Number($("priceBuyBgl").value),black:Number($("priceBuyBlack").value)},
-  sell:{bgl:Number($("priceSellBgl").value),black:Number($("priceSellBlack").value)}
- };
- if(Object.values(values.buy).concat(Object.values(values.sell)).some(n=>!Number.isFinite(n)||n<=0))return toast("Semua harga harus lebih dari 0.");
- PRICE=values;
- saveStore("bmPrices",PRICE);
- updateMarketPrices();
- if(new URLSearchParams(location.search).get("checkout")==="1")updateCheckout();
- toast("Harga berhasil disimpan di browser ini.");
-}
-function updateMarketPrices(){
- $("marketBuyBgl").innerHTML=rp(PRICE.buy.bgl)+' <small>/ unit</small>';
- $("marketSellBgl").innerHTML=rp(PRICE.sell.bgl)+' <small>/ unit</small>';
- $("marketBuyBlack").innerHTML=rp(PRICE.buy.black)+' <small>/ unit</small>';
- $("marketSellBlack").innerHTML=rp(PRICE.sell.black)+' <small>/ unit</small>';
- $("wizardBglPrice").textContent=rp(PRICE[assist.type||"buy"].bgl)+" / unit";
- $("wizardBlackPrice").textContent=rp(PRICE[assist.type||"buy"].black)+" / unit";
-}
-function changeOrderStatus(orderId,status){
- if(!adminAuthenticated)return;
- const orders=getOrders();
- const order=orders.find(o=>o.id===orderId);
- if(!order)return toast("Pesanan tidak ditemukan.");
- order.status=status;
- order.updated=new Date().toLocaleString("id-ID");
- saveStore("bmOrders",orders);
- renderAdminOrders();
- renderOrders();
- toast("Status pesanan diubah menjadi "+status+".");
-}
-function renderAdminOrders(){
- const orders=getOrders();
- if(!orders.length){
-  $("adminOrders").innerHTML='<div class="orders-empty">Belum ada pesanan.</div>';
-  return;
- }
- $("adminOrders").innerHTML=orders.map(o=>`
-  <div class="admin-order">
-   <strong>${escapeHTML(o.id)}</strong>
-   <span class="status ${escapeHTML(o.status)}">${escapeHTML(o.status)}</span>
-   <p>
-    Produk: ${o.product==="black"?"Black Gem Lock":"Blue Gem Lock"}<br>
-    Jumlah: ${Number(o.qty)||0}<br>
-    Total: ${rp(o.total)}<br>
-    Grow ID: ${escapeHTML(o.grow)}<br>
-    World: ${escapeHTML(o.world)}<br>
-    WhatsApp: ${escapeHTML(o.phone)}<br>
-    Dibuat: ${escapeHTML(o.created)}
-   </p>
-   <div class="admin-actions">
-    <button class="green" onclick="changeOrderStatus('${escapeHTML(o.id)}','SUCCESS')"><i class="fa-solid fa-check"></i> SUCCESS</button>
-    <button class="danger" onclick="changeOrderStatus('${escapeHTML(o.id)}','REJECTED')"><i class="fa-solid fa-xmark"></i> REJECTED</button>
-    <button class="secondary" onclick="changeOrderStatus('${escapeHTML(o.id)}','PENDING')">PENDING</button>
-   </div>
-  </div>`).join("");
-}
-function renderAdminReviews(){
- const reviews=getReviews();
- if(!reviews.length){
-  $("adminReviews").innerHTML='<div class="orders-empty">Belum ada ulasan.</div>';
-  return;
- }
- $("adminReviews").innerHTML=reviews.map(r=>`
-  <div class="review-card">
-   <strong>${escapeHTML(r.orderId)}</strong>
-   <div class="stars">${"★".repeat(Number(r.rating)||0)}${"☆".repeat(5-(Number(r.rating)||0))}</div>
-   <p style="margin:10px 0;font-size:12px;line-height:1.7">${escapeHTML(r.message)}</p>
-   <small class="small-note">${escapeHTML(r.created)}</small>
-  </div>`).join("");
+function escapeHTML(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
 
 /* ADMIN ASSISTED ORDER */
 let currentStep=1,assist={type:"",product:"",qty:10,method:"",admin:""};
+
 function toggleAssisted(){
  $("assistedPanel").classList.toggle("open");
  if($("assistedPanel").classList.contains("open"))$("assistedPanel").scrollIntoView({behavior:"smooth",block:"start"});
@@ -989,7 +831,7 @@ function chooseProduct(product,el){
 }
 function updateWizard(){
  if(!assist.type||!assist.product){$("wizardTotal").textContent="Rp0";return}
- const q=Number($("wizardQty").value)||0;
+ let q=Number($("wizardQty").value)||0;
  $("wizardTotal").textContent=rp(amount(assist.type,assist.product,q));
 }
 function chooseMethod(method,el){
@@ -1003,7 +845,7 @@ function chooseAdmin(admin,el){
  el.classList.add("selected");
 }
 function renderAssistSummary(){
- const total=amount(assist.type,assist.product,assist.qty);
+ let total=amount(assist.type,assist.product,assist.qty);
  $("sumType").textContent=assist.type==="buy"?"PEMBELIAN":"PENJUALAN";
  $("sumProduct").textContent=assist.product.toUpperCase();
  $("sumQty").textContent=assist.qty+" unit";
@@ -1012,36 +854,26 @@ function renderAssistSummary(){
  $("sumTotal").textContent=rp(total);
 }
 function sendAssisted(){
- const name=$("assistName").value.trim();
- const grow=$("assistGrow").value.trim();
- const world=$("assistWorld").value.trim();
- const phone=$("assistPhone").value.trim();
- const account=$("assistAccount").value.trim();
+ let name=$("assistName").value.trim(),grow=$("assistGrow").value.trim(),world=$("assistWorld").value.trim(),phone=$("assistPhone").value.trim(),account=$("assistAccount").value.trim();
  if(!name||!grow||!world||!phone)return toast("Lengkapi semua detail pesanan.");
  if(assist.type==="sell"&&!account)return toast("Masukkan nomor akun pencairan.");
- const admin=ADMINS[assist.admin],total=amount(assist.type,assist.product,assist.qty);
- const msg=["*BLACK MARKET - PESANAN*","Jenis: "+assist.type,"Produk: "+assist.product.toUpperCase(),"Jumlah: "+assist.qty,"Metode: "+assist.method,"Admin: "+admin.name,"Total: "+rp(total),"Nama: "+name,"Grow ID: "+grow,"World: "+world,"WhatsApp: "+phone];
+ let admin=ADMINS[assist.admin],total=amount(assist.type,assist.product,assist.qty);
+ let msg=["*BLACK MARKET - PESANAN*","Jenis: "+assist.type,"Produk: "+assist.product.toUpperCase(),"Jumlah: "+assist.qty,"Metode: "+assist.method,"Admin: "+admin.name,"Total: "+rp(total),"Nama: "+name,"Grow ID: "+grow,"World: "+world,"WhatsApp: "+phone];
  if(assist.type==="sell")msg.push("Nomor akun: "+account);
  window.open("https://wa.me/"+admin.phone+"?text="+encodeURIComponent(msg.join("\n")),"_blank");
 }
 
-/* TRANSAKSI BERJALAN - CONTOH ANIMASI */
+/* REALTIME TRANSAKSI - TANPA NAMA */
 (function(){
  const target=$("realtimeText");
  if(!target)return;
- const quantities=[5,8,10,12,15,18,20,25,30,35,40,45,50,60,75,100,120,150,200];
- const types=["membeli","menjual"];
- const chars="ABCDEFGHJKLMNPQRSTUVWXYZ0123456789";
+ const quantities=[5,8,10,12,15,18,20,25,30,35,40,45,50,60,75,100,120,150,200],types=["membeli","menjual"],chars="ABCDEFGHJKLMNPQRSTUVWXYZ0123456789";
  function randomItem(arr){return arr[Math.floor(Math.random()*arr.length)]}
- function randomTime(){return Math.floor(Math.random()*19)+6+" jam "+Math.floor(Math.random()*60)+" menit lalu"}
- function randomCode(){
-  let code="#TX-";
-  for(let i=0;i<7;i++)code+=chars[Math.floor(Math.random()*chars.length)];
-  return code;
- }
+ function randomTime(){const hours=Math.floor(Math.random()*19)+6,minutes=Math.floor(Math.random()*60);return hours+" jam "+minutes+" menit lalu"}
+ function randomCode(){let code="#TX-";for(let i=0;i<7;i++)code+=chars[Math.floor(Math.random()*chars.length)];return code}
  function showTransaction(){
   const qty=randomItem(quantities),type=randomItem(types);
-  target.innerHTML="Transaksi "+type+' <strong>'+qty+" BGL</strong>"+'<span style="color:#91a5c4;margin:0 8px">'+randomTime()+"</span>"+'<span style="text-decoration:underline">'+randomCode()+"</span>";
+  target.innerHTML="Transaksi "+type+' <strong>'+qty+" BGL</strong>"+'<span class="tx-time">'+randomTime()+"</span>"+'<span class="tx-code">'+randomCode()+"</span>";
   target.style.animation="none";
   void target.offsetWidth;
   target.style.animation="transactionSlide 9s linear forwards";
@@ -1050,15 +882,255 @@ function sendAssisted(){
  setInterval(showTransaction,9500);
 })();
 
-/* INISIALISASI */
-updateMarketPrices();
 initializeCheckout();
 renderOrders();
-renderPublicReviews();
 
-/* AKSES ADMIN MELALUI URL ?admin=login */
-const urlParams=new URLSearchParams(location.search);
-if(urlParams.get("admin")==="login")openAdmin();
+/* BLACK MARKET HUB MODALS */
+const HUB_CONTENT={
+ deals:{title:'HOT DEALS',html:'<div class="hub-info"><span class="hub-tag">SPECIAL OFFERS</span><strong>Belum ada promo aktif.</strong><p>Jika ada diskon atau penawaran khusus, informasinya akan ditampilkan di bagian ini. Pantau halaman BLACK MARKET untuk update berikutnya.</p></div>'},
+ sold:{title:'RECENTLY SOLD',html:'<div id="recentlySoldList"></div>'},
+ announcements:{title:'STORE ANNOUNCEMENTS',html:'<div class="hub-info"><span class="hub-tag">OFFICIAL INFO</span><strong>Selamat datang di BLACK MARKET.</strong><p>Pengumuman toko, perubahan layanan, dan informasi penting akan ditampilkan di sini ketika tersedia.</p></div>'},
+ arrivals:{title:'NEW ARRIVALS',html:'<div class="hub-info"><strong>Produk BLACK MARKET</strong><p>Jelajahi produk BGL dan Black Gem Lock yang tersedia di halaman Market.</p><div class="hub-actions"><button class="btn primary" onclick="closeHub();showPage(\'market\')"><i class="fa-solid fa-store"></i> Buka Market</button></div></div>'},
+ top:{title:'TOP PRODUCTS',html:'<div class="hub-info"><strong>Blue Gem Lock (BGL)</strong><p>Produk utama untuk transaksi jual dan beli di BLACK MARKET.</p></div><div class="hub-info"><strong>Black Gem Lock</strong><p>Produk digital lainnya yang tersedia di Market. Harga dan minimum transaksi dapat dilihat langsung di halaman produk.</p><div class="hub-actions"><button class="btn primary" onclick="closeHub();showPage(\'market\')">Lihat Produk</button></div></div>'},
+ member:{title:'MEMBER BENEFITS',html:'<div class="hub-info"><strong>Layanan pelanggan BLACK MARKET</strong><ul class="hub-list"><li>Panduan transaksi yang jelas.</li><li>Riwayat pesanan tersimpan di perangkat yang digunakan.</li><li>Bantuan admin melalui WhatsApp.</li><li>Informasi status pesanan melalui menu Pesanan Saya.</li></ul><p>Keuntungan tambahan akan diumumkan jika sudah tersedia.</p></div>'},
+ payment:{title:'PAYMENT METHODS',html:'<div class="hub-info"><strong><i class="fa-solid fa-qrcode"></i> QRIS</strong><p>Pembayaran pembelian melalui QRIS tersedia pada halaman checkout. Pastikan nominal sesuai dengan ringkasan pesanan dan kirim bukti pembayaran melalui formulir checkout.</p></div><div class="hub-info"><strong>Penjualan</strong><p>Untuk transaksi penjualan, ikuti instruksi pencairan yang diberikan melalui alur pemesanan atau admin.</p></div>'},
+ help:{title:'HELP CENTER',html:'<div class="hub-info"><strong>Butuh bantuan transaksi?</strong><ol class="hub-list"><li>Pilih produk di halaman Market.</li><li>Isi Grow ID, World, dan WhatsApp dengan benar.</li><li>Ikuti instruksi checkout atau hubungi admin.</li><li>Pantau pesanan melalui menu Pesanan Saya.</li></ol><div class="hub-actions"><button class="btn secondary" onclick="closeHub();showPage(\'guide\')"><i class="fa-solid fa-book-open"></i> Buka Panduan</button><a class="btn green" href="https://wa.me/6285864582161" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> Hubungi Admin</a></div></div>'}
+};
+
+function openHub(key){
+ const item=HUB_CONTENT[key];
+ if(!item)return;
+ $("hubModalTitle").textContent=item.title;
+ $("hubModalBody").innerHTML=item.html;
+ $("hubModal").classList.add("show");
+ document.body.style.overflow="hidden";
+}
+function closeHub(){
+ $("hubModal").classList.remove("show");
+ document.body.style.overflow="";
+}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeHub()});
+
+/* CUSTOMER REVIEWS + RECENTLY SOLD: satu sumber data */
+function getCustomerReviews(){
+ try{
+  const data=JSON.parse(localStorage.getItem("bmReviews")||"[]");
+  return Array.isArray(data)?data:[];
+ }catch(e){return []}
+}
+
+let activeReviewIndex=0;
+let reviewAutoTimer=null;
+
+function updateReviewCarousel(){
+ const track=$("reviewTrack");
+ const dots=$("reviewDots");
+ if(!track)return;
+ const cards=track.querySelectorAll(".review-card");
+ if(!cards.length){
+  if(dots)dots.innerHTML="";
+  track.style.transform="translateX(0)";
+  return;
+ }
+ activeReviewIndex=(activeReviewIndex+cards.length)%cards.length;
+ track.style.transform=`translateX(-${activeReviewIndex*100}%)`;
+ if(dots){
+  dots.innerHTML=Array.from(cards).map((_,i)=>`<button class="review-dot ${i===activeReviewIndex?"active":""}" onclick="goToReview(${i})" aria-label="Lihat ulasan ${i+1}"></button>`).join("");
+ }
+}
+
+function renderCustomerReviews(){
+ const reviews=getCustomerReviews();
+ const track=$("reviewTrack");
+ if(!track)return;
+ $("reviewCount").textContent=reviews.length+" ulasan";
+ activeReviewIndex=0;
+ if(!reviews.length){
+  track.innerHTML='<div class="review-empty"><i class="fa-regular fa-comments" style="font-size:24px;display:block;margin-bottom:9px"></i>Belum ada ulasan pelanggan yang tersedia.<br>Ulasan akan tampil di sini setelah tersimpan pada sistem review.</div>';
+  const dots=$("reviewDots");
+  if(dots)dots.innerHTML="";
+  return;
+ }
+ track.innerHTML=reviews.slice().reverse().map(r=>{
+  const stars=Math.max(1,Math.min(5,Number(r.rating)||5));
+  const rawName=String(r.name||"");
+  const displayName=/^Customer\s*\d+$/i.test(rawName)?"Pembeli":(rawName||"Pembeli");
+  return `<article class="review-card">
+   <div class="review-top">
+    <div class="review-person">
+     <div>
+      <div class="review-name">${escapeHTML(displayName)}</div>
+      <div class="review-date">${escapeHTML(r.date||"")}</div>
+     </div>
+    </div>
+    <div class="review-stars">${"★".repeat(stars)}${"☆".repeat(5-stars)}</div>
+   </div>
+   <span class="review-product">${escapeHTML(r.product||"BLACK MARKET")}</span>
+   <p class="review-comment">${escapeHTML(r.comment||"")}</p>
+  </article>`;
+ }).join("");
+ updateReviewCarousel();
+}
+
+function goToReview(index){
+ activeReviewIndex=index;
+ updateReviewCarousel();
+ restartReviewAuto();
+}
+function slideReviews(direction){
+ const cards=$("reviewTrack")?.querySelectorAll(".review-card");
+ if(!cards?.length)return;
+ activeReviewIndex=(activeReviewIndex+direction+cards.length)%cards.length;
+ updateReviewCarousel();
+ restartReviewAuto();
+}
+function restartReviewAuto(){
+ if(reviewAutoTimer)clearInterval(reviewAutoTimer);
+ const viewport=$("reviewViewport");
+ if(!viewport)return;
+ reviewAutoTimer=setInterval(()=>{
+  if(document.hidden||!viewport.isConnected)return;
+  const cards=$("reviewTrack")?.querySelectorAll(".review-card");
+  if(cards?.length>1){
+   activeReviewIndex=(activeReviewIndex+1)%cards.length;
+   updateReviewCarousel();
+  }
+ },5000);
+}
+
+function renderRecentlySold(){
+ const target=$("recentlySoldList");
+ if(!target)return;
+ const reviews=getCustomerReviews();
+ if(!reviews.length){
+  target.innerHTML='<div class="hub-info"><strong>Belum ada data ulasan.</strong><p>Recently Sold akan mengikuti data Customer Reviews yang sama setelah ulasan tersedia.</p></div>';
+  return;
+ }
+ target.innerHTML=reviews.slice().reverse().map(r=>`<div class="review-sold-item"><strong>${escapeHTML(r.product||"Produk BLACK MARKET")}</strong><small>${escapeHTML(r.date||"")} · ${"★".repeat(Math.max(1,Math.min(5,Number(r.rating)||5)))} · SOLD</small><small>${escapeHTML(r.name||"Pelanggan")}: ${escapeHTML(r.comment||"")}</small></div>`).join("");
+}
+
+const originalOpenHub=openHub;
+openHub=function(key){
+ if(key==="sold"){
+  const item=HUB_CONTENT[key];
+  $("hubModalTitle").textContent=item.title;
+  $("hubModalBody").innerHTML=item.html;
+  renderRecentlySold();
+  $("hubModal").classList.add("show");
+  document.body.style.overflow="hidden";
+  return;
+ }
+ originalOpenHub(key);
+};
+
+window.addEventListener("storage",e=>{
+ if(e.key==="bmReviews"){
+  renderCustomerReviews();
+  renderRecentlySold();
+ }
+});
+
+/* DATA DEMO: contoh tampilan, bukan testimoni pelanggan terverifikasi. */
+if(!localStorage.getItem("bmReviews")){
+ const sampleReviews=[
+  {name:"Pembeli",product:"Blue Gem Lock",rating:5,date:"04 Nov 2026",comment:"Transaksi lancar dan proses pemesanan mudah. Terima kasih BLACK MARKET!"},
+  {name:"Pembeli",product:"Black Gem Lock",rating:5,date:"04 Nov 2026",comment:"Pelayanan ramah, informasi pesanan jelas, dan prosesnya praktis."},
+  {name:"Pembeli",product:"Blue Gem Lock",rating:5,date:"03 Nov 2026",comment:"Proses transaksi berjalan dengan baik. Semoga layanan terus berkembang!"},
+  {name:"Pembeli",product:"Black Gem Lock",rating:5,date:"03 Nov 2026",comment:"Pemesanan mudah dan admin membantu saat dibutuhkan."},
+  {name:"Pembeli",product:"Blue Gem Lock",rating:5,date:"02 Nov 2026",comment:"Pengalaman menggunakan website cukup simpel dan mudah dipahami."}
+ ];
+ localStorage.setItem("bmReviews",JSON.stringify(sampleReviews));
+}
+
+/* Bersihkan label bernomor yang tersimpan dari versi sebelumnya. */
+try{
+ const savedReviews=getCustomerReviews();
+ let changed=false;
+ savedReviews.forEach(r=>{
+  if(/^Customer\s*\d+$/i.test(String(r.name||""))){
+   r.name="Pembeli";
+   changed=true;
+  }
+ });
+ if(changed)localStorage.setItem("bmReviews",JSON.stringify(savedReviews));
+}catch(e){}
+
+renderCustomerReviews();
+restartReviewAuto();
+
+const reviewViewportEl=$("reviewViewport");
+if(reviewViewportEl){
+ reviewViewportEl.addEventListener("mouseenter",()=>{if(reviewAutoTimer)clearInterval(reviewAutoTimer)});
+ reviewViewportEl.addEventListener("mouseleave",restartReviewAuto);
+ reviewViewportEl.addEventListener("touchstart",()=>{if(reviewAutoTimer)clearInterval(reviewAutoTimer)},{passive:true});
+ reviewViewportEl.addEventListener("touchend",restartReviewAuto,{passive:true});
+}
+
+/* Cursor demo: hanya dekorasi, tidak memanggil click() */
+(function(){
+ const cursor=document.createElement('div');
+ cursor.className='demo-cursor';
+ cursor.setAttribute('aria-hidden','true');
+ cursor.innerHTML='<svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg"><path d="M3 2.5v27l7.2-7 5.1 11 5.1-2.4-5.1-10.7 10-.2L3 2.5Z" fill="#f7fbff" stroke="#278cff" stroke-width="2" stroke-linejoin="round"/></svg><span class="cursor-ripple"></span><span class="demo-cursor-label">BLACK MARKET</span>';
+ document.body.appendChild(cursor);
+ let index=0,timer=null,pulseTimer=null;
+
+ function targets(){
+  return Array.from(document.querySelectorAll('#marketPage .product-action')).filter(el=>{
+   const r=el.getBoundingClientRect();
+   return r.width>0&&r.height>0&&getComputedStyle(el).visibility!=='hidden';
+  });
+ }
+
+ function move(){
+  const page=document.getElementById('marketPage');
+  if(!page||!page.classList.contains('active')){
+   cursor.style.opacity='0';
+   return;
+  }
+  const list=targets();
+  if(!list.length){
+   cursor.style.opacity='0';
+   return;
+  }
+  if(index>=list.length)index=0;
+  const target=list[index];
+  const rect=target.getBoundingClientRect();
+  cursor.style.opacity='1';
+  cursor.style.transform=`translate3d(${Math.round(rect.left+rect.width*.58)}px,${Math.round(rect.top+rect.height*.48)}px,0)`;
+  cursor.classList.remove('is-clicking');
+  void cursor.offsetWidth;
+  clearTimeout(pulseTimer);
+  pulseTimer=setTimeout(()=>{
+   if(!document.hidden)cursor.classList.add('is-clicking');
+  },850);
+  index=(index+1)%list.length;
+ }
+
+ function start(){
+  if(timer)clearInterval(timer);
+  move();
+  timer=setInterval(move,2300);
+ }
+
+ document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden)move();
+ });
+ window.addEventListener('resize',move);
+ window.addEventListener('scroll',()=>{
+  if(cursor.style.opacity==='1')move();
+ },{passive:true});
+
+ const originalShowPage=window.showPage;
+ if(typeof originalShowPage==='function'){
+  window.showPage=function(){
+   const result=originalShowPage.apply(this,arguments);
+   setTimeout(start,450);
+   return result;
+  };
+ }
+ start();
+})();
 </script>
 </body>
 </html>
