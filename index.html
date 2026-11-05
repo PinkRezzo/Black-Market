@@ -722,7 +722,7 @@ function copyPaymentTotal(){
  if(navigator.clipboard?.writeText)navigator.clipboard.writeText(String(n)).then(()=>toast("Nominal berhasil disalin")).catch(()=>toast(rp(n)));
  else toast(rp(n));
 }
-
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1567849690970460171/2RSmJh1JfgROovnMx3ldUuK9rPsWR_Nkykwj2g5Zv6MSDiX4ursfxQM0G_jXcdZI2Cao";
 let sendingPaymentProof=false;
 
 async function sendPaymentProof(){
@@ -736,20 +736,42 @@ async function sendPaymentProof(){
  sendingPaymentProof=true;
  if(submitButton){submitButton.disabled=true;submitButton.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Mengirim pesanan...';}
  try{
-  const formData=new FormData();
-  formData.append("orderId",pendingOrder.id);
-  formData.append("product",pendingOrder.product==="black"?"Black Gem Lock":"Blue Gem Lock");
-  formData.append("quantity",String(pendingOrder.qty));
-  formData.append("total",rp(pendingOrder.total));
-  formData.append("growId",pendingOrder.grow);
-  formData.append("world",pendingOrder.world);
-  formData.append("whatsapp",pendingOrder.phone);
-  formData.append("paymentMethod","QRIS");
-  formData.append("paymentProof",file,file.name);
-  const response=await fetch("https://black-market-discord.adrialanggiat-c39.workers.dev",{method:"POST",body:formData});
-  let result;
-  try{result=await response.json()}catch{throw new Error("Server memberikan respons yang tidak valid.");}
-  if(!response.ok||!result.success)throw new Error(result.error||"Gagal mengirim pesanan ke Discord.");
+  const formData = new FormData();
+
+const embed = {
+  title: "🛒 BLACK MARKET - PESANAN BARU",
+  color: 2589989,
+  fields: [
+    { name: "Order ID", value: pendingOrder.id, inline: true },
+    { name: "Produk", value: pendingOrder.product, inline: true },
+    { name: "Jumlah", value: String(pendingOrder.qty), inline: true },
+    { name: "Total", value: rp(pendingOrder.total), inline: true },
+    { name: "Grow ID", value: pendingOrder.grow, inline: true },
+    { name: "World", value: pendingOrder.world, inline: true },
+    { name: "WhatsApp", value: pendingOrder.phone, inline: true },
+    { name: "Pembayaran", value: "QRIS", inline: true }
+  ],
+  timestamp: new Date().toISOString()
+};
+
+formData.append("payload_json", JSON.stringify({
+  username: "BLACK MARKET",
+  embeds: [embed]
+}));
+
+formData.append("files[0]", file, file.name);
+
+const response = await fetch(
+  DISCORD_WEBHOOK_URL + "?wait=true",
+  {
+    method: "POST",
+    body: formData
+  }
+);
+  if (!response.ok) {
+  throw new Error(
+    "Gagal mengirim ke Discord. HTTP: " + response.status
+  );
   pendingOrder.status="Bukti dikirim · menunggu verifikasi admin";
   pendingOrder.created=new Date().toLocaleString("id-ID");
   const orders=JSON.parse(localStorage.getItem("bmOrders")||"[]");
