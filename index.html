@@ -772,14 +772,18 @@ const response = await fetch(
   throw new Error(
     "Gagal mengirim ke Discord. HTTP: " + response.status
   );
-  pendingOrder.status="Bukti dikirim · menunggu verifikasi admin";
-  pendingOrder.created=new Date().toLocaleString("id-ID");
-  const orders=JSON.parse(localStorage.getItem("bmOrders")||"[]");
-  orders.unshift(pendingOrder);
-  localStorage.setItem("bmOrders",JSON.stringify(orders));
-  renderOrders();
-  $("proofName").textContent="Bukti berhasil dikirim.";
-  toast("Pesanan dan foto bukti berhasil dikirim ke Discord!");
+}
+
+pendingOrder.status = "Bukti dikirim · menunggu verifikasi admin";
+pendingOrder.created = new Date().toLocaleString("id-ID");
+
+const orders = JSON.parse(localStorage.getItem("bmOrders") || "[]");
+orders.unshift(pendingOrder);
+localStorage.setItem("bmOrders", JSON.stringify(orders));
+
+renderOrders();
+$("proofName").textContent = "Bukti berhasil dikirim.";
+toast("Pesanan dan foto bukti berhasil dikirim ke Discord!");
  }catch(error){
   console.error("Pengiriman pesanan gagal:",error);
   toast(error.message||"Gagal mengirim pesanan. Silakan coba lagi.");
